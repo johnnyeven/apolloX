@@ -7,7 +7,7 @@ package view.scene
 	import flash.events.MouseEvent;
 	import flash.utils.getDefinitionByName;
 	
-	public class Scene1BackgroundComponent extends Sprite
+	public class SceneBackgroundComponent extends Sprite
 	{
 		private var _tritiumGround: MovieClip;
 		private var _baseGround: MovieClip;
@@ -18,7 +18,7 @@ package view.scene
 		private var _scienceGround: MovieClip;
 		private var _factoryGround: MovieClip;
 		
-		public function Scene1BackgroundComponent()
+		public function SceneBackgroundComponent()
 		{
 			super();
 			

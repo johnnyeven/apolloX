@@ -2,9 +2,6 @@ package mediator.scene
 {
 	import mediator.BaseMediator;
 	
-	import org.puremvc.as3.interfaces.IMediator;
-	import org.puremvc.as3.patterns.mediator.Mediator;
-	
 	import view.scene.SceneControlComponent;
 	
 	public class SceneControlMediator extends BaseMediator

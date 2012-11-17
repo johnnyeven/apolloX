@@ -4,8 +4,9 @@ package controller.scene
 	
 	import mediator.loader.ProgressBarMediator;
 	import mediator.login.StartMediator;
-	import mediator.scene.Scene1BackgroundMediator;
+	import mediator.scene.SceneBackgroundMediator;
 	import mediator.scene.SceneControlMediator;
+	import mediator.scene.station.StationViewMediator;
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
@@ -33,14 +34,18 @@ package controller.scene
 		
 		private function onLoadComplete(evt: LoaderEvent): void
 		{
-			facade.registerMediator(new Scene1BackgroundMediator());
+			facade.registerMediator(new SceneBackgroundMediator());
+			facade.registerMediator(new StationViewMediator());
 			
-//			var _backgroundMediator: Scene1BackgroundMediator = facade.retrieveMediator(Scene1BackgroundMediator.NAME) as Scene1BackgroundMediator;
+//			var _backgroundMediator: SceneBackgroundMediator = facade.retrieveMediator(SceneBackgroundMediator.NAME) as SceneBackgroundMediator;
 //			_backgroundMediator.show();
 //			
 //			var _controlMediator: SceneControlMediator = new SceneControlMediator();
 //			facade.registerMediator(_controlMediator);
 //			_controlMediator.show();
+			
+			var _stationMediator: StationViewMediator = facade.retrieveMediator(StationViewMediator.NAME) as StationViewMediator;
+			_stationMediator.show();
 			
 			sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
 		}
