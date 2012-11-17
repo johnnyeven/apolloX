@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<ClassLoader name="login_ui" url="resources/ui/login/login_ui.swf" version="1.0.0" />
+	<BatchLoader name="necessaryResources">
+		<ClassLoader name="station_ui" url="resources/ui/scene/scene1_station_ui.swf" version="1.0.0" />
+		<ClassLoader name="base_ui" url="resources/ui/scene/scene1_base_ui.swf" version="1.0.0" />
+		<ClassLoader name="control_ui" url="resources/ui/scene/scene_control_ui.swf" version="1.0.0" />
+	</BatchLoader>
+</root>

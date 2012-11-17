@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<load_loader_progress_ui>正在加载进度条UI</load_loader_progress_ui>
+	<load_font>正在加载字体文件</load_font>
+	<load_main>正在加载主程序</load_main>
+	<load_resource_config>正在加载资源列表</load_resource_config>
+	<load_base_ui>正在加载基础UI</load_base_ui>
+	<load_base_ui_error>加载UI错误，请联系游戏管理员</load_base_ui_error>
+	<load_loagin_ui>正在加载登录UI</load_loagin_ui>
+	<load_scene_ui>正在加载基础场景UI</load_scene_ui>
+	<load_control_panel_ui>正在加载控制面板UI</load_control_panel_ui>
+	
+	<common_messagebox_ok>确定</common_messagebox_ok>
+	<common_messagebox_cancel>取消</common_messagebox_cancel>
+</root>
