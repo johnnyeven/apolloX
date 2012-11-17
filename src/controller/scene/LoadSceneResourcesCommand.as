@@ -35,12 +35,12 @@ package controller.scene
 		{
 			facade.registerMediator(new Scene1BackgroundMediator());
 			
-			var _backgroundMediator: Scene1BackgroundMediator = facade.retrieveMediator(Scene1BackgroundMediator.NAME) as Scene1BackgroundMediator;
-			_backgroundMediator.show();
-			
-			var _controlMediator: SceneControlMediator = new SceneControlMediator();
-			facade.registerMediator(_controlMediator);
-			_controlMediator.show();
+//			var _backgroundMediator: Scene1BackgroundMediator = facade.retrieveMediator(Scene1BackgroundMediator.NAME) as Scene1BackgroundMediator;
+//			_backgroundMediator.show();
+//			
+//			var _controlMediator: SceneControlMediator = new SceneControlMediator();
+//			facade.registerMediator(_controlMediator);
+//			_controlMediator.show();
 			
 			sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
 		}
