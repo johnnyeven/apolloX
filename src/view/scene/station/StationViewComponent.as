@@ -9,6 +9,7 @@ package view.scene.station
 	{
 		private var stationLeftMenu: StationLeftMenuComponent;
 		private var stationOverview: StationOverviewComponent;
+		private var stationPanel: StationPanelComponent;
 		
 		public function StationViewComponent()
 		{
@@ -16,6 +17,7 @@ package view.scene.station
 			
 			stationLeftMenu = getUI(StationLeftMenuComponent, "menu") as StationLeftMenuComponent;
 			stationOverview = getUI(StationOverviewComponent, "overview") as StationOverviewComponent;
+			stationPanel = getUI(StationPanelComponent, "panel") as StationPanelComponent;
 			
 			sortChildIndex();
 		}

@@ -20,11 +20,25 @@ package utils.liteui.component
 			{
 				_toggleStatus = false;
 				setMouseNormalSkin();
+				color = 0x0099FF;
 			}
 			else
 			{
 				_toggleStatus = true;
 				setMouseDownSkin();
+				color = 0xFF9900;
+			}
+		}
+		
+		override protected function onMouseOut(evt:MouseEvent):void
+		{
+			if(_toggleStatus)
+			{
+				setMouseDownSkin();
+			}
+			else
+			{
+				setMouseNormalSkin();
 			}
 		}
 		
@@ -36,10 +50,12 @@ package utils.liteui.component
 				if(_toggleStatus)
 				{
 					setMouseDownSkin();
+					color = 0xFF9900;
 				}
 				else
 				{
 					setMouseNormalSkin();
+					color = 0x0099FF;
 				}
 			}
 		}
