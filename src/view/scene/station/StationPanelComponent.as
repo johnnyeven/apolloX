@@ -12,6 +12,9 @@ package view.scene.station
 	{
 		private var _lblStationName: Label;
 		private var _btnAssembly: Button;
+		private var _btnMarket: Button;
+		private var _btnRepair: Button;
+		private var _btnMedical: Button;
 		private var _toggleDailiren: ToggleButton;
 		private var _toggleGuest: ToggleButton;
 		
@@ -21,6 +24,9 @@ package view.scene.station
 			
 			_lblStationName = getUI(Label, "stationName") as Label;
 			_btnAssembly = getUI(Button, "btnAssembly") as Button;
+			_btnMarket = getUI(Button, "btnMarket") as Button;
+			_btnRepair = getUI(Button, "btnRepair") as Button;
+			_btnMedical = getUI(Button, "btnMedical") as Button;
 			_toggleDailiren = getUI(ToggleButton, "dailirenToggleButton") as ToggleButton;
 			_toggleGuest = getUI(ToggleButton, "guestToggleButton") as ToggleButton;
 			
