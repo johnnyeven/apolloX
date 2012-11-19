@@ -3,6 +3,7 @@ package view.scene.station
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	
+	import utils.liteui.component.Button;
 	import utils.liteui.component.Label;
 	import utils.liteui.component.ToggleButton;
 	import utils.liteui.core.Component;
@@ -10,6 +11,7 @@ package view.scene.station
 	public class StationPanelComponent extends Component
 	{
 		private var _lblStationName: Label;
+		private var _btnAssembly: Button;
 		private var _toggleDailiren: ToggleButton;
 		private var _toggleGuest: ToggleButton;
 		
@@ -18,6 +20,7 @@ package view.scene.station
 			super(_skin);
 			
 			_lblStationName = getUI(Label, "stationName") as Label;
+			_btnAssembly = getUI(Button, "btnAssembly") as Button;
 			_toggleDailiren = getUI(ToggleButton, "dailirenToggleButton") as ToggleButton;
 			_toggleGuest = getUI(ToggleButton, "guestToggleButton") as ToggleButton;
 			
