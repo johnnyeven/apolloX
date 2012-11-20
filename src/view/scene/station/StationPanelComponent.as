@@ -70,34 +70,6 @@ package view.scene.station
 			item.info = parameter;
 			_containerDailiren.add(item);
 			
-			var item1: StationPanelListComponent = new StationPanelListComponent();
-			item1.info = parameter;
-			_containerDailiren.add(item1);
-			
-			var item2: StationPanelListComponent = new StationPanelListComponent();
-			item2.info = parameter;
-			_containerDailiren.add(item2);
-			
-			var item3: StationPanelListComponent = new StationPanelListComponent();
-			item3.info = parameter;
-			_containerDailiren.add(item3);
-			
-			var item4: StationPanelListComponent = new StationPanelListComponent();
-			item4.info = parameter;
-			_containerDailiren.add(item4);
-			
-			var item5: StationPanelListComponent = new StationPanelListComponent();
-			item5.info = parameter;
-			_containerDailiren.add(item5);
-//			
-//			var item6: StationPanelListComponent = new StationPanelListComponent();
-//			item6.info = parameter;
-//			_containerDailiren.add(item6);
-//			
-//			var item7: StationPanelListComponent = new StationPanelListComponent();
-//			item7.info = parameter;
-//			_containerDailiren.add(item7);
-			
 			_containerDailiren.layout.update();
 			_scrollDailiren.rebuild();
 		}

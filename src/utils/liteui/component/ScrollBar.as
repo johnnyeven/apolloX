@@ -8,6 +8,7 @@ package utils.liteui.component
 	
 	import mx.messaging.AbstractConsumer;
 	
+	import utils.GameManager;
 	import utils.MouseUtils;
 	import utils.UIUtils;
 	import utils.enum.ScrollBarOrientation;
@@ -78,7 +79,42 @@ package utils.liteui.component
 		
 		protected function onBarMouseDown(evt: MouseEvent): void
 		{
+			GameManager.container.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+			GameManager.container.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+			_oldBarMouseDownPos = trackMousePosition;
+			_oldBarMousePos = barMousePosition;
+		}
+		
+		protected function onMouseMove(evt: MouseEvent): void
+		{
+			var mouseOffset: Number = trackMousePosition - _oldBarMouseDownPos;
+			value = value + mouseOffset;
 			
+			if(value == 0)
+			{
+				_oldBarMouseDownPos = _oldBarMousePos;
+			}
+			else if(value == _maxValue)
+			{
+				if(_orientation == ScrollBarOrientation.VERTICAL)
+				{
+					_oldBarMouseDownPos = _trackSprite.height - _bar.height + _oldBarMousePos;
+				}
+				else
+				{
+					_oldBarMouseDownPos = _trackSprite.width - _bar.width + _oldBarMousePos;
+				}
+			}
+			else
+			{
+				_oldBarMouseDownPos = trackMousePosition;
+			}
+		}
+		
+		protected function onMouseUp(evt: MouseEvent): void
+		{
+			GameManager.container.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+			GameManager.container.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		}
 		
 		public function get orientation(): String
