@@ -1,6 +1,6 @@
-package utils.network.data 
+package parameters
 {
-	import utils.network.data.basic.CBuildingParameter;
+	import parameters.basic.CBuildingParameter;
 	import utils.network.data.interfaces.IParameterFill;
 	
 	/**

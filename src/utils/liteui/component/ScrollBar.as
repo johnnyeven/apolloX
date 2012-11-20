@@ -9,6 +9,7 @@ package utils.liteui.component
 	import mx.messaging.AbstractConsumer;
 	
 	import utils.MouseUtils;
+	import utils.UIUtils;
 	import utils.enum.ScrollBarOrientation;
 	import utils.enum.ScrollBarPolicy;
 	import utils.events.ScrollBarEvent;
@@ -39,9 +40,10 @@ package utils.liteui.component
 		
 		public function ScrollBar(_skin:DisplayObjectContainer=null)
 		{
+			var size: Point = UIUtils.getSkinSize(_skin);
 			super(_skin);
-			_upButton = getUI(Button, "btnUp");
-			_downButton = getUI(Button, "btnDown");
+			_upButton = getUI(Button, "btnUp") as Button;
+			_downButton = getUI(Button, "btnDown") as Button;
 			_trackSprite = getSkin("track") as Sprite;
 			_bar = getSkin("bar") as Sprite;
 			_barIcon = getSkin("barIcon") as Sprite;
@@ -59,8 +61,9 @@ package utils.liteui.component
 			_bar.mouseEnabled = true;
 			_bar.buttonMode = true;
 			_bar.addEventListener(MouseEvent.MOUSE_DOWN, onBarMouseDown);
-			width = _skin.width;
-			height = _skin.height;
+			
+			width = size.x;
+			height = size.y;
 		}
 		
 		protected function onUpButtonClick(evt: MouseEvent): void
@@ -434,18 +437,68 @@ package utils.liteui.component
 		
 		override public function set height(value:Number):void
 		{
-			super.height = value;
 			if(_orientation == ScrollBarOrientation.VERTICAL)
 			{
+				if(_upButton != null && _downButton != null)
+				{
+					_upButton.x = 0;
+					_upButton.y = 0;
+					_trackSprite.y = _upButton.height;
+					_trackSprite.height = value - _upButton.height - _downButton.height;
+				}
+				else if(_upButton == null && _downButton != null)
+				{
+					_trackSprite.y = 0;
+					_trackSprite.height = value - _downButton.height;
+					_downButton.x = 0;
+					_downButton.y = value - _downButton.height;
+				}
+				else if(_upButton != null && _downButton == null)
+				{
+					_upButton.x = 0;
+					_upButton.y = 0;
+					_trackSprite.y = _upButton.height;
+					_trackSprite.height = value - _upButton.height;
+				}
+				else
+				{
+					_trackSprite.y = 0;
+					_trackSprite.height = value;
+				}
 				rebuild();
 			}
 		}
 		
 		override public function set width(value:Number):void
 		{
-			super.width = value;
 			if(_orientation == ScrollBarOrientation.HORIZONTAL)
 			{
+				if(_upButton != null && _downButton != null)
+				{
+					_upButton.y = 0;
+					_upButton.x = 0;
+					_trackSprite.x = _upButton.width;
+					_trackSprite.width = value - _upButton.width - _downButton.width;
+				}
+				else if(_upButton == null && _downButton != null)
+				{
+					_trackSprite.x = 0;
+					_trackSprite.width = value - _downButton.width;
+					_downButton.y = 0;
+					_downButton.x = value - _downButton.width;
+				}
+				else if(_upButton != null && _downButton == null)
+				{
+					_upButton.y = 0;
+					_upButton.x = 0;
+					_trackSprite.x = _upButton.width;
+					_trackSprite.width = value - _upButton.width;
+				}
+				else
+				{
+					_trackSprite.x = 0;
+					_trackSprite.width = value;
+				}
 				rebuild();
 			}
 		}

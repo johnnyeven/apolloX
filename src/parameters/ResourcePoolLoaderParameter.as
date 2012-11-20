@@ -1,4 +1,4 @@
-package utils.network.data
+package parameters
 {
 	import flash.display.DisplayObjectContainer;
 

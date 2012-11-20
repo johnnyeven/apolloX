@@ -1,4 +1,4 @@
-package utils.network.data.basic 
+package parameters.basic 
 {
 	import utils.network.data.interfaces.IParameterFill;
 	//import objects.dependency.CDependency;

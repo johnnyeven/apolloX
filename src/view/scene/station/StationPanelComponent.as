@@ -3,10 +3,16 @@ package view.scene.station
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	
+	import parameters.station.StationCharacterListParameter;
+	
+	import utils.enum.ScrollBarOrientation;
 	import utils.liteui.component.Button;
+	import utils.liteui.component.Container;
 	import utils.liteui.component.Label;
+	import utils.liteui.component.ScrollBar;
 	import utils.liteui.component.ToggleButton;
 	import utils.liteui.core.Component;
+	import utils.liteui.layouts.HorizontalTileLayout;
 	
 	public class StationPanelComponent extends Component
 	{
@@ -17,6 +23,8 @@ package view.scene.station
 		private var _btnMedical: Button;
 		private var _toggleDailiren: ToggleButton;
 		private var _toggleGuest: ToggleButton;
+		private var _containerDailiren: Container;
+		private var _scrollDailiren: ScrollBar;
 		
 		public function StationPanelComponent(_skin:DisplayObjectContainer=null)
 		{
@@ -30,14 +38,68 @@ package view.scene.station
 			_toggleDailiren = getUI(ToggleButton, "dailirenToggleButton") as ToggleButton;
 			_toggleGuest = getUI(ToggleButton, "guestToggleButton") as ToggleButton;
 			
-			sortChildIndex();
-			
 			_toggleDailiren.caption = "代理人";
 			_toggleGuest.caption = "访客";
 			_toggleDailiren.toggle = true;
 			
 			_toggleDailiren.addEventListener(MouseEvent.CLICK, onDailirenClick);
 			_toggleGuest.addEventListener(MouseEvent.CLICK, onGuestClick);
+			
+			_containerDailiren = new Container();
+			_containerDailiren.x = 25;
+			_containerDailiren.y = 330;
+			_containerDailiren.contentWidth = 322;
+			_containerDailiren.contentHeight = 250;
+			_containerDailiren.layout = new HorizontalTileLayout(_containerDailiren);
+			addChild(_containerDailiren);
+			
+			_scrollDailiren = getUI(ScrollBar, "dailirenScroll") as ScrollBar;
+			_scrollDailiren.orientation = ScrollBarOrientation.VERTICAL;
+			_scrollDailiren.view = _containerDailiren;
+			
+			sortChildIndex();
+			addChild(_scrollDailiren);
+			
+			var parameter: StationCharacterListParameter = new StationCharacterListParameter();
+			parameter.fill({
+				avatar: "",
+				username: "无敌小星",
+				userdesc: "啊斯蒂芬"
+			});
+			var item: StationPanelListComponent = new StationPanelListComponent();
+			item.info = parameter;
+			_containerDailiren.add(item);
+			
+			var item1: StationPanelListComponent = new StationPanelListComponent();
+			item1.info = parameter;
+			_containerDailiren.add(item1);
+			
+			var item2: StationPanelListComponent = new StationPanelListComponent();
+			item2.info = parameter;
+			_containerDailiren.add(item2);
+			
+			var item3: StationPanelListComponent = new StationPanelListComponent();
+			item3.info = parameter;
+			_containerDailiren.add(item3);
+			
+			var item4: StationPanelListComponent = new StationPanelListComponent();
+			item4.info = parameter;
+			_containerDailiren.add(item4);
+			
+			var item5: StationPanelListComponent = new StationPanelListComponent();
+			item5.info = parameter;
+			_containerDailiren.add(item5);
+//			
+//			var item6: StationPanelListComponent = new StationPanelListComponent();
+//			item6.info = parameter;
+//			_containerDailiren.add(item6);
+//			
+//			var item7: StationPanelListComponent = new StationPanelListComponent();
+//			item7.info = parameter;
+//			_containerDailiren.add(item7);
+			
+			_containerDailiren.layout.update();
+			_scrollDailiren.rebuild();
 		}
 		
 		private function onDailirenClick(evt: MouseEvent): void

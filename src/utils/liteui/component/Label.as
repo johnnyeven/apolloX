@@ -319,7 +319,7 @@ package utils.liteui.component
 			if(filterEnabled)
 			{
 				_textBuffer.filters = [
-					new GlowFilter(filterColor, 1, 3, 3, 300)
+					new GlowFilter(filterColor, 1, 2, 2, 300)
 				];
 			}
 			else
