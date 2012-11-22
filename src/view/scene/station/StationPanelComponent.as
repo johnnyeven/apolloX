@@ -3,6 +3,8 @@ package view.scene.station
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	
+	import mediator.scene.station.AssemblyViewMediator;
+	
 	import parameters.station.StationCharacterListParameter;
 	
 	import utils.enum.ScrollBarOrientation;
@@ -37,6 +39,8 @@ package view.scene.station
 			_btnMedical = getUI(Button, "btnMedical") as Button;
 			_toggleDailiren = getUI(ToggleButton, "dailirenToggleButton") as ToggleButton;
 			_toggleGuest = getUI(ToggleButton, "guestToggleButton") as ToggleButton;
+			
+			_btnAssembly.addEventListener(MouseEvent.MOUSE_UP, onBtnAssemblyClick);
 			
 			_toggleDailiren.caption = "代理人";
 			_toggleGuest.caption = "访客";
@@ -104,6 +108,11 @@ package view.scene.station
 		{
 			_toggleDailiren.toggle = false;
 			_toggleGuest.toggle = true;
+		}
+		
+		private function onBtnAssemblyClick(evt: MouseEvent): void
+		{
+			ApplicationFacade.getInstance().sendNotification(AssemblyViewMediator.ASSEMBLY_SHOW_NOTE);
 		}
 	}
 }
