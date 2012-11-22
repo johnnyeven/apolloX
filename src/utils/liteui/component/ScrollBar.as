@@ -141,6 +141,7 @@ package utils.liteui.component
 			if(_view != null)
 			{
 				_view.removeEventListener(Event.RESIZE, onViewResize);
+				_view.removeEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 				if(_orientation == ScrollBarOrientation.VERTICAL)
 				{
 					_view.removeEventListener(ViewEvent.MAX_HEIGHT_CHANGE, onViewResize);
@@ -154,6 +155,7 @@ package utils.liteui.component
 			if(_view != null)
 			{
 				_view.addEventListener(Event.RESIZE, onViewResize);
+				_view.addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 				if(_orientation == ScrollBarOrientation.VERTICAL)
 				{
 					_view.addEventListener(ViewEvent.MAX_HEIGHT_CHANGE, onViewResize);
@@ -164,6 +166,11 @@ package utils.liteui.component
 				}
 			}
 			rebuild();
+		}
+		
+		protected function onMouseWheel(evt: MouseEvent): void
+		{
+			value = value - evt.delta * 3;
 		}
 		
 		protected function onViewResize(evt: Event): void
