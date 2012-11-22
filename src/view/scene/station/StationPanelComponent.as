@@ -2,8 +2,8 @@ package view.scene.station
 {
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
-	
-	import mediator.scene.station.AssemblyViewMediator;
+
+	import controller.scene.CreateAssemblyViewCommand;
 	
 	import parameters.station.StationCharacterListParameter;
 	
@@ -112,7 +112,7 @@ package view.scene.station
 		
 		private function onBtnAssemblyClick(evt: MouseEvent): void
 		{
-			ApplicationFacade.getInstance().sendNotification(AssemblyViewMediator.ASSEMBLY_SHOW_NOTE);
+			ApplicationFacade.getInstance().sendNotification(CreateAssemblyViewCommand.LOAD_ASSEMBLY_VIEW_NOTE);
 		}
 	}
 }

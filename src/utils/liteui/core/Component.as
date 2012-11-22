@@ -8,6 +8,8 @@ package utils.liteui.core
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 	
+	import org.puremvc.as3.patterns.mediator.Mediator;
+	
 	import utils.UIUtils;
 	import utils.liteui.layouts.BaseLayout;
 	
@@ -23,6 +25,7 @@ package utils.liteui.core
 		protected var _skinChildIndex: Dictionary;
 		protected var _skinChildIndexList: Array;
 		protected var _layout: BaseLayout;
+		public var mediator: Mediator;
 		
 		public function Component(_skin: DisplayObjectContainer = null)
 		{

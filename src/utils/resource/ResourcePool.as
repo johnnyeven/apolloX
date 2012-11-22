@@ -48,8 +48,8 @@ package utils.resource
 		public static function getResourceByLoader(url: String, className: String, callback: Function = null): DisplayObject
 		{
 			var _resource: DisplayObject = getResourceFromPool(className);
-			if(_resource == null)
-			{
+//			if(_resource == null)
+//			{
 				if(StringUtils.empty(url))
 				{
 					return null;
@@ -68,9 +68,9 @@ package utils.resource
 				
 				if(_resourceLoadedIndex[url].length == 1)
 				{
-					ResourceLoadManager.load(url, false, "", onResourceLoaded, null, onResourceIOError);
+					ResourceLoadManager.load(url, true, "", onResourceLoaded, null, onResourceIOError);
 				}
-			}
+//			}
 			return _resource;
 		}
 		
@@ -78,14 +78,17 @@ package utils.resource
 		{
 			var _class: Class;
 			var _display: DisplayObject;
+			var _name: String = evt.loader.name;
 			var _url: String = evt.loader.url;
 			var _parameterArray: Array = _resourceLoadedIndex[_url];
+			_parameterArray = (_parameterArray == null) ? _resourceLoadedIndex[_name] : _parameterArray;
 			if(_parameterArray != null)
 			{
 				for each(var _parameter: ResourcePoolLoaderParameter in _parameterArray)
 				{
 					_class = getDefinitionByName(_parameter.className) as Class;
 					_display = new _class();
+					_pool[_parameter.className] = _display;
 					if(_parameter.callback != null)
 					{
 						_parameter.callback(_display);
@@ -97,6 +100,7 @@ package utils.resource
 					}
 					_parameter.callback = null;
 				}
+				delete _resourceLoadedIndex[_name];
 				delete _resourceLoadedIndex[_url];
 			}
 		}

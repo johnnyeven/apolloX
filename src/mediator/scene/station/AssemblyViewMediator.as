@@ -16,6 +16,7 @@ package mediator.scene.station
 		public function AssemblyViewMediator()
 		{
 			super(NAME, new AssemblyViewComponent());
+			component.mediator = this;
 		}
 		
 		public function get component(): AssemblyViewComponent
