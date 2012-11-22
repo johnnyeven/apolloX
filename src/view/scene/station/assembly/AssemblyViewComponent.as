@@ -1,6 +1,9 @@
 package view.scene.station.assembly
 {
 	import flash.display.DisplayObjectContainer;
+	import flash.events.MouseEvent;
+	
+	import mediator.scene.station.AssemblyViewMediator;
 	
 	import utils.liteui.component.Button;
 	import utils.liteui.component.Label;
@@ -22,6 +25,12 @@ package view.scene.station.assembly
 			sortChildIndex();
 			
 			_caption.text = "装配工厂";
+			_btnClose.addEventListener(MouseEvent.CLICK, onBtnCloseClick);
+		}
+		
+		private function onBtnCloseClick(evt: MouseEvent): void
+		{
+			ApplicationFacade.getInstance().sendNotification(AssemblyViewMediator.ASSEMBLY_DISPOSE_NOTE);
 		}
 	}
 }

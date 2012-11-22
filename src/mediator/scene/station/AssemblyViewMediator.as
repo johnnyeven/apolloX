@@ -11,6 +11,7 @@ package mediator.scene.station
 		public static const NAME: String = "AssemblyViewMediator";
 		
 		public static const ASSEMBLY_SHOW_NOTE: String = "AssemblyViewMediator.assembly_show_note";
+		public static const ASSEMBLY_DISPOSE_NOTE: String = "AssemblyViewMediator.assembly_dispose_note";
 		
 		public function AssemblyViewMediator()
 		{
@@ -24,7 +25,7 @@ package mediator.scene.station
 		
 		override public function listNotificationInterests():Array
 		{
-			return [ASSEMBLY_SHOW_NOTE];
+			return [ASSEMBLY_SHOW_NOTE, ASSEMBLY_DISPOSE_NOTE];
 		}
 		
 		override public function handleNotification(notification:INotification):void
@@ -33,6 +34,9 @@ package mediator.scene.station
 			{
 				case ASSEMBLY_SHOW_NOTE:
 					show();
+					break;
+				case ASSEMBLY_DISPOSE_NOTE:
+					dispose();
 					break;
 			}
 		}
