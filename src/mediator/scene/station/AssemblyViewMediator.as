@@ -6,6 +6,7 @@ package mediator.scene.station
 	
 	import utils.enum.PopupEffect;
 	
+	import view.scene.station.assembly.AssemblySlotsComponent;
 	import view.scene.station.assembly.AssemblyViewComponent;
 	
 	public class AssemblyViewMediator extends BaseMediator
@@ -21,6 +22,7 @@ package mediator.scene.station
 			component.mediator = this;
 			_isPopUp = true;
 			popUpEffect = PopupEffect.TOP;
+			onShow = onShowCallback;
 		}
 		
 		public function get component(): AssemblyViewComponent
@@ -49,6 +51,11 @@ package mediator.scene.station
 		override public function show():void
 		{
 			super.show();
+		}
+		
+		private function onShowCallback(_mediator: BaseMediator): void
+		{
+			component.showSlotComponent();
 		}
 	}
 }

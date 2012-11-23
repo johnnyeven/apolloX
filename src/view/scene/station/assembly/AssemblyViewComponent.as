@@ -15,6 +15,8 @@ package view.scene.station.assembly
 		private var _btnClose: Button;
 		private var _caption: Label;
 		
+		private var _slotsComponent: AssemblySlotsComponent;
+		
 		public function AssemblyViewComponent()
 		{
 			super(ResourcePool.getResource("assets.scene1Station.assembly.view") as DisplayObjectContainer);
@@ -31,6 +33,12 @@ package view.scene.station.assembly
 		private function onBtnCloseClick(evt: MouseEvent): void
 		{
 			ApplicationFacade.getInstance().sendNotification(AssemblyViewMediator.ASSEMBLY_DISPOSE_NOTE);
+		}
+		
+		public function showSlotComponent(): void
+		{
+			_slotsComponent = new AssemblySlotsComponent();
+			addChild(_slotsComponent);
 		}
 	}
 }
