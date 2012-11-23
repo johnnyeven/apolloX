@@ -1,5 +1,7 @@
 package view.scene.station.assembly
 {
+	import com.greensock.TweenLite;
+	
 	import events.AssemblyEvent;
 	
 	import flash.display.DisplayObjectContainer;
@@ -8,13 +10,17 @@ package view.scene.station.assembly
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
+	import utils.enum.ProgressBarType;
 	import utils.liteui.component.ImageContainer;
+	import utils.liteui.component.ProgressBar;
 	import utils.liteui.core.Component;
 	import utils.resource.ResourcePool;
 	
 	public class AssemblySlotsComponent extends Component
 	{
 		private var _avatar: ImageContainer;
+		private var _leftProgress: ProgressBar;
+		private var _rightProgress: ProgressBar;
 		private var _mc: MovieClip;
 		private var _slotArray: Array;
 		private var _slotIndex: int = 0;
@@ -24,7 +30,14 @@ package view.scene.station.assembly
 			super(ResourcePool.getResource("assets.scene1Station.assembly.mainSlots") as MovieClip);
 			
 			_avatar = getUI(ImageContainer, "avatar") as ImageContainer;
+			_leftProgress = getUI(ProgressBar, "leftProgressBar") as ProgressBar;
+			_rightProgress = getUI(ProgressBar, "rightProgressBar") as ProgressBar;
 			_mc = getSkin("mc") as MovieClip;
+			
+			_leftProgress.type = ProgressBarType.MOVIE;
+			_rightProgress.type = ProgressBarType.MOVIE;
+			_leftProgress.alpha = 0;
+			_rightProgress.alpha = 0;
 			
 			sortChildIndex();
 			
@@ -40,6 +53,15 @@ package view.scene.station.assembly
 			var timer: Timer = new Timer(50);
 			timer.addEventListener(TimerEvent.TIMER, onTimer);
 			timer.start();
+			
+			_leftProgress.initProgressBar();
+			_rightProgress.initProgressBar();
+			TweenLite.to(_leftProgress, .5, {alpha: 1, onComplete: function(): void {
+				_leftProgress.percent = .6;
+			}});
+			TweenLite.to(_rightProgress, .5, {alpha: 1, onComplete: function(): void {
+				_rightProgress.percent = .2;
+			}});
 		}
 		
 		private function onTimer(evt: TimerEvent): void
