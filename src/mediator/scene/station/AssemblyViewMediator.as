@@ -20,7 +20,7 @@ package mediator.scene.station
 			super(NAME, new AssemblyViewComponent());
 			component.mediator = this;
 			_isPopUp = true;
-			popUpEffect = PopupEffect.CENTER;
+			popUpEffect = PopupEffect.TOP;
 		}
 		
 		public function get component(): AssemblyViewComponent
