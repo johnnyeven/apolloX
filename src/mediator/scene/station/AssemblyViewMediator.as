@@ -4,6 +4,8 @@ package mediator.scene.station
 	
 	import org.puremvc.as3.interfaces.INotification;
 	
+	import utils.enum.PopupEffect;
+	
 	import view.scene.station.assembly.AssemblyViewComponent;
 	
 	public class AssemblyViewMediator extends BaseMediator
@@ -17,6 +19,8 @@ package mediator.scene.station
 		{
 			super(NAME, new AssemblyViewComponent());
 			component.mediator = this;
+			_isPopUp = true;
+			popUpEffect = PopupEffect.CENTER;
 		}
 		
 		public function get component(): AssemblyViewComponent
@@ -40,6 +44,11 @@ package mediator.scene.station
 					dispose();
 					break;
 			}
+		}
+		
+		override public function show():void
+		{
+			super.show();
 		}
 	}
 }

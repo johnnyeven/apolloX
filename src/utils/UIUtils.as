@@ -71,7 +71,16 @@ package utils
 		public static function componentCenterInStage(comp: DisplayObject, width: Number = NaN, height: Number = NaN): Point
 		{
 			var _stage: Stage = GameManager.container;
-			var _rect: Rectangle = comp.getRect(comp);
+			var _rect: Rectangle = comp.getBounds(comp);
+			
+			if(!isNaN(width))
+			{
+				_rect.width = width;
+			}
+			if(!isNaN(height))
+			{
+				_rect.height = height;
+			}
 			
 			var x: Number = (_stage.stageWidth - _rect.width * comp.scaleX) / 2;
 			var y: Number = (_stage.stageHeight - _rect.height * comp.scaleY) / 2;

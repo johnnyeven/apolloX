@@ -1,12 +1,19 @@
 package mediator
 {
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Linear;
+	import com.greensock.plugins.TransformAroundCenterPlugin;
+	
 	import flash.display.DisplayObject;
+	import flash.geom.Point;
 	
 	import org.puremvc.as3.interfaces.IMediator;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 	
 	import utils.GameManager;
 	import utils.PopUpManager;
+	import utils.UIUtils;
+	import utils.enum.PopupEffect;
 	import utils.liteui.core.Component;
 	
 	public class BaseMediator extends Mediator implements IMediator
@@ -18,6 +25,7 @@ package mediator
 		public var zIndex: int;
 		public var width: Number;
 		public var height: Number;
+		public var popUpEffect: int = PopupEffect.TOP;
 		
 		public function BaseMediator(mediatorName:String=null, viewComponent:Object=null)
 		{
@@ -79,11 +87,58 @@ package mediator
 			{
 				PopUpManager.closeAll(zIndex);
 				PopUpManager.addPopUp(comp, mode);
+				
+				var centerPoint: Point = UIUtils.componentCenterInStage(comp, width, height);
+				switch(popUpEffect)
+				{
+					case PopupEffect.TOP:
+						comp.y = -comp.height;
+						comp.x = centerPoint.x;
+						
+						TweenLite.to(comp, 0.5, {y: centerPoint.y, onComplete: onShowComplete});
+						break;
+					case PopupEffect.RIGHT:
+						comp.x = GameManager.container.stageWidth;
+						comp.y = 0;
+						
+						TweenLite.to(comp, 0.5, {x: comp.x - comp.width, onComplete: onShowComplete});
+						break;
+					case PopupEffect.LEFT:
+						comp.x = -comp.width;
+						comp.y = 0;
+						
+						TweenLite.to(comp, 0.5, {x: 0, onComplete: onShowComplete});
+						break;
+					case PopupEffect.BOTTOM:
+						comp.y = GameManager.container.stageHeight;
+						comp.x = centerPoint.x;
+						
+						TweenLite.to(comp, 0.5, {y: centerPoint.y, onComplete: onShowComplete});
+						break;
+					case PopupEffect.CENTER:
+						comp.scaleX = .5;
+						comp.scaleY = .5;
+						comp.alpha = 0;
+						comp.x = centerPoint.x;
+						comp.y = centerPoint.y;
+						
+						TweenLite.to(comp, .5, { transformAroundCenter: { scaleX: 1, scaleY: 1, alpha: 1 }, ease: Linear.easeIn, onComplete: onShowComplete });
+						break;
+				}
 			}
 			else
 			{
 				GameManager.instance.addBase(comp);
 			}
+		}
+		
+		public function onShowComplete(): void
+		{
+			if(onShow != null)
+			{
+				onShow(this);
+			}
+			onShow = null;
 		}
 	}
 }
