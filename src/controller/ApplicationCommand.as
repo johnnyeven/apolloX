@@ -1,5 +1,6 @@
 package controller
 {
+	import com.greensock.plugins.FramePlugin;
 	import com.greensock.plugins.TransformAroundCenterPlugin;
 	import com.greensock.plugins.TweenPlugin;
 	
@@ -27,7 +28,7 @@ package controller
 		
 		override public function execute(notification: INotification): void
 		{
-			TweenPlugin.activate([TransformAroundCenterPlugin]);
+			TweenPlugin.activate([TransformAroundCenterPlugin, FramePlugin]);
 			
 			facade.registerCommand(LoadResourcesCommand.LOAD_RESOURCES_NOTE, LoadResourcesCommand);
 			facade.registerCommand(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE, CreateStartMediatorCommand);

@@ -1,5 +1,9 @@
 package utils.liteui.component
 {
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Bounce;
+	import com.greensock.easing.Strong;
+	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -17,7 +21,7 @@ package utils.liteui.component
 		protected var _barWidth: Number = 0;
 		private var _percent: Number = 0;
 		
-		public function ProgressBar(_skin:DisplayObjectContainer=null, _type: int = ProgressBarType.MASK)
+		public function ProgressBar(_skin:DisplayObjectContainer=null, _type: int = 0)
 		{
 			super(_skin);
 			_trackObject = getSkin("track");
@@ -78,17 +82,17 @@ package utils.liteui.component
 			}
 			if(type == ProgressBarType.MASK)
 			{
-				_mask.width = _percent * _barObject.width;
+				TweenLite.to(_mask, .5, {width: _percent * _barObject.width, ease: Strong.easeOut});
 			}
 			else if(type == ProgressBarType.SCALE)
 			{
-				_barObject.width = _percent * _barWidth;
+				TweenLite.to(_barObject, .5, {width: _percent * _barWidth, ease: Strong.easeOut});
 			}
 			else
 			{
 				if(_barObject is MovieClip)
 				{
-					(_barObject as MovieClip).gotoAndStop(Math.floor(_percent * 100));
+					TweenLite.to((_barObject as MovieClip), 1, {frame: Math.floor(_percent * 100), ease: Bounce.easeOut});
 				}
 			}
 		}

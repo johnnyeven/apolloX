@@ -12,6 +12,7 @@ package view.scene.station.assembly
 	
 	import utils.enum.ProgressBarType;
 	import utils.liteui.component.ImageContainer;
+	import utils.liteui.component.Label;
 	import utils.liteui.component.ProgressBar;
 	import utils.liteui.core.Component;
 	import utils.resource.ResourcePool;
@@ -21,6 +22,10 @@ package view.scene.station.assembly
 		private var _avatar: ImageContainer;
 		private var _leftProgress: ProgressBar;
 		private var _rightProgress: ProgressBar;
+		private var _lblEnergyLabel: Label;
+		private var _lblEnergy: Label;
+		private var _lblChargeLabel: Label;
+		private var _lblCharge: Label;
 		private var _mc: MovieClip;
 		private var _slotArray: Array;
 		private var _slotIndex: int = 0;
@@ -32,12 +37,20 @@ package view.scene.station.assembly
 			_avatar = getUI(ImageContainer, "avatar") as ImageContainer;
 			_leftProgress = getUI(ProgressBar, "leftProgressBar") as ProgressBar;
 			_rightProgress = getUI(ProgressBar, "rightProgressBar") as ProgressBar;
+			_lblEnergyLabel = getUI(Label, "lblEnergy") as Label;
+			_lblEnergy = getUI(Label, "energy") as Label;
+			_lblChargeLabel = getUI(Label, "lblCharge") as Label;
+			_lblCharge = getUI(Label, "charge") as Label;
 			_mc = getSkin("mc") as MovieClip;
 			
 			_leftProgress.type = ProgressBarType.MOVIE;
 			_rightProgress.type = ProgressBarType.MOVIE;
 			_leftProgress.alpha = 0;
 			_rightProgress.alpha = 0;
+			_lblEnergyLabel.alpha = 0;
+			_lblEnergy.alpha = 0;
+			_lblChargeLabel.alpha = 0;
+			_lblCharge.alpha = 0;
 			
 			sortChildIndex();
 			
@@ -60,8 +73,12 @@ package view.scene.station.assembly
 				_leftProgress.percent = .6;
 			}});
 			TweenLite.to(_rightProgress, .5, {alpha: 1, onComplete: function(): void {
-				_rightProgress.percent = .2;
+				_rightProgress.percent = 1;
 			}});
+			TweenLite.to(_lblEnergyLabel, .5, {alpha: 1});
+			TweenLite.to(_lblEnergy, .5, {alpha: 1});
+			TweenLite.to(_lblChargeLabel, .5, {alpha: 1});
+			TweenLite.to(_lblCharge, .5, {alpha: 1});
 		}
 		
 		private function onTimer(evt: TimerEvent): void
