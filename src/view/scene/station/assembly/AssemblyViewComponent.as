@@ -16,6 +16,7 @@ package view.scene.station.assembly
 		private var _caption: Label;
 		
 		private var _slotsComponent: AssemblySlotsComponent;
+		private var _attributeComponent: AssemblyAttributeComponent;
 		
 		public function AssemblyViewComponent()
 		{
@@ -39,6 +40,9 @@ package view.scene.station.assembly
 		{
 			_slotsComponent = new AssemblySlotsComponent();
 			addChild(_slotsComponent);
+			
+			_attributeComponent = new AssemblyAttributeComponent();
+			addChild(_attributeComponent);
 		}
 	}
 }
