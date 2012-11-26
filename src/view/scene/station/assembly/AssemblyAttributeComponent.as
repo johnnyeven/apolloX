@@ -67,6 +67,20 @@ package view.scene.station.assembly
 		private var _lblConstructResistance4Label: Label;
 		private var _lblConstructResistance4: Label;
 		
+		private var _middleFrame: MovieClip;
+		private var _saomiaoIcon: MovieClip;
+		private var _xinhaoIcon: MovieClip;
+		private var _ganyingqiIcon: MovieClip;
+		private var _tuijinliIcon: MovieClip;
+		private var _lblSaomiaoLabel: Label;
+		private var _lblSaomiao: Label;
+		private var _lblXinhaoLabel: Label;
+		private var _lblXinhao: Label;
+		private var _lblGanyingqiLabel: Label;
+		private var _lblGanyingqi: Label;
+		private var _lblTuijinliLabel: Label;
+		private var _lblTuijinli: Label;
+		
 		public function AssemblyAttributeComponent()
 		{
 			super(ResourcePool.getResource("assets.scene1Station.assembly.attribute") as DisplayObjectContainer);
@@ -140,6 +154,22 @@ package view.scene.station.assembly
 			_lblConstructResistance3 = getUI(Label, "constructResistance3") as Label;
 			_lblConstructResistance4Label = getUI(Label, "lblConstructResistance4") as Label;
 			_lblConstructResistance4 = getUI(Label, "constructResistance4") as Label;
+			
+			_middleFrame = getSkin("middleFrame") as MovieClip;
+			_saomiaoIcon = getSkin("saomiaoIcon") as MovieClip;
+			_xinhaoIcon = getSkin("xinhaoIcon") as MovieClip;
+			_ganyingqiIcon = getSkin("ganyingqiIcon") as MovieClip;
+			_tuijinliIcon = getSkin("tuijinliIcon") as MovieClip;
+			_lblSaomiaoLabel = getUI(Label, "lblSaomiao") as Label;
+			_lblSaomiao = getUI(Label, "saomiao") as Label;
+			_lblXinhaoLabel = getUI(Label, "lblXinhao") as Label;
+			_lblXinhao = getUI(Label, "xinhao") as Label;
+			_lblGanyingqiLabel = getUI(Label, "lblGanyingqi") as Label;
+			_lblGanyingqi = getUI(Label, "ganyingqi") as Label;
+			_lblTuijinliLabel = getUI(Label, "lblTuijinli") as Label;
+			_lblTuijinli = getUI(Label, "tuijinli") as Label;
+			
+			//sortChildIndex();
 			
 			_lblSheildLabel.alpha = 0;
 			_sheildIcon.alpha = 0;
@@ -234,9 +264,32 @@ package view.scene.station.assembly
 			_lblConstructResistance4Label.y -= 20;
 			_lblConstructResistance4.y -= 20;
 			
+			_middleFrame.alpha = 0;
+			_saomiaoIcon.alpha = 0;
+			_xinhaoIcon.alpha = 0;
+			_ganyingqiIcon.alpha = 0;
+			_tuijinliIcon.alpha = 0;
+			_lblSaomiaoLabel.alpha = 0;
+			_lblSaomiao.alpha = 0;
+			_lblXinhaoLabel.alpha = 0;
+			_lblXinhao.alpha = 0;
+			_lblGanyingqiLabel.alpha = 0;
+			_lblGanyingqi.alpha = 0;
+			_lblTuijinliLabel.alpha = 0;
+			_lblTuijinli.alpha = 0;
+			_lblSaomiaoLabel.x -= 20;
+			_lblSaomiao.x -= 20;
+			_lblXinhaoLabel.x -= 20;
+			_lblXinhao.x -= 20;
+			_lblGanyingqiLabel.x -= 20;
+			_lblGanyingqi.x -= 20;
+			_lblTuijinliLabel.x -= 20;
+			_lblTuijinli.x -= 20;
+			
 			var _tl1: TimelineLite;
 			var _tl2: TimelineLite;
 			var _tl3: TimelineLite;
+			var _tl4: TimelineLite;
 			TweenLite.to(_sheildTitle, .5, {alpha: 1, onComplete: function(): void
 			{
 				_tl1 = new TimelineLite({onComplete: function(): void
@@ -299,6 +352,23 @@ package view.scene.station.assembly
 							_tl3 = new TimelineLite({onComplete: function(): void
 							{
 								_tl3.clear();
+								_tl4 = new TimelineLite({onComplete: function(): void
+								{
+									_tl4.clear();
+								}});
+								_tl4.insert(TweenLite.to(_middleFrame, .5, {alpha: 1}));
+								_tl4.insert(TweenLite.to(_saomiaoIcon, .5, {alpha: 1}), .5);
+								_tl4.insert(TweenLite.to(_xinhaoIcon, .5, {alpha: 1}), .7);
+								_tl4.insert(TweenLite.to(_ganyingqiIcon, .5, {alpha: 1}), .9);
+								_tl4.insert(TweenLite.to(_tuijinliIcon, .5, {alpha: 1}), 1.1);
+								_tl4.insert(TweenLite.to(_lblSaomiaoLabel, .5, {alpha: 1, x: "20"}), .7);
+								_tl4.insert(TweenLite.to(_lblSaomiao, .5, {alpha: 1, x: "20"}), .9);
+								_tl4.insert(TweenLite.to(_lblXinhaoLabel, .5, {alpha: 1, x: "20"}), .9);
+								_tl4.insert(TweenLite.to(_lblXinhao, .5, {alpha: 1, x: "20"}), 1.1);
+								_tl4.insert(TweenLite.to(_lblGanyingqiLabel, .5, {alpha: 1, x: "20"}), 1.1);
+								_tl4.insert(TweenLite.to(_lblGanyingqi, .5, {alpha: 1, x: "20"}), 1.3);
+								_tl4.insert(TweenLite.to(_lblTuijinliLabel, .5, {alpha: 1, x: "20"}), 1.3);
+								_tl4.insert(TweenLite.to(_lblTuijinli, .5, {alpha: 1, x: "20"}), 1.5);
 							}});
 							_tl3.autoRemoveChildren = true;
 							_tl3.insert(TweenLite.to(_lblConstructResistanceLabel, .5, {y: _lblConstructResistanceLabel.y + 20, alpha: 1}));
