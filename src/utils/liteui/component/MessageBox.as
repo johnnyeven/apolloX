@@ -8,7 +8,7 @@ package utils.liteui.component
 	
 	import utils.StringUtils;
 	import utils.UIUtils;
-	import utils.PopUpManager;
+	import utils.MenuManager;
 	import utils.language.LanguageManager;
 	import utils.liteui.core.Component;
 	
@@ -139,7 +139,7 @@ package utils.liteui.component
 		
 		public function close(): void
 		{
-			PopUpManager.removePopUp(this);
+			MenuManager.removePopUp(this);
 			dispatchEvent(new Event(Event.CLOSE));
 			dispose();
 		}
@@ -164,7 +164,7 @@ package utils.liteui.component
 			_message.content = content;
 			_message.buttonType = buttonType;
 			UIUtils.center(_message);
-			PopUpManager.addPopUp(_message, mode);
+			MenuManager.addPopUp(_message, mode);
 			return _message;
 		}
 	}

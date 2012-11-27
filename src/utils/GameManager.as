@@ -50,7 +50,7 @@ package utils
 		
 		protected function onStageResize(evt: Event): void
 		{
-			PopUpManager.updateModeTransparencySize();
+			MenuManager.updateModeTransparencySize();
 		}
 		
 		public function addBase(target: DisplayObject): void
