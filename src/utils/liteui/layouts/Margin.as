@@ -14,5 +14,14 @@ package utils.liteui.layouts
 			this.bottom = bottom;
 			this.left = left;
 		}
+		
+		public function isZero(): Boolean
+		{
+			if(top == 0 && right == 0 && bottom == 0 && left == 0)
+			{
+				return true;
+			}
+			return false;
+		}
 	}
 }

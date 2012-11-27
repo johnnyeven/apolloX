@@ -66,6 +66,7 @@ package utils
 				removeModeTrasparency(_transparency);
 				delete _modeIndex[menu];
 			}
+			menu.dispose();
 		}
 		
 		public static function addModeTransparency(): Sprite
