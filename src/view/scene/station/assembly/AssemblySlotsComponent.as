@@ -1,5 +1,6 @@
 package view.scene.station.assembly
 {
+	import com.greensock.TimelineLite;
 	import com.greensock.TweenLite;
 	
 	import events.AssemblyEvent;
@@ -26,6 +27,9 @@ package view.scene.station.assembly
 		private var _lblEnergy: Label;
 		private var _lblChargeLabel: Label;
 		private var _lblCharge: Label;
+		private var _packageIcon: MovieClip;
+		private var _lblPackageSizeLabel: Label;
+		private var _lblPackageSize: Label;
 		private var _mcSeperator: MovieClip;
 		private var _mc: MovieClip;
 		private var _slotArray: Array;
@@ -42,6 +46,9 @@ package view.scene.station.assembly
 			_lblEnergy = getUI(Label, "energy") as Label;
 			_lblChargeLabel = getUI(Label, "lblCharge") as Label;
 			_lblCharge = getUI(Label, "charge") as Label;
+			_packageIcon = getSkin("packageIcon") as MovieClip;
+			_lblPackageSizeLabel = getUI(Label, "lblPackageSize") as Label;
+			_lblPackageSize = getUI(Label, "packageSize") as Label;
 			_mcSeperator = getSkin("seperator") as MovieClip;
 			_mc = getSkin("mc") as MovieClip;
 			
@@ -60,6 +67,11 @@ package view.scene.station.assembly
 			_avatar.source = "resources/assets/avatar.png";
 			_mc.addEventListener(AssemblyEvent.SHOW_SLOTS, onShowSlots);
 			addEventListener(MouseEvent.CLICK, onMouseClick);
+			
+			var _tl: TimelineLite = new TimelineLite();
+			_tl.insert(TweenLite.from(_packageIcon, .5, {alpha: 0}));
+			_tl.insert(TweenLite.from(_lblPackageSizeLabel, .5, {alpha: 0, x: "-20"}), .3);
+			_tl.insert(TweenLite.from(_lblPackageSize, .5, {alpha: 0, x: "-20"}), .6);
 		}
 		
 		private function onShowSlots(evt: AssemblyEvent): void
