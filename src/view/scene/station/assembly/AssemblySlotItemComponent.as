@@ -45,24 +45,31 @@ package view.scene.station.assembly
 			_item1.text = "锁定";
 			
 			var _item2: MenuItem = new MenuItem();
-			_item2.itemName = "approach";
-			_item2.text = "接近目标";
+			_item2.itemName = "range_lock";
+			_item2.text = "超远距离锁定技术";
 			
 			var _item3: MenuItem = new MenuItem();
-			_item3.itemName = "password";
-			_item3.text = "输入母星立场密码";
-			
-			var _menu1: Menu = new Menu();
-			var _item1_1: MenuItem = new MenuItem();
-			_item1_1.itemName = "lock_1";
-			_item1_1.text = "100km";
-			_menu1.addItem(_item1_1);
+			_item3.itemName = "approach";
+			_item3.text = "接近目标";
+				
+				var _menu1: Menu = new Menu();
+				var _item1_1: MenuItem = new MenuItem();
+				_item1_1.itemName = "lock_1";
+				_item1_1.text = "100km";
+				_menu1.addItem(_item1_1);
+				
+					var _menu2: Menu = new Menu();
+					var _item1_1_1: MenuItem = new MenuItem();
+					_item1_1_1.itemName = "lock_1_1";
+					_item1_1_1.text = "开始锁定";
+					_menu2.addItem(_item1_1_1);
+				_item1_1.childMenu = _menu2;
 			
 			_menu.addItem(_item1);
 			_menu.addItem(_item2);
 			_menu.addItem(_item3);
 			
-			_item1.childMenu = _menu1;
+			_item2.childMenu = _menu1;
 			
 			MenuManager.showMenu(_menu);
 		}

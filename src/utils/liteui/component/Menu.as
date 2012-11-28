@@ -14,8 +14,9 @@ package utils.liteui.component
 		private var _itemList: Dictionary;
 		private var _callbackList: Dictionary;
 		private var _padding: Margin;
+		private var _width: Number = 0;
+		private var _height: Number = 0;
 		public static var _itemMargin: Margin = new Margin(3, 0, 3, 0);
-		private var _currentChild: Menu;
 		
 		public function Menu(_skin:DisplayObjectContainer=null)
 		{
@@ -29,22 +30,6 @@ package utils.liteui.component
 			_itemList = new Dictionary();
 			_callbackList = new Dictionary();
 			_padding = new Margin(20, 20, 20, 20);
-		}
-		
-		public function addMenu(child: Menu): void
-		{
-			if(_currentChild != null)
-			{
-				removeMenu(_currentChild);
-			}
-			addChild(child);
-			_currentChild = child;
-		}
-		
-		public function removeMenu(child: Menu): void
-		{
-			_currentChild = null;
-			removeChild(child);
 		}
 		
 		public function addItem(_item: MenuItem, _onClick: Function = null): void
@@ -91,20 +76,10 @@ package utils.liteui.component
 			
 			for each(_item in _itemList)
 			{
-				if(_item.margin.isZero())
-				{
-					_left = _itemMargin.left;
-					_right = _itemMargin.right;
-					_top = _itemMargin.top;
-					_bottom = _itemMargin.bottom;
-				}
-				else
-				{
-					_left = _item.margin.left;
-					_right = _item.margin.right;
-					_top = _item.margin.top;
-					_bottom = _item.margin.bottom;
-				}
+				_left = _item.margin.left;
+				_right = _item.margin.right;
+				_top = _item.margin.top;
+				_bottom = _item.margin.bottom;
 				
 				_item.x = _padding.left + _left;
 				if(_lastItem != null)
@@ -118,12 +93,18 @@ package utils.liteui.component
 				_lastItem = _item;
 				_width = Math.max(_width, _lastItem.width + _left + _right);
 				_height += _item.height + _top + _bottom;
+				_item.update();
 			}
 			_width += _padding.right + _padding.left;
 			_height += _padding.bottom + _padding.top;
 			
-			_bg.width = _width;
-			_bg.height = _height;
+			this._width = _width;
+			this._height = _height;
+			if(_bg != null)
+			{
+				_bg.width = _width;
+				_bg.height = _height;
+			}
 		}
 		
 		override public function dispose():void
@@ -138,6 +119,11 @@ package utils.liteui.component
 				_item.dispose();
 			}
 			super.dispose();
+		}
+		
+		override public function get width(): Number
+		{
+			return _width;
 		}
 		
 		override public function set width(value:Number):void

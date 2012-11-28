@@ -2,6 +2,7 @@ package utils.liteui.component
 {
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
+	import flash.display.Shape;
 	import flash.events.MouseEvent;
 	
 	import mx.utils.UIDUtil;
@@ -22,7 +23,7 @@ package utils.liteui.component
 		private var _childMenuIcon: MovieClip;
 		private var _text: Label;
 		private var _childMenu: Menu;
-		private var _onChildMouseOver: Boolean = false;
+		private var _clickArea: Shape;
 		public static const ICON_OFFSET: int = 10;
 		
 		public function MenuItem(_skin:DisplayObjectContainer=null)
@@ -42,16 +43,19 @@ package utils.liteui.component
 			
 			_text = new Label();
 			addChild(_text);
+			_clickArea = new Shape();
+			addChild(_clickArea);
 			_text.color = 0xFFFFFF;
 			_text.autoSize = true;
 			
-			_margin = new Margin(0, 0, 0, 0);
-			_padding = new Margin(0, 0, 0, 0);
+			margin = new Margin(0, 0, 0, 0);
+			padding = new Margin(3, 0, 3, 0);
 		}
 		
 		public function set text(value: String): void
 		{
 			_text.text = value;
+			update();
 		}
 		
 		public function set color(value: uint): void
@@ -62,6 +66,7 @@ package utils.liteui.component
 		public function set indent(value: Number): void
 		{
 			_text.x = value + _padding.left;
+			update();
 		}
 
 		public function get margin(): Margin
@@ -82,6 +87,7 @@ package utils.liteui.component
 		public function set padding(value: Margin):void
 		{
 			_padding = value;
+			update();
 		}
 		
 		override public function get width():Number
@@ -128,41 +134,49 @@ package utils.liteui.component
 			_childMenuIcon.y = (height - _childMenuIcon.height) * .5;
 			_childMenuIcon.visible = true;
 			
-			_childMenu.x = width;
-			_childMenu.y = y - 5;
-			_childMenu.addEventListener(MouseEvent.MOUSE_OVER, onChildOver);
-			_childMenu.addEventListener(MouseEvent.MOUSE_OUT, onChildOut);
+			_childMenu.x = parentMenu.width - parentMenu.padding.left - parentMenu.padding.right + ICON_OFFSET;
+			_childMenu.y = -5;
 			
 			parentMenu.update();
 		}
 		
-		protected function onChildOver(evt: MouseEvent): void
+		public function update(): void
 		{
-			_onChildMouseOver = true;
-		}
-		
-		protected function onChildOut(evt: MouseEvent): void
-		{
-			_onChildMouseOver = false;
+			if(parentMenu != null)
+			{
+				_clickArea.graphics.clear();
+				_clickArea.graphics.beginFill(0xFFFFFF, 0);
+				_clickArea.graphics.drawRect(0, 0, parentMenu.width - parentMenu.padding.left - parentMenu.padding.right + ICON_OFFSET + _childMenuIcon.width, height);
+				_clickArea.graphics.endFill();
+			}
+			_text.x = _padding.left;
+			_text.y = _padding.top;
 		}
 		
 		override protected function onMouseOver(evt:MouseEvent):void
 		{
 			if(_childMenu != null)
 			{
-				parentMenu.addMenu(_childMenu);
+				addMenu(_childMenu);
 			}
 		}
 		
 		override protected function onMouseOut(evt:MouseEvent):void
 		{
-			if(!_onChildMouseOver)
+			if(_childMenu != null)
 			{
-				if(_childMenu != null)
-				{
-					parentMenu.removeMenu(_childMenu);
-				}
+				removeMenu(_childMenu);
 			}
+		}
+		
+		public function addMenu(child: Menu): void
+		{
+			addChild(child);
+		}
+		
+		public function removeMenu(child: Menu): void
+		{
+			removeChild(child);
 		}
 	}
 }
