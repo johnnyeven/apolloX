@@ -2,8 +2,10 @@ package utils.liteui.component
 {
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
+	import flash.events.MouseEvent;
 	import flash.utils.Dictionary;
 	
+	import utils.events.MenuEvent;
 	import utils.liteui.core.Component;
 	import utils.liteui.layouts.Margin;
 	import utils.resource.ResourcePool;
@@ -37,8 +39,23 @@ package utils.liteui.component
 			_itemList[_item.itemName] = _item;
 			_callbackList[_item.itemName] = _onClick;
 			_item.parentMenu = this;
+			_item.addEventListener(MouseEvent.CLICK, onItemClick);
 			addChild(_item);
 			update();
+		}
+		
+		protected function onItemClick(evt: MouseEvent): void
+		{
+			var _item: MenuItem = evt.target as MenuItem;
+			var _evt: MenuEvent = new MenuEvent(MenuEvent.ITEM_CLICK);
+			_evt.itemName = _item.itemName;
+			
+			if(_callbackList[_item.itemName] != null)
+			{
+				var _callback: Function = _callbackList[_item.itemName] as Function;
+				_callback(_evt);
+			}
+			evt.stopImmediatePropagation();
 		}
 		
 		public function removeItem(_item: MenuItem): void
