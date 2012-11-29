@@ -32,14 +32,11 @@ package utils.resource
 				{
 					var _class: Class = getDefinitionByName(className) as Class;
 					_resource = new _class();
-					if(_resource is BitmapData)
-					{
-						_resource = new Bitmap(_resource as BitmapData);
-					}
 				}
 				catch(err: Error)
 				{
-					
+					//Is BitmapData
+					_resource = new Bitmap(new _class(0, 0) as BitmapData)
 				}
 			}
 			return _resource;

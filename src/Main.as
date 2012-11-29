@@ -1,12 +1,18 @@
 package
 {
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.Security;
+	import flash.ui.Mouse;
+	import flash.ui.MouseCursor;
+	import flash.ui.MouseCursorData;
 	
 	import utils.GameManager;
-	import utils.liteui.component.Label;
 	import utils.VersionUtils;
+	import utils.liteui.component.Label;
+	import utils.resource.ResourcePool;
 	
 	import view.login.LoginBGComponent;
 	
@@ -36,8 +42,35 @@ package
 			{
 				showVersion();
 			}
+			setCursorStyle();
 			//LoginBGComponent.getInstance().destroy();
 			ApplicationFacade.getInstance().start(this);
+		}
+		
+		private function setCursorStyle(): void
+		{
+			var _mouseData: MouseCursorData = new MouseCursorData();
+			_mouseData.data = new Vector.<BitmapData>();
+			_mouseData.frameRate = 20;
+			var _bitmap: Bitmap;
+			for(var i: int = 1; i<=36; i++)
+			{
+				_bitmap = ResourcePool.getResource("ui.cursor.Cursor1_" + i) as Bitmap;
+				_mouseData.data.push(_bitmap.bitmapData);
+			}
+			Mouse.registerCursor(MouseCursor.ARROW, _mouseData);
+			
+			_mouseData = new MouseCursorData();
+			_mouseData.data = new Vector.<BitmapData>();
+			_mouseData.data.push((ResourcePool.getResource("ui.cursor.Link") as Bitmap).bitmapData);
+			Mouse.registerCursor(MouseCursor.BUTTON, _mouseData);
+			
+			_mouseData = new MouseCursorData();
+			_mouseData.data = new Vector.<BitmapData>();
+			_mouseData.data.push((ResourcePool.getResource("ui.cursor.Input") as Bitmap).bitmapData);
+			Mouse.registerCursor(MouseCursor.IBEAM, _mouseData);
+			
+			Mouse.cursor = MouseCursor.ARROW;
 		}
 		
 		private function showVersion(): void
