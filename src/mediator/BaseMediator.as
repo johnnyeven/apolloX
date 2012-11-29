@@ -19,7 +19,7 @@ package mediator
 	public class BaseMediator extends Mediator implements IMediator
 	{
 		protected var _isPopUp: Boolean = false;
-		public var mode: Boolean = false;
+		public var mode: Boolean = true;
 		public var onShow: Function;
 		public var onDestroy: Function;
 		public var zIndex: int;

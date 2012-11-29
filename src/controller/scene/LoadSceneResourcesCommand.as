@@ -38,6 +38,7 @@ package controller.scene
 			facade.registerMediator(new SceneBackgroundMediator());
 			facade.registerMediator(new StationViewMediator());
 			facade.registerCommand(CreateAssemblyViewCommand.LOAD_ASSEMBLY_VIEW_NOTE, CreateAssemblyViewCommand);
+			facade.registerCommand(CreateRepairViewCommand.LOAD_REPAIR_VIEW_NOTE, CreateRepairViewCommand);
 			
 //			var _backgroundMediator: SceneBackgroundMediator = facade.retrieveMediator(SceneBackgroundMediator.NAME) as SceneBackgroundMediator;
 //			_backgroundMediator.show();
