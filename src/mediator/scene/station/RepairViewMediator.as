@@ -20,7 +20,7 @@ package mediator.scene.station
 			super(NAME, new RepairViewComponent());
 			component.mediator = this;
 			_isPopUp = true;
-			popUpEffect = PopupEffect.TOP;
+			popUpEffect = PopupEffect.CENTER;
 			onShow = onShowCallback;
 		}
 		

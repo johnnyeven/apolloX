@@ -2,6 +2,7 @@ package utils.liteui.component
 {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
@@ -18,6 +19,7 @@ package utils.liteui.component
 		private var _oldMaxWidth: Number;
 		private var _oldMaxHeight: Number;
 		private var _measureSize: Rectangle;
+		private var _hitArea: Shape;
 		
 		public function Container(_skin:DisplayObjectContainer=null)
 		{
@@ -33,6 +35,16 @@ package utils.liteui.component
 				contentHeight = _skin.height;
 				UIUtils.remove(_skin);
 			}
+			_hitArea = new Shape();
+			addChild(_hitArea);
+		}
+		
+		private function drawHitArea(): void
+		{
+			_hitArea.graphics.clear();
+			_hitArea.graphics.beginFill(0xFFFFFF, 0);
+			_hitArea.graphics.drawRect(0, 0, width, height);
+			_hitArea.graphics.endFill();
 		}
 		
 		public function get contentWidth():Number
@@ -134,6 +146,7 @@ package utils.liteui.component
 				_oldMaxHeight = _measureSize.height;
 				dispatchEvent(new ViewEvent(ViewEvent.MAX_HEIGHT_CHANGE));
 			}
+			drawHitArea();
 		}
 		
 		public function add(child: DisplayObject): void

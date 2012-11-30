@@ -38,6 +38,8 @@ package view.scene.station.repair
 			_btnRepair = getUI(CaptionButton, "btnRepair") as CaptionButton;
 			
 			sortChildIndex();
+			
+			_avatar.source = "resources/assets/small_avatar.png";
 		}
 	}
 }

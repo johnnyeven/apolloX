@@ -19,7 +19,7 @@ package mediator
 	public class BaseMediator extends Mediator implements IMediator
 	{
 		protected var _isPopUp: Boolean = false;
-		public var mode: Boolean = true;
+		public var mode: Boolean = false;
 		public var onShow: Function;
 		public var onDestroy: Function;
 		public var zIndex: int;
@@ -72,7 +72,7 @@ package mediator
 							TweenLite.to(comp, .5, {x: GameManager.container.stageWidth, ease: Strong.easeIn, onComplete: onTweenDestroy});
 							break;
 						case PopupEffect.CENTER:
-							TweenLite.to(comp, .5, {transformAroundCenter: {scaleX: .5, scaleY: .5, alpha: .5}, ease: Strong.easeIn, onComplete: onTweenDestroy});
+							TweenLite.to(comp, .5, {transformAroundCenter: {scaleX: .9, scaleY: .9, alpha: 0}, ease: Strong.easeIn, onComplete: onTweenDestroy});
 							break;
 					}
 				}
@@ -142,8 +142,8 @@ package mediator
 						TweenLite.to(comp, 0.5, {y: centerPoint.y, ease: Strong.easeOut, onComplete: onShowComplete});
 						break;
 					case PopupEffect.CENTER:
-						comp.scaleX = .5;
-						comp.scaleY = .5;
+						comp.scaleX = .9;
+						comp.scaleY = .9;
 						comp.alpha = 0;
 						centerPoint = UIUtils.componentCenterInStage(comp, width, height);
 						comp.x = centerPoint.x;

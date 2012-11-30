@@ -1,7 +1,12 @@
 package utils.liteui.component
 {
+	import com.greensock.TweenLite;
+	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Loader;
+	import flash.display.LoaderInfo;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
@@ -31,7 +36,7 @@ package utils.liteui.component
 			_loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoadComplete);
 			_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onLoadIOError);
-			addChild(_loader);
+			//addChild(_loader);
 		}
 		
 		override public function dispose():void
@@ -45,6 +50,12 @@ package utils.liteui.component
 		
 		protected function onLoadComplete(evt: Event): void
 		{
+			var _loaderInfo: LoaderInfo = evt.target as LoaderInfo;
+			if(_loaderInfo.content is Bitmap)
+			{
+				addChild(_loaderInfo.content);
+				TweenLite.from(_loaderInfo.content, .5, {alpha: 0});
+			}
 			dispatchEvent(new Event(Event.COMPLETE));
 			if(parent != null)
 			{
