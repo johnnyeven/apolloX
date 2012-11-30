@@ -54,7 +54,7 @@ package mediator.scene.station
 		
 		private function onShowCallback(_mediator: BaseMediator): void
 		{
-			component.showSlotComponent();
+			component.showListComponent();
 		}
 	}
 }
