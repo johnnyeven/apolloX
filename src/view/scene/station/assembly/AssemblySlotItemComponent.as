@@ -3,8 +3,6 @@ package view.scene.station.assembly
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Strong;
 	
-	import fl.motion.ColorMatrix;
-	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;

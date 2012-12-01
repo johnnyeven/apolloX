@@ -6,8 +6,6 @@ package utils.liteui.component
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
-	import mx.messaging.AbstractConsumer;
-	
 	import utils.GameManager;
 	import utils.MouseUtils;
 	import utils.UIUtils;
