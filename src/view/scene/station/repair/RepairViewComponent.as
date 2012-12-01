@@ -5,6 +5,8 @@ package view.scene.station.repair
 	
 	import mediator.scene.station.RepairViewMediator;
 	
+	import parameters.station.RepairItemListParameter;
+	
 	import utils.enum.ScrollBarOrientation;
 	import utils.liteui.component.Button;
 	import utils.liteui.component.Container;
@@ -62,16 +64,61 @@ package view.scene.station.repair
 		
 		public function showListComponent(): void
 		{
-			var _item1: RepairListItemComponent = new RepairListItemComponent();
-			_container.add(_item1);
-			var _item2: RepairListItemComponent = new RepairListItemComponent();
-			_container.add(_item2);
-			var _item3: RepairListItemComponent = new RepairListItemComponent();
-			_container.add(_item3);
-			var _item4: RepairListItemComponent = new RepairListItemComponent();
-			_container.add(_item4);
-			var _item5: RepairListItemComponent = new RepairListItemComponent();
-			_container.add(_item5);
+			var parameter: RepairItemListParameter = new RepairItemListParameter();
+			parameter.avatar = "resources/assets/small_avatar.png";
+			parameter.shipName = "突击者级";
+			parameter.currentSheild = 8273;
+			parameter.currentArmor = 7263;
+			parameter.currentConstruct = 11502;
+			parameter.maxSheild = 8273;
+			parameter.maxArmor = 9805;
+			parameter.maxConstruct = 11502;
+			parameter.cost = 112856;
+			var _item: RepairListItemComponent = new RepairListItemComponent();
+			_item.info = parameter;
+			_container.add(_item);
+			
+			parameter = new RepairItemListParameter();
+			parameter.avatar = "resources/assets/small_avatar.png";
+			parameter.shipName = "进化者级";
+			parameter.currentSheild = 5273;
+			parameter.currentArmor = 763;
+			parameter.currentConstruct = 11502;
+			parameter.maxSheild = 8273;
+			parameter.maxArmor = 9805;
+			parameter.maxConstruct = 11502;
+			parameter.cost = 6411502;
+			_item = new RepairListItemComponent();
+			_item.info = parameter;
+			_container.add(_item);
+			
+			parameter = new RepairItemListParameter();
+			parameter.avatar = "resources/assets/small_avatar.png";
+			parameter.shipName = "地狱天使级";
+			parameter.currentSheild = 5273;
+			parameter.currentArmor = 763;
+			parameter.currentConstruct = 9800;
+			parameter.maxSheild = 10273;
+			parameter.maxArmor = 19805;
+			parameter.maxConstruct = 9800;
+			parameter.cost = 112856;
+			_item = new RepairListItemComponent();
+			_item.info = parameter;
+			_container.add(_item);
+			
+			parameter = new RepairItemListParameter();
+			parameter.avatar = "resources/assets/small_avatar.png";
+			parameter.shipName = "帕拉丁级";
+			parameter.currentSheild = 20459;
+			parameter.currentArmor = 19800;
+			parameter.currentConstruct = 15000;
+			parameter.maxSheild = 20459;
+			parameter.maxArmor = 19800;
+			parameter.maxConstruct = 15000;
+			parameter.cost = 0;
+			_item = new RepairListItemComponent();
+			_item.info = parameter;
+			_container.add(_item);
 			
 			_container.layout.update();
 			_scrollBar.rebuild();

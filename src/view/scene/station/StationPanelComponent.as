@@ -5,6 +5,7 @@ package view.scene.station
 
 	import controller.scene.CreateAssemblyViewCommand;
 	import controller.scene.CreateRepairViewCommand;
+	import controller.scene.CreateMedicalViewCommand;
 	
 	import parameters.station.StationCharacterListParameter;
 	
@@ -43,6 +44,7 @@ package view.scene.station
 			
 			_btnAssembly.addEventListener(MouseEvent.MOUSE_UP, onBtnAssemblyClick);
 			_btnRepair.addEventListener(MouseEvent.MOUSE_UP, onBtnRepairClick);
+			_btnMedical.addEventListener(MouseEvent.MOUSE_UP, onBtnMedicalClick);
 			
 			_toggleDailiren.caption = "代理人";
 			_toggleGuest.caption = "访客";
@@ -120,6 +122,11 @@ package view.scene.station
 		private function onBtnRepairClick(evt: MouseEvent): void
 		{
 			ApplicationFacade.getInstance().sendNotification(CreateRepairViewCommand.LOAD_REPAIR_VIEW_NOTE);
+		}
+		
+		private function onBtnMedicalClick(evt: MouseEvent): void
+		{
+			ApplicationFacade.getInstance().sendNotification(CreateMedicalViewCommand.LOAD_MEDICAL_VIEW_NOTE);
 		}
 	}
 }

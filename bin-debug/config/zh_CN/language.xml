@@ -12,4 +12,7 @@
 	
 	<common_messagebox_ok>确定</common_messagebox_ok>
 	<common_messagebox_cancel>取消</common_messagebox_cancel>
+	
+	<medical_cost_free>免费（自动）</medical_cost_free>
+	<repair_cost_free>无费用</repair_cost_free>
 </root>
