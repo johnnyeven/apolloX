@@ -25,6 +25,7 @@ package view.scene.station
 		private var _btnMarket: Button;
 		private var _btnRepair: Button;
 		private var _btnMedical: Button;
+		private var _btnEnsure: Button;
 		private var _toggleDailiren: ToggleButton;
 		private var _toggleGuest: ToggleButton;
 		private var _containerDailiren: Container;
@@ -39,6 +40,7 @@ package view.scene.station
 			_btnMarket = getUI(Button, "btnMarket") as Button;
 			_btnRepair = getUI(Button, "btnRepair") as Button;
 			_btnMedical = getUI(Button, "btnMedical") as Button;
+			_btnEnsure = getUI(Button, "btnEnsure") as Button;
 			_toggleDailiren = getUI(ToggleButton, "dailirenToggleButton") as ToggleButton;
 			_toggleGuest = getUI(ToggleButton, "guestToggleButton") as ToggleButton;
 			
