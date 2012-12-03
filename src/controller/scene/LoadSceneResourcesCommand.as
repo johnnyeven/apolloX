@@ -6,7 +6,6 @@ package controller.scene
 	import mediator.login.StartMediator;
 	import mediator.scene.SceneBackgroundMediator;
 	import mediator.scene.SceneControlMediator;
-	import mediator.scene.station.AssemblyViewMediator;
 	import mediator.scene.station.StationViewMediator;
 	
 	import org.puremvc.as3.interfaces.INotification;
@@ -41,6 +40,7 @@ package controller.scene
 			facade.registerCommand(CreateRepairViewCommand.LOAD_REPAIR_VIEW_NOTE, CreateRepairViewCommand);
 			facade.registerCommand(CreateRepairViewCommand.LOAD_REPAIR_VIEW_NOTE, CreateRepairViewCommand);
 			facade.registerCommand(CreateMedicalViewCommand.LOAD_MEDICAL_VIEW_NOTE, CreateMedicalViewCommand);
+			facade.registerCommand(CreateEnsureViewCommand.LOAD_ENSURE_VIEW_NOTE, CreateEnsureViewCommand);
 			
 //			var _backgroundMediator: SceneBackgroundMediator = facade.retrieveMediator(SceneBackgroundMediator.NAME) as SceneBackgroundMediator;
 //			_backgroundMediator.show();

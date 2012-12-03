@@ -15,4 +15,6 @@
 	
 	<medical_cost_free>免费（自动）</medical_cost_free>
 	<repair_cost_free>无费用</repair_cost_free>
+	<ensure_level_zero>未投保</ensure_level_zero>
+	<ensure_end_time_zero>-</ensure_end_time_zero>
 </root>

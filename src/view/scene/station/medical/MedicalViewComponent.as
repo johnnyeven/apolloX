@@ -22,9 +22,9 @@ package view.scene.station.medical
 	{
 		private var _btnClose: Button;
 		private var _caption: Label;
-		private var _lblShipNameLabel: Label;
-		private var _lblDamageLabel: Label;
-		private var _lblRepairCostLabel: Label;
+		private var _lblCloneNameLabel: Label;
+		private var _lblSkillPointLabel: Label;
+		private var _lblCostLabel: Label;
 		private var _lblControlLabel: Label;
 		private var _container: Container;
 		private var _scrollBar: ScrollBar;
@@ -35,9 +35,9 @@ package view.scene.station.medical
 			
 			_btnClose = getUI(Button, "btnClose") as Button;
 			_caption = getUI(Label, "caption") as Label;
-			_lblShipNameLabel = getUI(Label, "lblCloneName") as Label;
-			_lblDamageLabel = getUI(Label, "lblSkillPoint") as Label;
-			_lblRepairCostLabel = getUI(Label, "lblCost") as Label;
+			_lblCloneNameLabel = getUI(Label, "lblCloneName") as Label;
+			_lblSkillPointLabel = getUI(Label, "lblSkillPoint") as Label;
+			_lblCostLabel = getUI(Label, "lblCost") as Label;
 			_lblControlLabel = getUI(Label, "lblControl") as Label;
 			
 			_container = new Container();
