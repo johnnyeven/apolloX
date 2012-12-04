@@ -41,6 +41,7 @@ package controller.scene
 			facade.registerCommand(CreateRepairViewCommand.LOAD_REPAIR_VIEW_NOTE, CreateRepairViewCommand);
 			facade.registerCommand(CreateMedicalViewCommand.LOAD_MEDICAL_VIEW_NOTE, CreateMedicalViewCommand);
 			facade.registerCommand(CreateEnsureViewCommand.LOAD_ENSURE_VIEW_NOTE, CreateEnsureViewCommand);
+			facade.registerCommand(CreateEnsureSelectViewCommand.LOAD_ENSURE_VIEW_NOTE, CreateEnsureSelectViewCommand);
 			
 //			var _backgroundMediator: SceneBackgroundMediator = facade.retrieveMediator(SceneBackgroundMediator.NAME) as SceneBackgroundMediator;
 //			_backgroundMediator.show();

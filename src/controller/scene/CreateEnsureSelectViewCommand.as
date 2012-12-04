@@ -10,33 +10,32 @@ package controller.scene
 	
 	import utils.resource.ResourcePool;
 	
-	public class CreateEnsureViewCommand extends SimpleCommand
+	public class CreateEnsureSelectViewCommand extends SimpleCommand
 	{
-		public static const LOAD_ENSURE_VIEW_NOTE: String = "LoadSureViewNote";
+		public static const LOAD_ENSURE_VIEW_NOTE: String = "LoadSureSelectViewNote";
 		
-		public function CreateEnsureViewCommand()
+		public function CreateEnsureSelectViewCommand()
 		{
 			super();
 		}
 		
 		override public function execute(notification:INotification):void
 		{
-			var _mediator: EnsureViewMediator = facade.retrieveMediator(EnsureViewMediator.NAME) as EnsureViewMediator;
+			var _mediator: EnsureSelectViewMediator = facade.retrieveMediator(EnsureSelectViewMediator.NAME) as EnsureSelectViewMediator;
 			if (_mediator != null)
 			{
 				_mediator.show();
 			}
 			else
 			{
-				ResourcePool.getResourceByLoader("station_ensure_ui", "assets.scene1Station.ensure.view", onLoadComplete);
+				ResourcePool.getResourceByLoader("station_ensure_ui", "assets.scene1Station.ensure.selectView", onLoadComplete);
 			}
 		}
 		
 		private function onLoadComplete(target: DisplayObject): void
 		{
-			var _mediator: EnsureViewMediator = new EnsureViewMediator();
+			var _mediator: EnsureSelectViewMediator = new EnsureSelectViewMediator();
 			facade.registerMediator(_mediator);
-			facade.registerMediator(new EnsureSelectViewMediator());
 			
 			_mediator.show();
 		}

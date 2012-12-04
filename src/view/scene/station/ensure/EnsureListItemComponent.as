@@ -1,7 +1,10 @@
 package view.scene.station.ensure
 {
+	import controller.scene.CreateEnsureSelectViewCommand;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
+	import flash.events.MouseEvent;
 	
 	import parameters.station.EnsureItemListParameter;
 	
@@ -32,6 +35,13 @@ package view.scene.station.ensure
 			_btnSelect = getUI(CaptionButton, "btnSelect") as CaptionButton;
 			
 			sortChildIndex();
+			
+			_btnSelect.addEventListener(MouseEvent.CLICK, onBtnClick);
+		}
+		
+		private function onBtnClick(evt: MouseEvent): void
+		{
+			ApplicationFacade.getInstance().sendNotification(CreateEnsureSelectViewCommand.LOAD_ENSURE_VIEW_NOTE);
 		}
 		
 		override public function dispose():void
