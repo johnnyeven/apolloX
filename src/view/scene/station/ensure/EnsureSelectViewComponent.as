@@ -27,6 +27,7 @@ package view.scene.station.ensure
 		private var _lblCostLabel: Label;
 		private var _container: Container;
 		private var _scrollBar: ScrollBar;
+		private var _currentItem: EnsureSelectItemListParameter;
 		
 		public function EnsureSelectViewComponent()
 		{
@@ -104,6 +105,7 @@ package view.scene.station.ensure
 			}
 			var _this: EnsureSelectListItemComponent = evt.target as EnsureSelectListItemComponent;
 			_this.showHighlight();
+			_currentItem = _this.info;
 		}
 	}
 }
