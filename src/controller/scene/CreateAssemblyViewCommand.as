@@ -23,7 +23,7 @@ package controller.scene
 			var _mediator: AssemblyViewMediator = facade.retrieveMediator(AssemblyViewMediator.NAME) as AssemblyViewMediator;
 			if (_mediator != null)
 			{
-				_mediator.show();
+				facade.sendNotification(AssemblyViewMediator.ASSEMBLY_SHOW_NOTE);
 			}
 			else
 			{
@@ -36,7 +36,7 @@ package controller.scene
 			var _mediator: AssemblyViewMediator = new AssemblyViewMediator();
 			facade.registerMediator(_mediator);
 			
-			_mediator.show();
+			facade.sendNotification(AssemblyViewMediator.ASSEMBLY_SHOW_NOTE);
 		}
 	}
 }

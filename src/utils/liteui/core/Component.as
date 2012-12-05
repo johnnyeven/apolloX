@@ -85,6 +85,18 @@ package utils.liteui.core
 			return null;
 		}
 		
+		public function getUIByDisplay(_componentClass: Class, _display: DisplayObject): Sprite
+		{
+			if(_display != null)
+			{
+				var _ui: Sprite = new _componentClass(_display) as Sprite;
+				addChild(_ui);
+				updateChildByName(_display.name, _ui);
+				return _ui;
+			}
+			return null;
+		}
+		
 		protected function getSkin(_skinName: String): DisplayObject
 		{
 			var _child: DisplayObject = getChildByName(_skinName);

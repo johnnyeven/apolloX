@@ -23,7 +23,7 @@ package controller.scene
 			var _mediator: RepairViewMediator = facade.retrieveMediator(RepairViewMediator.NAME) as RepairViewMediator;
 			if (_mediator != null)
 			{
-				_mediator.show();
+				facade.sendNotification(RepairViewMediator.REPAIR_SHOW_NOTE);
 			}
 			else
 			{
@@ -36,7 +36,7 @@ package controller.scene
 			var _mediator: RepairViewMediator = new RepairViewMediator();
 			facade.registerMediator(_mediator);
 			
-			_mediator.show();
+			facade.sendNotification(RepairViewMediator.REPAIR_SHOW_NOTE);
 		}
 	}
 }

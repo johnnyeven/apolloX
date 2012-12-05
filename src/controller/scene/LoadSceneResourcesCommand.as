@@ -51,7 +51,7 @@ package controller.scene
 //			_controlMediator.show();
 			
 			var _stationMediator: StationViewMediator = facade.retrieveMediator(StationViewMediator.NAME) as StationViewMediator;
-			_stationMediator.show();
+			facade.sendNotification(StationViewMediator.STATION_SHOW_NOTE);
 			
 			sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
 		}

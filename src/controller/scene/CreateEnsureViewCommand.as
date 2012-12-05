@@ -2,7 +2,6 @@ package controller.scene
 {
 	import flash.display.DisplayObject;
 	
-	import mediator.scene.station.EnsureSelectViewMediator;
 	import mediator.scene.station.EnsureViewMediator;
 	
 	import org.puremvc.as3.interfaces.INotification;
@@ -24,7 +23,7 @@ package controller.scene
 			var _mediator: EnsureViewMediator = facade.retrieveMediator(EnsureViewMediator.NAME) as EnsureViewMediator;
 			if (_mediator != null)
 			{
-				_mediator.show();
+				facade.sendNotification(EnsureViewMediator.ENSURE_SHOW_NOTE);
 			}
 			else
 			{
@@ -36,9 +35,8 @@ package controller.scene
 		{
 			var _mediator: EnsureViewMediator = new EnsureViewMediator();
 			facade.registerMediator(_mediator);
-			facade.registerMediator(new EnsureSelectViewMediator());
 			
-			_mediator.show();
+			facade.sendNotification(EnsureViewMediator.ENSURE_SHOW_NOTE);
 		}
 	}
 }

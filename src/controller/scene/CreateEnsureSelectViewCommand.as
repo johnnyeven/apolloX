@@ -24,7 +24,7 @@ package controller.scene
 			var _mediator: EnsureSelectViewMediator = facade.retrieveMediator(EnsureSelectViewMediator.NAME) as EnsureSelectViewMediator;
 			if (_mediator != null)
 			{
-				_mediator.show();
+				facade.sendNotification(EnsureSelectViewMediator.ENSURE_SHOW_NOTE);
 			}
 			else
 			{
@@ -37,7 +37,7 @@ package controller.scene
 			var _mediator: EnsureSelectViewMediator = new EnsureSelectViewMediator();
 			facade.registerMediator(_mediator);
 			
-			_mediator.show();
+			facade.sendNotification(EnsureSelectViewMediator.ENSURE_SHOW_NOTE);
 		}
 	}
 }
