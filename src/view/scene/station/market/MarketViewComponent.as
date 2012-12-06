@@ -7,6 +7,8 @@ package view.scene.station.market
 	
 	import utils.liteui.component.Button;
 	import utils.liteui.component.Label;
+	import utils.liteui.component.TreeNode;
+	import utils.liteui.component.TreeView;
 	import utils.liteui.core.Component;
 	import utils.resource.ResourcePool;
 	
@@ -33,7 +35,25 @@ package view.scene.station.market
 		
 		public function showComponent(): void
 		{
+			var tree: TreeView = new TreeView();
+			tree.x = 39;
+			tree.y = 141;
+			tree.width = 306;
+			tree.height = 412;
 			
+			addChild(tree);
+			
+			var item: TreeNode = new TreeNode();
+			item.caption = "测试一下";
+			tree.add(item);
+			
+			item = new TreeNode();
+			item.caption = "123";
+			tree.add(item);
+			
+			item = new TreeNode();
+			item.caption = "123fgndfgn3";
+			tree.add(item);
 		}
 	}
 }
