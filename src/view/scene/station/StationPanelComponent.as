@@ -1,6 +1,7 @@
 package view.scene.station
 {
 	import controller.scene.CreateAssemblyViewCommand;
+	import controller.scene.CreateMarketViewCommand;
 	import controller.scene.CreateEnsureViewCommand;
 	import controller.scene.CreateMedicalViewCommand;
 	import controller.scene.CreateRepairViewCommand;
@@ -65,6 +66,7 @@ package view.scene.station
 			_toggleGuest = getUI(ToggleButton, "guestToggleButton") as ToggleButton;
 			
 			_btnAssembly.addEventListener(MouseEvent.MOUSE_UP, onBtnAssemblyClick);
+			_btnMarket.addEventListener(MouseEvent.MOUSE_UP, onBtnMarketClick);
 			_btnRepair.addEventListener(MouseEvent.MOUSE_UP, onBtnRepairClick);
 			_btnMedical.addEventListener(MouseEvent.MOUSE_UP, onBtnMedicalClick);
 			_btnEnsure.addEventListener(MouseEvent.MOUSE_UP, onBtnEnsureClick);
@@ -151,6 +153,11 @@ package view.scene.station
 		private function onBtnAssemblyClick(evt: MouseEvent): void
 		{
 			ApplicationFacade.getInstance().sendNotification(CreateAssemblyViewCommand.LOAD_ASSEMBLY_VIEW_NOTE);
+		}
+		
+		private function onBtnMarketClick(evt: MouseEvent): void
+		{
+			ApplicationFacade.getInstance().sendNotification(CreateMarketViewCommand.LOAD_MARKET_VIEW_NOTE);
 		}
 		
 		private function onBtnRepairClick(evt: MouseEvent): void

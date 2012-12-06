@@ -37,6 +37,7 @@ package controller.scene
 			facade.registerMediator(new SceneBackgroundMediator());
 			facade.registerMediator(new StationViewMediator());
 			facade.registerCommand(CreateAssemblyViewCommand.LOAD_ASSEMBLY_VIEW_NOTE, CreateAssemblyViewCommand);
+			facade.registerCommand(CreateMarketViewCommand.LOAD_MARKET_VIEW_NOTE, CreateMarketViewCommand);
 			facade.registerCommand(CreateRepairViewCommand.LOAD_REPAIR_VIEW_NOTE, CreateRepairViewCommand);
 			facade.registerCommand(CreateRepairViewCommand.LOAD_REPAIR_VIEW_NOTE, CreateRepairViewCommand);
 			facade.registerCommand(CreateMedicalViewCommand.LOAD_MEDICAL_VIEW_NOTE, CreateMedicalViewCommand);

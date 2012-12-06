@@ -7,6 +7,7 @@
 		<ClassLoader name="control_ui" url="resources/ui/scene/scene_control_ui.swf" version="1.0.0" />
 	</BatchLoader>
 	<ClassLoader name="station_assembly_ui" url="resources/ui/scene/assembly/scene1_assembly_ui.swf" version="1.0.0" />
+	<ClassLoader name="station_market_ui" url="resources/ui/scene/market/scene1_market_ui.swf" version="1.0.0" />
 	<ClassLoader name="station_repair_ui" url="resources/ui/scene/repair/scene1_repair_ui.swf" version="1.0.0" />
 	<ClassLoader name="station_medical_ui" url="resources/ui/scene/medical/scene1_medical_ui.swf" version="1.0.0" />
 	<ClassLoader name="station_ensure_ui" url="resources/ui/scene/ensure/scene1_ensure_ui.swf" version="1.0.0" />
