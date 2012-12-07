@@ -18,12 +18,14 @@ package utils.liteui.component
 		private var _listIcon: DisplayObject;
 		private var _seperator: DisplayObject;
 		private var _clickArea: Shape;
+		private var _childNode: Vector.<TreeNode>;
 		public static var padding: Margin = new Margin(8, 0, 8, 0);
 		public static var indent: uint = 10;
 		
 		public function TreeNode(_caption: String = null, _parent: TreeNode = null, _root: TreeView = null)
 		{
 			super();
+			_childNode = new Vector.<TreeNode>();
 			
 			this._caption = new Label();
 			this._caption.color = 0x0099FF;
