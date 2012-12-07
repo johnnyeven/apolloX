@@ -33,6 +33,8 @@ package utils.liteui.component
 		private var _autoScroll: Boolean = false;
 		private var _oldBarMouseDownPos: Number;
 		private var _oldBarMousePos: Number;
+		private var _width: Number;
+		private var _height: Number;
 		
 		private static const MIN_BAR_SIZE: Number = 14;
 		private static const MAX_STEP: Number = 5;
@@ -63,6 +65,8 @@ package utils.liteui.component
 			
 			width = size.x;
 			height = size.y;
+			_width = size.x;
+			_height = size.y;
 		}
 		
 		protected function onUpButtonClick(evt: MouseEvent): void
@@ -196,26 +200,26 @@ package utils.liteui.component
 					_upButton.x = 0;
 					_upButton.y = 0;
 					_trackSprite.y = _upButton.height;
-					_trackSprite.height = height - _upButton.height - _downButton.height;
+					_trackSprite.height = _height - _upButton.height - _downButton.height;
 				}
 				else if(_upButton == null && _downButton != null)
 				{
 					_trackSprite.y = 0;
-					_trackSprite.height = height - _downButton.height;
+					_trackSprite.height = _height - _downButton.height;
 					_downButton.x = 0;
-					_downButton.y = height - _downButton.height;
+					_downButton.y = _height - _downButton.height;
 				}
 				else if(_upButton != null && _downButton == null)
 				{
 					_upButton.x = 0;
 					_upButton.y = 0;
 					_trackSprite.y = _upButton.height;
-					_trackSprite.height = height - _upButton.height;
+					_trackSprite.height = _height - _upButton.height;
 				}
 				else
 				{
 					_trackSprite.y = 0;
-					_trackSprite.height = height;
+					_trackSprite.height = _height;
 				}
 				_trackSprite.x = 0;
 				_bar.x = 0;
@@ -229,26 +233,26 @@ package utils.liteui.component
 					_upButton.y = 0;
 					_upButton.x = 0;
 					_trackSprite.x = _upButton.width;
-					_trackSprite.width = width - _upButton.width - _downButton.width;
+					_trackSprite.width = _width - _upButton.width - _downButton.width;
 				}
 				else if(_upButton == null && _downButton != null)
 				{
 					_trackSprite.x = 0;
-					_trackSprite.width = width - _downButton.width;
+					_trackSprite.width = _width - _downButton.width;
 					_downButton.y = 0;
-					_downButton.x = width - _downButton.width;
+					_downButton.x = _width - _downButton.width;
 				}
 				else if(_upButton != null && _downButton == null)
 				{
 					_upButton.y = 0;
 					_upButton.x = 0;
 					_trackSprite.x = _upButton.width;
-					_trackSprite.width = width - _upButton.width;
+					_trackSprite.width = _width - _upButton.width;
 				}
 				else
 				{
 					_trackSprite.x = 0;
-					_trackSprite.width = width;
+					_trackSprite.width = _width;
 				}
 				_trackSprite.y = 0;
 				_bar.y = 0;
@@ -478,6 +482,7 @@ package utils.liteui.component
 		
 		override public function set height(value:Number):void
 		{
+			_height = value;
 			if(_orientation == ScrollBarOrientation.VERTICAL)
 			{
 				if(_upButton != null && _downButton != null)
@@ -512,6 +517,7 @@ package utils.liteui.component
 		
 		override public function set width(value:Number):void
 		{
+			_width = value;
 			if(_orientation == ScrollBarOrientation.HORIZONTAL)
 			{
 				if(_upButton != null && _downButton != null)

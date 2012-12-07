@@ -69,13 +69,13 @@ package utils.liteui.component
 		{
 			if(_expandStatus)
 			{
-				collspand();
 				_expandStatus = false;
+				collspand();
 			}
 			else
 			{
-				expand();
 				_expandStatus = true;
+				expand();
 			}
 		}
 		
@@ -182,12 +182,10 @@ package utils.liteui.component
 			
 			autoFixListIcon();
 			
-			if(_expandStatus)
+			if(_expandStatus && _childNode.length > 0)
 			{
-				if(_childNode.length > 0)
-				{
-					_childContainerLayout.update();
-				}
+				_childContainerLayout.update();
+				
 				var _child: TreeNode;
 				for each(_child in _childNode)
 				{
