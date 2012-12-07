@@ -65,6 +65,16 @@ package utils.liteui.component
 			_clickArea.addEventListener(MouseEvent.CLICK, onAreaClick);
 		}
 		
+		override protected function onMouseOver(evt:MouseEvent):void
+		{
+			_clickArea.alpha = .1;
+		}
+		
+		override protected function onMouseOut(evt:MouseEvent):void
+		{
+			_clickArea.alpha = 0;
+		}
+		
 		private function onAreaClick(evt: MouseEvent): void
 		{
 			if(_expandStatus)
@@ -166,9 +176,10 @@ package utils.liteui.component
 			if(_rootNode != null)
 			{
 				_clickArea.graphics.clear();
-				_clickArea.graphics.beginFill(0xFFFFFF, 0);
+				_clickArea.graphics.beginFill(0xFFFFFF, 1);
 				_clickArea.graphics.drawRect(0, 0, _rootNode.innerWidth, availableHeight);
 				_clickArea.graphics.endFill();
+				_clickArea.alpha = 0;
 				
 				_seperator.x = -seperatorOffset;
 				_seperator.y = availableHeight - _seperator.height;
