@@ -29,7 +29,7 @@ package utils.liteui.component
 			_scrollBar.height = _container.contentHeight;
 			_scrollBar.view = _container;
 			
-			_padding = new Margin(10, 10, 10, 10);
+			_padding = new Margin(0, 0, 0, 0);
 			_node = new Vector.<TreeNode>();
 			
 			addChild(_container);
@@ -54,6 +54,7 @@ package utils.liteui.component
 			if(index != -1)
 			{
 				_node.splice(index, 1);
+				_container.remove(child);
 				update();
 			}
 		}

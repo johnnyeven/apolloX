@@ -36,10 +36,10 @@ package view.scene.station.market
 		public function showComponent(): void
 		{
 			var tree: TreeView = new TreeView();
-			tree.x = 39;
-			tree.y = 141;
-			tree.width = 306;
-			tree.height = 412;
+			tree.x = 41;
+			tree.y = 145;
+			tree.width = 286;
+			tree.height = 392;
 			
 			addChild(tree);
 			
@@ -47,13 +47,27 @@ package view.scene.station.market
 			item.caption = "测试一下";
 			tree.add(item);
 			
-			item = new TreeNode();
-			item.caption = "123";
-			tree.add(item);
+			var item1: TreeNode = new TreeNode();
+			item1.caption = "123";
+			tree.add(item1);
 			
-			item = new TreeNode();
-			item.caption = "123fgndfgn3";
-			tree.add(item);
+			var sub: TreeNode = new TreeNode();
+			sub.caption = "youlaiyoulai";
+			item1.add(sub);
+			
+			sub = new TreeNode();
+			sub.caption = "uykyuiyuti";
+			item.add(sub);
+			
+			var sub1: TreeNode = new TreeNode();
+			sub1.caption = "youlaiyoulai";
+			sub.add(sub1);
+			
+			var sub2: TreeNode = new TreeNode();
+			sub2.caption = "youlaiyoulai123";
+			sub1.add(sub2);
+			
+			tree.update();
 		}
 	}
 }
