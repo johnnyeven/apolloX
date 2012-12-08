@@ -8,6 +8,7 @@ package utils.liteui.component
 	import flash.events.MouseEvent;
 	
 	import utils.StringUtils;
+	import utils.events.TreeEvent;
 	import utils.liteui.core.Component;
 	import utils.liteui.layouts.HorizontalTileLayout;
 	import utils.liteui.layouts.Margin;
@@ -77,15 +78,25 @@ package utils.liteui.component
 		
 		private function onAreaClick(evt: MouseEvent): void
 		{
-			if(_expandStatus)
+			if(_childNode.length > 0)
 			{
-				_expandStatus = false;
-				collspand();
+				if(_expandStatus)
+				{
+					_expandStatus = false;
+					collspand();
+				}
+				else
+				{
+					_expandStatus = true;
+					expand();
+				}
 			}
 			else
 			{
-				_expandStatus = true;
-				expand();
+				var _treeEvent: TreeEvent = new TreeEvent(TreeEvent.TREE_NODE_CLICK, true);
+				_treeEvent.caption = caption;
+				
+				dispatchEvent(_treeEvent);
 			}
 		}
 		

@@ -1,6 +1,7 @@
 package controller.scene
 {
 	import controller.init.LoadServerListCommand;
+	import controller.space.LeaveIntoSpaceCommand;
 	
 	import mediator.loader.ProgressBarMediator;
 	import mediator.login.StartMediator;
@@ -36,6 +37,7 @@ package controller.scene
 		{
 			facade.registerMediator(new SceneBackgroundMediator());
 			facade.registerMediator(new StationViewMediator());
+			facade.registerCommand(LeaveIntoSpaceCommand.LEAVE_INTO_SPACE_NOTE, LeaveIntoSpaceCommand);
 			facade.registerCommand(CreateAssemblyViewCommand.LOAD_ASSEMBLY_VIEW_NOTE, CreateAssemblyViewCommand);
 			facade.registerCommand(CreateMarketViewCommand.LOAD_MARKET_VIEW_NOTE, CreateMarketViewCommand);
 			facade.registerCommand(CreateRepairViewCommand.LOAD_REPAIR_VIEW_NOTE, CreateRepairViewCommand);

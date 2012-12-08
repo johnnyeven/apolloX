@@ -161,6 +161,12 @@ package utils.liteui.component
 			measureSize();
 		}
 		
+		public function removeAll(): void
+		{
+			_scrollContent.removeChildren();
+			measureSize();
+		}
+		
 		public function addAt(child: DisplayObject, index: int): void
 		{
 			_scrollContent.addChildAt(child, index);

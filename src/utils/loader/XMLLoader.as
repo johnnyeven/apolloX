@@ -69,25 +69,29 @@ package utils.loader
 		{
 			var _nodeName: String;
 			var _childXML: XML;
-			for each(_childXML in _xml.children())
+			
+			if(_xml.hasOwnProperty("loader"))
 			{
-				_nodeName = _childXML.name();
-				if(_nodeName == "BatchLoader")
+				for each(_childXML in _xml.loader.children())
 				{
-					var _batch = new BatchLoader(String(_childXML.@name));
-					parseResourceXML(_childXML, _batch);
-					if(_batchLoader != null)
+					_nodeName = _childXML.name();
+					if(_nodeName == "BatchLoader")
 					{
-						_batchLoader.addLoader(_batch);
+						var _batch:BatchLoader = new BatchLoader(String(_childXML.@name));
+						parseResourceXML(_childXML, _batch);
+						if(_batchLoader != null)
+						{
+							_batchLoader.addLoader(_batch);
+						}
 					}
-				}
-				else
-				{
-					var _class: Class = LoaderPool.getLoaderClass(_nodeName);
-					var _loader: ItemLoader = new _class("", "", _childXML);
-					if(_batchLoader != null)
+					else
 					{
-						_batchLoader.addLoader(_loader);
+						var _class: Class = LoaderPool.getLoaderClass(_nodeName);
+						var _loader: ItemLoader = new _class("", "", _childXML);
+						if(_batchLoader != null)
+						{
+							_batchLoader.addLoader(_loader);
+						}
 					}
 				}
 			}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<loader>
+		<BatchLoader name="10001_necessary_background">
+			<loader>
+				<ClassLoader name="background_main_1" url="resources/background/background1.swf" version="1.0.0" />
+				<ClassLoader name="background_dust" url="resources/background/space_dust.swf" version="1.0.0" />
+			</loader>
+		</BatchLoader>
+	</loader>
+	<config>
+		<mapId>10001</mapId>
+		<width>21000</width>
+		<height>13100</height>
+		<resources>
+			<background name="background_main_1" class="space.background.Background1" main="true"></background>
+			<background name="background_dust" class="space.background.SpaceDust1" index="2" x="1060" y="1060"></background>
+			<background name="background_dust" class="space.background.SpaceDust2" index="2" x="5089" y="2861"></background>
+			<background name="background_dust" class="space.background.SpaceDust3" index="2" x="15060" y="9060"></background>
+		</resources>
+	</config>
+</root>
