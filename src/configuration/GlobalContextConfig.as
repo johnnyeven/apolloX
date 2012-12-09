@@ -28,11 +28,11 @@ package configuration
 		/**
 		 * 舞台宽
 		 */
-		public static var Width: uint = 960;
+		public static var Width: uint = 1028;
 		/**
 		 * 舞台高
 		 */
-		public static var Height: uint = 640;
+		public static var Height: uint = 600;
 		/**
 		 * 游戏计时器
 		 */

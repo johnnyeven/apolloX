@@ -5,6 +5,8 @@ package controller.space
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
+	import parameters.space.LeaveIntoSpaceParameter;
+	
 	public class LeaveIntoSpaceCommand extends SimpleCommand
 	{
 		public static const LEAVE_INTO_SPACE_NOTE: String = "LeaseIntoSpaceNote";
@@ -20,7 +22,11 @@ package controller.space
 			{
 				facade.registerMediator(new SpaceBackgroundMediator());
 			}
-			facade.sendNotification(SpaceBackgroundMediator.SHOW_MAP_NOTE, "10001");
+			var parameter: LeaveIntoSpaceParameter = new LeaveIntoSpaceParameter();
+			parameter.id = "10001";
+			parameter.startX = 1080;
+			parameter.startY = 6281;
+			facade.sendNotification(SpaceBackgroundMediator.SHOW_MAP_NOTE, parameter);
 		}
 	}
 }

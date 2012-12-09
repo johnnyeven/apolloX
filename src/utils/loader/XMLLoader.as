@@ -11,6 +11,7 @@ package utils.loader
 	public class XMLLoader extends ItemLoader
 	{
 		private var _urlLoader: URLLoader;
+		private var _configXML: XML;
 		
 		public function XMLLoader(url:String="", name:String="", loaderConfig:XML=null)
 		{
@@ -95,6 +96,10 @@ package utils.loader
 					}
 				}
 			}
+			if(_xml.hasOwnProperty("config"))
+			{
+				_configXML = _xml.config[0];
+			}
 		}
 		
 		override public function stop():void
@@ -126,5 +131,11 @@ package utils.loader
 				}
 			}
 		}
+
+		public function get configXML():XML
+		{
+			return _configXML;
+		}
+
 	}
 }

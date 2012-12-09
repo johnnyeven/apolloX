@@ -4,6 +4,8 @@ package mediator.space
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 	
+	import parameters.space.LeaveIntoSpaceParameter;
+	
 	import utils.StringUtils;
 	
 	import view.space.background.SpaceBackgroundComponent;
@@ -15,7 +17,7 @@ package mediator.space
 		
 		public function SpaceBackgroundMediator()
 		{
-			super(NAME, new SpaceBackgroundComponent);
+			super(NAME, new SpaceBackgroundComponent());
 		}
 		
 		public function get component(): SpaceBackgroundComponent
@@ -33,10 +35,12 @@ package mediator.space
 			switch(notification.getName())
 			{
 				case SHOW_MAP_NOTE:
-					var id: String = String(notification.getBody());
-					if(!StringUtils.empty(id))
+					var parameter: LeaveIntoSpaceParameter = notification.getBody() as LeaveIntoSpaceParameter;
+					if(parameter != null)
 					{
-						component.id = id;
+						component.startX = parameter.startX;
+						component.startY = parameter.startY;
+						component.id = parameter.id;
 					}
 					break;
 			}

@@ -9,6 +9,7 @@
 	<load_loagin_ui>正在加载登录UI</load_loagin_ui>
 	<load_scene_ui>正在加载基础场景UI</load_scene_ui>
 	<load_control_panel_ui>正在加载控制面板UI</load_control_panel_ui>
+	<load_map_config>正在加载地图配置</load_map_config>
 	
 	<common_messagebox_ok>确定</common_messagebox_ok>
 	<common_messagebox_cancel>取消</common_messagebox_cancel>

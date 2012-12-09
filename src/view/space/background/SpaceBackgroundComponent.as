@@ -1,6 +1,11 @@
 package view.space.background
 {
+	import configuration.GlobalContextConfig;
+	import configuration.MapContextConfig;
+	
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Shape;
 	import flash.geom.Point;
@@ -8,10 +13,12 @@ package view.space.background
 	
 	import utils.algorithms.SilzAstar;
 	import utils.events.LoaderEvent;
+	import utils.events.MapIOErrorEvent;
 	import utils.language.LanguageManager;
 	import utils.liteui.core.Component;
 	import utils.loader.ResourceLoadManager;
 	import utils.loader.XMLLoader;
+	import utils.resource.ResourcePool;
 	
 	public class SpaceBackgroundComponent extends Component
 	{
@@ -30,6 +37,8 @@ package view.space.background
 		private var _cameraView: Rectangle;
 		private var _cameraCutView: Rectangle;
 		protected var _mapXML: XML;
+		public var startX: int;
+		public var startY: int;
 		
 		public function SpaceBackgroundComponent()
 		{
@@ -44,7 +53,7 @@ package view.space.background
 			_cameraCutView = new Rectangle();
 		}
 		
-		protected function load(): void
+		public function load(): void
 		{
 			if(_xmlLoader == null)
 			{
@@ -54,7 +63,7 @@ package view.space.background
 				_xmlLoader.addEventListener(LoaderEvent.IO_ERROR, onXMLLoadIOError);
 				//_xmlLoader.version = VersionUtils.getVersion("resource_config");
 				
-				ApplicationFacade.getInstance().sendNotification(ResourceLoadManager.SET_PROGRESSBAR_TITLE_NOTE, LanguageManager.getInstance().lang("load_resource_config"));
+				ApplicationFacade.getInstance().sendNotification(ResourceLoadManager.SET_PROGRESSBAR_TITLE_NOTE, LanguageManager.getInstance().lang("load_map_config"));
 				ApplicationFacade.getInstance().sendNotification(ResourceLoadManager.SHOW_PROGRESSBAR_NOTE);
 				
 				_xmlLoader.load();
@@ -65,6 +74,22 @@ package view.space.background
 		{
 			ApplicationFacade.getInstance().sendNotification(ResourceLoadManager.HIDE_PROGRESSBAR_NOTE);
 			removeXMLLoaderListener();
+			
+			_mapXML = _xmlLoader.configXML;
+			
+			if(_mapXML.mapId != _id)
+			{
+				dispatchEvent(new MapIOErrorEvent(MapIOErrorEvent.VERIFY_ERROR));
+			}
+			else
+			{
+				MapContextConfig.MapSize.x = parseInt(_mapXML.width);
+				MapContextConfig.MapSize.y = parseInt(_mapXML.height);
+				
+				center = new Point(startX, startY);
+				
+				loadMap();
+			}
 		}
 		
 		protected function onXMLLoadProgress(evt: LoaderEvent): void
@@ -85,6 +110,17 @@ package view.space.background
 			_xmlLoader.removeEventListener(LoaderEvent.PROGRESS, onXMLLoadProgress);
 			_xmlLoader.removeEventListener(LoaderEvent.IO_ERROR, onXMLLoadIOError);
 		}
+		
+		public function loadMap(): void
+		{
+			ResourceLoadManager.load(_id + "_necessary_background", true, "", onMapLoaded);
+		}
+		
+		private function onMapLoaded(evt: LoaderEvent): void
+		{
+			_buffer = (ResourcePool.getResource("space.background.Background1") as Bitmap).bitmapData;
+			_mapReady = true;
+		}
 
 		public function get id():String
 		{
@@ -96,6 +132,21 @@ package view.space.background
 			_id = value;
 			load();
 		}
+
+		public function get center():Point
+		{
+			return _center;
+		}
+
+		public function set center(value:Point):void
+		{
+			value.x = Math.max(value.x, GlobalContextConfig.Width * .5);
+			value.x = Math.min(value.x, MapContextConfig.MapSize.x - GlobalContextConfig.Width * .5);
+			value.y = Math.max(value.y, GlobalContextConfig.Height * .5);
+			value.y = Math.min(value.y, MapContextConfig.MapSize.y - GlobalContextConfig.Height * .5);
+			_center = value;
+		}
+
 
 	}
 }
