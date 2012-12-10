@@ -30,6 +30,8 @@ package view.space.background
 		private var _displayBuffer: Shape;
 		private var _bufferContainer: Vector.<BitmapData>;
 		private var _displayBufferContainer: Vector.<Shape>;
+		private var _displayBufferDeep: Array;
+		private var _displayBufferPoint: Array;
 		private var _preCenter: Point;
 		private var _preStart: Point;
 		private var _centerX: Number;
@@ -49,6 +51,8 @@ package view.space.background
 			_preCenter = new Point();
 			_preStart = new Point(-1, -1);
 			_negativePath = new Array();
+			_displayBufferDeep = new Array();
+			_displayBufferPoint = new Array();
 			_mapReady = false;
 			_cameraView = new Rectangle();
 			_cameraCutView = new Rectangle();
@@ -128,8 +132,9 @@ package view.space.background
 			{
 				_bufferData = (ResourcePool.getResource(_resource.@className) as Bitmap).bitmapData;
 				_bufferContainer.push(_bufferData);
+				_displayBufferDeep.push(parseInt(_resource.@index));
+				_displayBufferPoint.push(new Point(parseInt(_resource.@x), parseInt(_resource.@y)));
 			}
-			_buffer = (ResourcePool.getResource("space.background.Background1") as Bitmap).bitmapData;
 			_mapReady = true;
 			
 			init();
@@ -145,23 +150,20 @@ package view.space.background
 		public function initDisplayBuffer(): void
 		{
 			_displayBufferContainer = new Vector.<Shape>();
-			var _bufferData: BitmapData;
 			var _displayBufferShape: Shape;
-			for each(_bufferData in _bufferContainer)
+			for(var i: int = 0; i<_bufferContainer.length; i++)
 			{
 				_displayBufferShape = new Shape();
 				_displayBufferContainer.push(_displayBufferShape);
-				//TODO: 根据index 添加进主场景
+				addChild(_displayBufferShape);
 				
-				_displayBufferShape.graphics.beginBitmapFill(_bufferData);
-				_displayBufferShape.graphics.drawRect(0, 0, _bufferData.width, _bufferData.height);
+				var _shapePoint: Point = _displayBufferPoint[i] as Point;
+				_displayBufferShape.x = _shapePoint.x;
+				_displayBufferShape.y = _shapePoint.y;
+				
+				_displayBufferShape.graphics.beginBitmapFill(_bufferContainer[i]);
+				_displayBufferShape.graphics.drawRect(0, 0, _bufferContainer[i].width, _bufferContainer[i].height);
 			}
-			
-			_displayBuffer = new Shape();
-			addChild(_displayBuffer);
-			
-			_displayBuffer.graphics.beginBitmapFill(_buffer);
-			_displayBuffer.graphics.drawRect(0, 0, _buffer.width, _buffer.height);
 		}
 		
 		public function render(enforceRender: Boolean = false): void
@@ -172,8 +174,11 @@ package view.space.background
 			}
 			else
 			{
-				_displayBuffer.x = -screenStartX;
-				_displayBuffer.y = -screenStartY;
+				for(var i: int = 0; i<_displayBufferContainer.length; i++)
+				{
+					_displayBufferContainer[i].x = -screenStartX * _displayBufferDeep[i];
+					_displayBufferContainer[i].y = -screenStartY * _displayBufferDeep[i];
+				}
 				
 				_preCenter.x = _centerX;
 				_preCenter.y = _centerY;

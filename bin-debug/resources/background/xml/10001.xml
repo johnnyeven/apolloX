@@ -13,9 +13,9 @@
 		<width>2100</width>
 		<height>1310</height>
 		<resources>
-			<background name="background_main_1" className="space.background.Background1" index="1" main="true"></background>
-			<background name="background_dust" className="space.background.SpaceDust1" index="2" x="1060" y="1060"></background>
-			<background name="background_dust" className="space.background.SpaceDust2" index="2" x="500" y="700"></background>
+			<background name="background_main_1" className="space.background.Background1" index="1" x="0" y="0" main="true"></background>
+			<background name="background_dust" className="space.background.SpaceDust1" index="2" x="100" y="100"></background>
+			<background name="background_dust" className="space.background.SpaceDust2" index="2" x="200" y="300"></background>
 			<background name="background_dust" className="space.background.SpaceDust3" index="2" x="189" y="300"></background>
 		</resources>
 	</config>

@@ -106,8 +106,8 @@ package mediator.space
 			{
 				var offsetX: Number = _preMouseX - evt.stageX;
 				var offsetY: Number = _preMouseY - evt.stageY;
-				component.centerX += offsetX * .1;
-				component.centerY += offsetY * .1;
+				component.centerX += offsetX;
+				component.centerY += offsetY;
 				
 				_preMouseX = evt.stageX;
 				_preMouseY = evt.stageY;
