@@ -13,6 +13,7 @@ package view.space.background
 	
 	import utils.algorithms.SilzAstar;
 	import utils.events.LoaderEvent;
+	import utils.events.MapEvent;
 	import utils.events.MapIOErrorEvent;
 	import utils.language.LanguageManager;
 	import utils.liteui.core.Component;
@@ -27,13 +28,14 @@ package view.space.background
 		private static var _astar: SilzAstar;
 		private var _buffer: BitmapData;
 		private var _displayBuffer: Shape;
+		private var _bufferContainer: Vector.<BitmapData>;
+		private var _displayBufferContainer: Vector.<Shape>;
 		private var _preCenter: Point;
 		private var _preStart: Point;
-		private var _center: Point;
+		private var _centerX: Number;
+		private var _centerY: Number;
 		private var _negativePath: Array;
 		private var _mapReady: Boolean;
-		private var _screenStartX: int;
-		private var _screenStartY: int;
 		private var _cameraView: Rectangle;
 		private var _cameraCutView: Rectangle;
 		protected var _mapXML: XML;
@@ -46,7 +48,6 @@ package view.space.background
 			
 			_preCenter = new Point();
 			_preStart = new Point(-1, -1);
-			_center = new Point();
 			_negativePath = new Array();
 			_mapReady = false;
 			_cameraView = new Rectangle();
@@ -86,7 +87,8 @@ package view.space.background
 				MapContextConfig.MapSize.x = parseInt(_mapXML.width);
 				MapContextConfig.MapSize.y = parseInt(_mapXML.height);
 				
-				center = new Point(startX, startY);
+				centerX = startX;
+				centerY = startY;
 				
 				loadMap();
 			}
@@ -118,8 +120,64 @@ package view.space.background
 		
 		private function onMapLoaded(evt: LoaderEvent): void
 		{
+			_bufferContainer = new Vector.<BitmapData>();
+			
+			var _resource: XML;
+			var _bufferData: BitmapData;
+			for each(_resource in _mapXML.resources.children())
+			{
+				_bufferData = (ResourcePool.getResource(_resource.@className) as Bitmap).bitmapData;
+				_bufferContainer.push(_bufferData);
+			}
 			_buffer = (ResourcePool.getResource("space.background.Background1") as Bitmap).bitmapData;
 			_mapReady = true;
+			
+			init();
+		}
+		
+		public function init(): void
+		{
+			initDisplayBuffer();
+			
+			dispatchEvent(new MapEvent(MapEvent.MAP_READY));
+		}
+		
+		public function initDisplayBuffer(): void
+		{
+			_displayBufferContainer = new Vector.<Shape>();
+			var _bufferData: BitmapData;
+			var _displayBufferShape: Shape;
+			for each(_bufferData in _bufferContainer)
+			{
+				_displayBufferShape = new Shape();
+				_displayBufferContainer.push(_displayBufferShape);
+				//TODO: 根据index 添加进主场景
+				
+				_displayBufferShape.graphics.beginBitmapFill(_bufferData);
+				_displayBufferShape.graphics.drawRect(0, 0, _bufferData.width, _bufferData.height);
+			}
+			
+			_displayBuffer = new Shape();
+			addChild(_displayBuffer);
+			
+			_displayBuffer.graphics.beginBitmapFill(_buffer);
+			_displayBuffer.graphics.drawRect(0, 0, _buffer.width, _buffer.height);
+		}
+		
+		public function render(enforceRender: Boolean = false): void
+		{
+			if(_centerX == _preCenter.x && _centerY == _preCenter.y)
+			{
+				return;
+			}
+			else
+			{
+				_displayBuffer.x = -screenStartX;
+				_displayBuffer.y = -screenStartY;
+				
+				_preCenter.x = _centerX;
+				_preCenter.y = _centerY;
+			}
 		}
 
 		public function get id():String
@@ -132,21 +190,66 @@ package view.space.background
 			_id = value;
 			load();
 		}
-
-		public function get center():Point
+		
+		public function get centerX():Number
 		{
-			return _center;
+			return _centerX;
+		}
+		
+		public function set centerX(value:Number):void
+		{
+			value = Math.max(value, GlobalContextConfig.Width * .5);
+			value = Math.min(value, MapContextConfig.MapSize.x - GlobalContextConfig.Width * .5);
+			_centerX = value;
+		}
+		
+		public function get centerY():Number
+		{
+			return _centerY;
+		}
+		
+		public function set centerY(value:Number):void
+		{
+			value = Math.max(value, GlobalContextConfig.Height * .5);
+			value = Math.min(value, MapContextConfig.MapSize.y - GlobalContextConfig.Height * .5);
+			_centerY = value;
+		}
+		
+		protected function get screenStartX(): Number
+		{
+			var _screenStartX: Number = centerX - int(GlobalContextConfig.Width * .5);
+			_screenStartX = Math.max(0, _screenStartX);
+			_screenStartX = Math.min(MapContextConfig.MapSize.x - GlobalContextConfig.Width, _screenStartX);
+			
+			return _screenStartX;
+		}
+		
+		protected function get screenStartY(): Number
+		{
+			var _screenStartY: Number = centerY - int(GlobalContextConfig.Height * .5);
+			_screenStartY = Math.max(0, _screenStartY);
+			_screenStartY = Math.min(MapContextConfig.MapSize.y - GlobalContextConfig.Height, _screenStartY);
+			
+			return _screenStartY;
+		}
+		
+		protected function get cutviewStartX(): Number
+		{
+			var _cutviewStartX: Number = screenStartX - MapContextConfig.TileSize.x;
+			_cutviewStartX = Math.max(0, _cutviewStartX);
+			return _cutviewStartX;
+		}
+		
+		protected function get cutviewStartY(): Number
+		{
+			var _cutviewStartY: Number = screenStartY - MapContextConfig.TileSize.y;
+			_cutviewStartY = Math.max(0, _cutviewStartY);
+			return _cutviewStartY;
 		}
 
-		public function set center(value:Point):void
+		public function get displayBuffer():Shape
 		{
-			value.x = Math.max(value.x, GlobalContextConfig.Width * .5);
-			value.x = Math.min(value.x, MapContextConfig.MapSize.x - GlobalContextConfig.Width * .5);
-			value.y = Math.max(value.y, GlobalContextConfig.Height * .5);
-			value.y = Math.min(value.y, MapContextConfig.MapSize.y - GlobalContextConfig.Height * .5);
-			_center = value;
+			return _displayBuffer;
 		}
-
-
 	}
 }

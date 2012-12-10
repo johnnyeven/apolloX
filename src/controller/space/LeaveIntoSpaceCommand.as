@@ -24,8 +24,8 @@ package controller.space
 			}
 			var parameter: LeaveIntoSpaceParameter = new LeaveIntoSpaceParameter();
 			parameter.id = "10001";
-			parameter.startX = 1080;
-			parameter.startY = 6281;
+			parameter.startX = 200;
+			parameter.startY = 600;
 			facade.sendNotification(SpaceBackgroundMediator.SHOW_MAP_NOTE, parameter);
 		}
 	}

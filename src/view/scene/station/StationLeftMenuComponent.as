@@ -5,6 +5,8 @@ package view.scene.station
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	
+	import mediator.scene.station.StationViewMediator;
+	
 	import utils.liteui.component.Button;
 	import utils.liteui.core.Component;
 	
@@ -26,6 +28,7 @@ package view.scene.station
 		private function onBtnLeftClick(evt: MouseEvent): void
 		{
 			ApplicationFacade.getInstance().sendNotification(LeaveIntoSpaceCommand.LEAVE_INTO_SPACE_NOTE);
+			ApplicationFacade.getInstance().sendNotification(StationViewMediator.STATION_DISPOSE_NOTE);
 		}
 	}
 }

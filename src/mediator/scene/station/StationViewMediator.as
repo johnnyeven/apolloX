@@ -10,6 +10,7 @@ package mediator.scene.station
 	{
 		public static const NAME: String = "StationViewMediator";
 		public static const STATION_SHOW_NOTE: String = "StationViewMediator.StationShowNote";
+		public static const STATION_DISPOSE_NOTE: String = "StationViewMediator.StationDisposeNote";
 		
 		public function StationViewMediator()
 		{
@@ -18,7 +19,7 @@ package mediator.scene.station
 		
 		override public function listNotificationInterests():Array
 		{
-			return [STATION_SHOW_NOTE];
+			return [STATION_SHOW_NOTE, STATION_DISPOSE_NOTE];
 		}
 		
 		override public function handleNotification(notification:INotification):void
@@ -27,6 +28,9 @@ package mediator.scene.station
 			{
 				case STATION_SHOW_NOTE:
 					show();
+					break;
+				case STATION_DISPOSE_NOTE:
+					dispose();
 					break;
 			}
 		}
