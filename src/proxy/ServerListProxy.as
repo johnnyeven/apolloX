@@ -9,8 +9,8 @@ package proxy
 	import controller.login.CreateStartMediatorCommand;
 	import utils.network.CCommandCenter;
 	import utils.network.command.CCommandList;
-	import utils.network.command.receiving.Receive_Server_ServerList;
-	import utils.network.command.sending.Send_Server_ServerList;
+	import network.command.receiving.Receive_Server_ServerList;
+	import network.command.sending.Send_Server_ServerList;
 	import utils.configuration.ConnectorContextConfig;
 	
 	public class ServerListProxy extends Proxy implements IProxy

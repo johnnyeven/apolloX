@@ -10,8 +10,8 @@ package proxy
 	
 	import utils.network.CCommandCenter;
 	import utils.network.command.CCommandList;
-	import utils.network.command.receiving.Receive_Info_QuickStart;
-	import utils.network.command.sending.Send_Info_QuickStart;
+	import network.command.receiving.Receive_Info_QuickStart;
+	import network.command.sending.Send_Info_QuickStart;
 	
 	public class LoginProxy extends Proxy implements IProxy
 	{

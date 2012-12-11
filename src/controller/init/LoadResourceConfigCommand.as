@@ -48,7 +48,7 @@ package controller.init
 		
 		private function loadPrepareResource(): void
 		{
-			ResourceLoadManager.load("prepareResource", true, LanguageManager.getInstance().lang("load_pre_resource"), function(evt: LoaderEvent) {
+			ResourceLoadManager.load("prepareResource", true, LanguageManager.getInstance().lang("load_pre_resource"), function(evt: LoaderEvent): void {
 			
 			});
 		}
