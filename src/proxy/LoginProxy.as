@@ -1,6 +1,6 @@
 package proxy
 {
-	import configuration.ConnectorContextConfig;
+	import utils.configuration.ConnectorContextConfig;
 	
 	import mediator.PromptMediator;
 	import controller.scene.LoadSceneResourcesCommand;

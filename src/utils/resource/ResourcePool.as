@@ -11,7 +11,7 @@ package utils.resource
 	import utils.StringUtils;
 	import utils.events.LoaderEvent;
 	import utils.loader.ResourceLoadManager;
-	import parameters.ResourcePoolLoaderParameter;
+	import utils.parameters.ResourcePoolLoaderParameter;
 
 	public class ResourcePool
 	{

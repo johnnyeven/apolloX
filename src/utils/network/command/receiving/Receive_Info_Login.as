@@ -1,6 +1,6 @@
 package utils.network.command.receiving 
 {
-	import configuration.ConnectorContextConfig;
+	import utils.configuration.ConnectorContextConfig;
 	
 	/**
 	 * ...

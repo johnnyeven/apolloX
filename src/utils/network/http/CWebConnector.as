@@ -1,6 +1,6 @@
 package utils.network.http 
 {
-	import configuration.ConnectorContextConfig;
+	import utils.configuration.ConnectorContextConfig;
 	import utils.loader.URLSmartLoader;
 	import utils.monitor.CMonitorConsole;
 	

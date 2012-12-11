@@ -1,13 +1,15 @@
 package view.space.background
 {
-	import configuration.GlobalContextConfig;
-	import configuration.MapContextConfig;
+	import utils.configuration.GlobalContextConfig;
+	import utils.configuration.MapContextConfig;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.MovieClip;
 	import flash.display.Shape;
+	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
@@ -27,19 +29,19 @@ package view.space.background
 		private var _xmlLoader: XMLLoader;
 		private static var _astar: SilzAstar;
 		private var _buffer: BitmapData;
-		private var _displayBuffer: Shape;
-		private var _bufferContainer: Vector.<BitmapData>;
-		private var _displayBufferContainer: Vector.<Shape>;
+		private var _bufferContainer: Vector.<DisplayObject>;
+		private var _displayBufferContainer: Vector.<DisplayObject>;
 		private var _displayBufferDeep: Array;
 		private var _displayBufferPoint: Array;
 		private var _preCenter: Point;
-		private var _preStart: Point;
+		private var _preScreenStart: Point;
 		private var _centerX: Number;
 		private var _centerY: Number;
 		private var _negativePath: Array;
 		private var _mapReady: Boolean;
 		private var _cameraView: Rectangle;
 		private var _cameraCutView: Rectangle;
+		private var _mainLayer: Number = 1;
 		protected var _mapXML: XML;
 		public var startX: int;
 		public var startY: int;
@@ -49,7 +51,7 @@ package view.space.background
 			super();
 			
 			_preCenter = new Point();
-			_preStart = new Point(-1, -1);
+			_preScreenStart = new Point();
 			_negativePath = new Array();
 			_displayBufferDeep = new Array();
 			_displayBufferPoint = new Array();
@@ -124,16 +126,21 @@ package view.space.background
 		
 		private function onMapLoaded(evt: LoaderEvent): void
 		{
-			_bufferContainer = new Vector.<BitmapData>();
+			_bufferContainer = new Vector.<DisplayObject>();
 			
 			var _resource: XML;
-			var _bufferData: BitmapData;
 			for each(_resource in _mapXML.resources.children())
 			{
-				_bufferData = (ResourcePool.getResource(_resource.@className) as Bitmap).bitmapData;
-				_bufferContainer.push(_bufferData);
-				_displayBufferDeep.push(parseInt(_resource.@index));
-				_displayBufferPoint.push(new Point(parseInt(_resource.@x), parseInt(_resource.@y)));
+				if(_resource.localName() == "background")
+				{
+					_bufferContainer.push(ResourcePool.getResource(_resource.@className));
+					_displayBufferDeep.push(parseFloat(_resource.@deep));
+					_displayBufferPoint.push(new Point(parseInt(_resource.@x), parseInt(_resource.@y)));
+				}
+				else if(_resource.localName() == "mainLayer")
+				{
+					_mainLayer = parseFloat(_resource.@deep);
+				}
 			}
 			_mapReady = true;
 			
@@ -144,25 +151,43 @@ package view.space.background
 		{
 			initDisplayBuffer();
 			
+			_preScreenStart.x = screenStartX;
+			_preScreenStart.y = screenStartY;
+			
 			dispatchEvent(new MapEvent(MapEvent.MAP_READY));
 		}
 		
 		public function initDisplayBuffer(): void
 		{
-			_displayBufferContainer = new Vector.<Shape>();
-			var _displayBufferShape: Shape;
+			_displayBufferContainer = new Vector.<DisplayObject>();
 			for(var i: int = 0; i<_bufferContainer.length; i++)
 			{
-				_displayBufferShape = new Shape();
-				_displayBufferContainer.push(_displayBufferShape);
-				addChild(_displayBufferShape);
-				
-				var _shapePoint: Point = _displayBufferPoint[i] as Point;
-				_displayBufferShape.x = _shapePoint.x;
-				_displayBufferShape.y = _shapePoint.y;
-				
-				_displayBufferShape.graphics.beginBitmapFill(_bufferContainer[i]);
-				_displayBufferShape.graphics.drawRect(0, 0, _bufferContainer[i].width, _bufferContainer[i].height);
+				if(_bufferContainer[i] is Bitmap)
+				{
+					var _bufferData: BitmapData = (_bufferContainer[i] as Bitmap).bitmapData;
+					var _displayBufferShape: Shape = new Shape();
+					_displayBufferContainer.push(_displayBufferShape);
+					addChild(_displayBufferShape);
+					
+					var _shapePoint: Point = _displayBufferPoint[i] as Point;
+					_displayBufferShape.x = _shapePoint.x;
+					_displayBufferShape.y = _shapePoint.y;
+					
+					_displayBufferShape.graphics.beginBitmapFill(_bufferData);
+					_displayBufferShape.graphics.drawRect(0, 0, _bufferData.width, _bufferData.height);
+				}
+				else
+				{
+					var _displayBufferSprite: Sprite = new Sprite();
+					_displayBufferContainer.push(_displayBufferSprite);
+					addChild(_displayBufferSprite);
+					
+					var _spritePoint: Point = _displayBufferPoint[i] as Point;
+					_displayBufferSprite.x = _spritePoint.x;
+					_displayBufferSprite.y = _spritePoint.y;
+					
+					_displayBufferSprite.addChild(_bufferContainer[i] as MovieClip);
+				}
 			}
 		}
 		
@@ -176,9 +201,11 @@ package view.space.background
 			{
 				for(var i: int = 0; i<_displayBufferContainer.length; i++)
 				{
-					_displayBufferContainer[i].x = -screenStartX * _displayBufferDeep[i];
-					_displayBufferContainer[i].y = -screenStartY * _displayBufferDeep[i];
+					_displayBufferContainer[i].x += (_preScreenStart.x - screenStartX) * _displayBufferDeep[i];
+					_displayBufferContainer[i].y += (_preScreenStart.y - screenStartY) * _displayBufferDeep[i];
 				}
+				_preScreenStart.x = screenStartX;
+				_preScreenStart.y = screenStartY;
 				
 				_preCenter.x = _centerX;
 				_preCenter.y = _centerY;
@@ -252,9 +279,10 @@ package view.space.background
 			return _cutviewStartY;
 		}
 
-		public function get displayBuffer():Shape
+		public function get mainLayer():Number
 		{
-			return _displayBuffer;
+			return _mainLayer;
 		}
+
 	}
 }

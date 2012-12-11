@@ -2,6 +2,7 @@ package mediator.space
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.system.System;
 	
 	import mediator.BaseMediator;
 	
@@ -106,8 +107,8 @@ package mediator.space
 			{
 				var offsetX: Number = _preMouseX - evt.stageX;
 				var offsetY: Number = _preMouseY - evt.stageY;
-				component.centerX += offsetX;
-				component.centerY += offsetY;
+				component.centerX += offsetX / component.mainLayer;
+				component.centerY += offsetY / component.mainLayer;
 				
 				_preMouseX = evt.stageX;
 				_preMouseY = evt.stageY;

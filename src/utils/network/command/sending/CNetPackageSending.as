@@ -1,6 +1,6 @@
 package utils.network.command.sending 
 {
-	import configuration.ConnectorContextConfig;
+	import utils.configuration.ConnectorContextConfig;
 	import utils.network.command.CCommandBase;
 	import utils.network.command.interfaces.INetPackageSending;
 	

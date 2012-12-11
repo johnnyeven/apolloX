@@ -5,6 +5,7 @@
 			<loader>
 				<ClassLoader name="background_main_1" url="resources/background/background1.swf" version="1.0.0" />
 				<ClassLoader name="background_dust" url="resources/background/space_dust.swf" version="1.0.0" />
+				<ClassLoader name="station_1" url="resources/station/station1.swf" version="1.0.0" />
 			</loader>
 		</BatchLoader>
 	</loader>
@@ -13,10 +14,14 @@
 		<width>2100</width>
 		<height>1310</height>
 		<resources>
-			<background name="background_main_1" className="space.background.Background1" index="1" x="0" y="0" main="true"></background>
-			<background name="background_dust" className="space.background.SpaceDust1" index="2" x="100" y="100"></background>
-			<background name="background_dust" className="space.background.SpaceDust2" index="2" x="200" y="300"></background>
-			<background name="background_dust" className="space.background.SpaceDust3" index="2" x="189" y="300"></background>
+			<background name="background_main_1" className="space.background.Background1" deep="1" x="0" y="0"></background>
+			<background name="background_dust" className="space.background.SpaceDust1" deep="1.3" x="100" y="100"></background>
+			<background name="background_dust" className="space.background.SpaceDust2" deep="1.3" x="200" y="138"></background>
+			<background name="background_dust" className="space.background.SpaceDust3" deep="1.3" x="410" y="273"></background>
+			<background name="background_dust" className="space.background.SpaceDust2" deep="1.3" x="2000" y="800"></background>
+			<background name="background_dust" className="space.background.SpaceDust3" deep="1.3" x="1890" y="1000"></background>
+			<background name="station_1" className="space.station.Station1" deep="3" x="300" y="50"></background>
+			<mainLayer deep="30"></mainLayer>
 		</resources>
 	</config>
 </root>

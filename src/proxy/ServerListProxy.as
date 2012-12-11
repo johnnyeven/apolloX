@@ -11,7 +11,7 @@ package proxy
 	import utils.network.command.CCommandList;
 	import utils.network.command.receiving.Receive_Server_ServerList;
 	import utils.network.command.sending.Send_Server_ServerList;
-	import configuration.ConnectorContextConfig;
+	import utils.configuration.ConnectorContextConfig;
 	
 	public class ServerListProxy extends Proxy implements IProxy
 	{
