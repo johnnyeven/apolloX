@@ -203,6 +203,8 @@ package view.space.background
 				{
 					_displayBufferContainer[i].x += (_preScreenStart.x - screenStartX) * _displayBufferDeep[i];
 					_displayBufferContainer[i].y += (_preScreenStart.y - screenStartY) * _displayBufferDeep[i];
+//					_displayBufferContainer[i].x = -screenStartX * _displayBufferDeep[i];
+//					_displayBufferContainer[i].y = -screenStartY * _displayBufferDeep[i];
 				}
 				_preScreenStart.x = screenStartX;
 				_preScreenStart.y = screenStartY;
