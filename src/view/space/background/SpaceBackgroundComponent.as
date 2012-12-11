@@ -1,8 +1,5 @@
 package view.space.background
 {
-	import utils.configuration.GlobalContextConfig;
-	import utils.configuration.MapContextConfig;
-	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
@@ -10,10 +7,13 @@ package view.space.background
 	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
 	import utils.algorithms.SilzAstar;
+	import utils.configuration.GlobalContextConfig;
+	import utils.configuration.MapContextConfig;
 	import utils.events.LoaderEvent;
 	import utils.events.MapEvent;
 	import utils.events.MapIOErrorEvent;
@@ -34,7 +34,6 @@ package view.space.background
 		private var _displayBufferDeep: Array;
 		private var _displayBufferPoint: Array;
 		private var _preCenter: Point;
-		private var _preScreenStart: Point;
 		private var _centerX: Number;
 		private var _centerY: Number;
 		private var _negativePath: Array;
@@ -51,7 +50,6 @@ package view.space.background
 			super();
 			
 			_preCenter = new Point();
-			_preScreenStart = new Point();
 			_negativePath = new Array();
 			_displayBufferDeep = new Array();
 			_displayBufferPoint = new Array();
@@ -151,9 +149,6 @@ package view.space.background
 		{
 			initDisplayBuffer();
 			
-			_preScreenStart.x = screenStartX;
-			_preScreenStart.y = screenStartY;
-			
 			dispatchEvent(new MapEvent(MapEvent.MAP_READY));
 		}
 		
@@ -170,11 +165,10 @@ package view.space.background
 					addChild(_displayBufferShape);
 					
 					var _shapePoint: Point = _displayBufferPoint[i] as Point;
-					_displayBufferShape.x = _shapePoint.x;
-					_displayBufferShape.y = _shapePoint.y;
 					
-					_displayBufferShape.graphics.beginBitmapFill(_bufferData);
-					_displayBufferShape.graphics.drawRect(0, 0, _bufferData.width, _bufferData.height);
+					_displayBufferShape.graphics.beginBitmapFill(_bufferData, new Matrix(1, 0, 0, 1, _shapePoint.x, _shapePoint.y));
+					_displayBufferShape.graphics.drawRect(_shapePoint.x, _shapePoint.y, _bufferData.width, _bufferData.height);
+					_displayBufferShape.graphics.endFill();
 				}
 				else
 				{
@@ -183,9 +177,8 @@ package view.space.background
 					addChild(_displayBufferSprite);
 					
 					var _spritePoint: Point = _displayBufferPoint[i] as Point;
-					_displayBufferSprite.x = _spritePoint.x;
-					_displayBufferSprite.y = _spritePoint.y;
-					
+					_bufferContainer[i].x = _spritePoint.x;
+					_bufferContainer[i].y = _spritePoint.y;
 					_displayBufferSprite.addChild(_bufferContainer[i] as MovieClip);
 				}
 			}
@@ -201,13 +194,9 @@ package view.space.background
 			{
 				for(var i: int = 0; i<_displayBufferContainer.length; i++)
 				{
-					_displayBufferContainer[i].x += (_preScreenStart.x - screenStartX) * _displayBufferDeep[i];
-					_displayBufferContainer[i].y += (_preScreenStart.y - screenStartY) * _displayBufferDeep[i];
-//					_displayBufferContainer[i].x = -screenStartX * _displayBufferDeep[i];
-//					_displayBufferContainer[i].y = -screenStartY * _displayBufferDeep[i];
+					_displayBufferContainer[i].x = -screenStartX * _displayBufferDeep[i];
+					_displayBufferContainer[i].y = -screenStartY * _displayBufferDeep[i];
 				}
-				_preScreenStart.x = screenStartX;
-				_preScreenStart.y = screenStartY;
 				
 				_preCenter.x = _centerX;
 				_preCenter.y = _centerY;
