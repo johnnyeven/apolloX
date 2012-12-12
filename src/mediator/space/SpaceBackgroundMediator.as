@@ -1,5 +1,7 @@
 package mediator.space
 {
+	import controller.space.CreateMainShipCommand;
+	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.system.System;
@@ -8,12 +10,14 @@ package mediator.space
 	
 	import org.puremvc.as3.interfaces.INotification;
 	
+	import parameters.ship.ShipParameter;
 	import parameters.space.LeaveIntoSpaceParameter;
 	
 	import utils.GameManager;
 	import utils.StringUtils;
 	import utils.events.MapEvent;
 	
+	import view.space.SpaceComponent;
 	import view.space.background.SpaceBackgroundComponent;
 	
 	public class SpaceBackgroundMediator extends BaseMediator
@@ -21,6 +25,7 @@ package mediator.space
 		public static const NAME: String = "SpaceBackgroundMediator";
 		public static const SHOW_MAP_NOTE: String = "SpaceBackgroundMediator.ShowMapNote";
 		public static const DISPOSE_MAP_NOTE: String = "SpaceBackgroundMediator.DisposeMapNote";
+		public static const FOCUS_NOTE: String = "SpaceBackgroundMediator.FocusNote";
 		private var _mouseStatus: Boolean = false;
 		private var _preMouseX: Number;
 		private var _preMouseY: Number;
@@ -40,7 +45,7 @@ package mediator.space
 		
 		override public function listNotificationInterests():Array
 		{
-			return [SHOW_MAP_NOTE, DISPOSE_MAP_NOTE];
+			return [SHOW_MAP_NOTE, DISPOSE_MAP_NOTE, FOCUS_NOTE];
 		}
 		
 		override public function handleNotification(notification:INotification):void
@@ -61,6 +66,13 @@ package mediator.space
 				case DISPOSE_MAP_NOTE:
 					dispose();
 					break;
+				case FOCUS_NOTE:
+					var target: SpaceComponent = notification.getBody() as SpaceComponent;
+					if(target != null)
+					{
+						component.follow(target);
+					}
+					break;
 			}
 		}
 		
@@ -68,18 +80,20 @@ package mediator.space
 		{
 			super.dispose();
 			
-			GameManager.container.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-			GameManager.container.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
-			GameManager.container.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+//			GameManager.container.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+//			GameManager.container.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+//			GameManager.container.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 			GameManager.container.removeEventListener(Event.ENTER_FRAME, onRender);
 		}
 		
 		private function onBackgroundReady(evt: MapEvent): void
 		{
-			GameManager.container.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-			GameManager.container.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
-			GameManager.container.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+//			GameManager.container.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+//			GameManager.container.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+//			GameManager.container.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 			GameManager.container.addEventListener(Event.ENTER_FRAME, onRender);
+//			
+			facade.sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
 		}
 		
 		private function onRender(evt: Event): void

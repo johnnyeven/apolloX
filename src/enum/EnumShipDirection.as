@@ -25,12 +25,7 @@ package enum
 		{
 		}
 		
-		public static function getRadians(x: Number, y: Number): Number
-		{
-			return Math.atan2(y, x);
-		}
-		
-		public static function getRadians(x: Number, y: Number): Number
+		public static function getDegress(x: Number, y: Number): Number
 		{
 			return Math.atan2(y, x);
 		}

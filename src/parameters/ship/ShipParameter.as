@@ -6,6 +6,7 @@ package parameters.ship
 	{
 		public var id: Number;
 		public var shipName: String;
+		public var shipResource: int;
 		public var direction: int;
 		public var currentSheild: Number;
 		public var maxSheild: Number;
@@ -15,6 +16,7 @@ package parameters.ship
 		public var maxConstruct: Number;
 		public var x: Number;
 		public var y: Number;
+		public var speed: Number;
 		
 		public function ShipParameter()
 		{
@@ -26,6 +28,7 @@ package parameters.ship
 			{
 				id = data.id;
 				shipName = data.shipName;
+				shipResource = data.shipResource;
 				direction = data.direction;
 				currentSheild = data.currentSheild;
 				maxSheild = data.maxSheild;
@@ -35,6 +38,7 @@ package parameters.ship
 				maxConstruct = data.maxConstruct;
 				x = data.x;
 				y = data.y;
+				speed = data.speed;
 			}
 		}
 	}

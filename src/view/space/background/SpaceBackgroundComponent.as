@@ -23,6 +23,8 @@ package view.space.background
 	import utils.loader.XMLLoader;
 	import utils.resource.ResourcePool;
 	
+	import view.space.SpaceComponent;
+	
 	public class SpaceBackgroundComponent extends Component
 	{
 		private var _id: String = "default";
@@ -44,6 +46,7 @@ package view.space.background
 		protected var _mapXML: XML;
 		public var startX: int;
 		public var startY: int;
+		private var _focus: SpaceComponent;
 		
 		public function SpaceBackgroundComponent()
 		{
@@ -186,7 +189,7 @@ package view.space.background
 		
 		public function render(enforceRender: Boolean = false): void
 		{
-			if(_centerX == _preCenter.x && _centerY == _preCenter.y)
+			if(!enforceRender && _centerX == _preCenter.x && _centerY == _preCenter.y)
 			{
 				return;
 			}
@@ -202,6 +205,37 @@ package view.space.background
 				_preCenter.y = _centerY;
 			}
 		}
+		
+		public function follow(target: SpaceComponent, cancel: Boolean = false): void
+		{
+			if(cancel)
+			{
+				if(_focus != null)
+				{
+					_focus.focused = false;
+					_focus = null;
+				}
+				return;
+			}
+			if(_focus != null)
+			{
+				_focus.focused = false;
+				
+				if(target == null)
+				{
+					_centerX = centerX;
+					_centerY = centerY;
+				}
+			}
+			
+			_focus = target;
+			if(_focus != null)
+			{
+				_focus.focused = true;
+			}
+			
+			render(true);
+		}
 
 		public function get id():String
 		{
@@ -216,6 +250,10 @@ package view.space.background
 		
 		public function get centerX():Number
 		{
+			if(_focus != null)
+			{
+				_centerX = _focus.posX;
+			}
 			return _centerX;
 		}
 		
@@ -228,6 +266,10 @@ package view.space.background
 		
 		public function get centerY():Number
 		{
+			if(_focus != null)
+			{
+				_centerY = _focus.posY;
+			}
 			return _centerY;
 		}
 		
@@ -275,5 +317,46 @@ package view.space.background
 			return _mainLayer;
 		}
 
+		public function get focus():SpaceComponent
+		{
+			return _focus;
+		}
+		
+		public function getMapPosition(_pos:Point): Point
+		{
+			var result: Point = new Point();
+			result.x = screenStartX + _pos.x;
+			result.y = screenStartY + _pos.y;
+			return result;
+		}
+		
+		public function getScreenPosition(_pos:Point): Point
+		{
+			var result: Point = new Point();
+			result.x = _pos.x - screenStartX;
+			result.y = _pos.y - screenStartY;
+			return result;
+		}
+		
+		public static function mapToBlockPosition(_pos:Point): Point
+		{
+			var result: Point = new Point();
+			result.x = int(_pos.x / MapContextConfig.BlockSize.x);
+			result.y = int(_pos.y / MapContextConfig.BlockSize.y);
+			return result;
+		}
+		
+		public static function blockToMapPosition(_pos:Point): Point
+		{
+			var result: Point = new Point();
+			result.x = _pos.x * MapContextConfig.BlockSize.x + MapContextConfig.BlockSize.x * .5;
+			result.y = _pos.y * MapContextConfig.BlockSize.y + MapContextConfig.BlockSize.y * .5;
+			return result;
+		}
+		
+		public static function get AStar(): SilzAstar
+		{
+			return _astar;
+		}
 	}
 }
