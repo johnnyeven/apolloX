@@ -29,6 +29,8 @@ package view.space
 		protected var _action: int;
 		protected var _posX: Number;
 		protected var _posY: Number;
+		protected var _lastPosX: Number;
+		protected var _lastPosY: Number;
 		protected var _targetX: Number;
 		protected var _targetY: Number;
 		protected var _zIndex: uint = 0;
@@ -46,6 +48,8 @@ package view.space
 				_direction = parameter.direction;
 				_posX = parameter.x;
 				_posY = parameter.y;
+				_lastPosX = parameter.x;
+				_lastPosY = parameter.y;
 			}
 			
 			loadResource();
@@ -212,6 +216,27 @@ package view.space
 		{
 			_action = value;
 		}
+
+		public function get lastPosX():Number
+		{
+			return _lastPosX;
+		}
+
+		public function set lastPosX(value:Number):void
+		{
+			_lastPosX = value;
+		}
+
+		public function get lastPosY():Number
+		{
+			return _lastPosY;
+		}
+
+		public function set lastPosY(value:Number):void
+		{
+			_lastPosY = value;
+		}
+
 
 	}
 }

@@ -321,8 +321,10 @@ package view.space.background
 		{
 			if(_focus != null)
 			{
-				centerX = _focus.posX / _mainLayer;
-				trace("x: " + _focus.posX / _mainLayer);
+				trace("x: " + _centerX);
+				var offset: Number = (_focus.posX - _focus.lastPosX) / _mainLayer / _mainLayer;
+				_focus.lastPosX = _focus.posX;
+				centerX = _centerX + offset;
 			}
 			return _centerX;
 		}
@@ -338,8 +340,10 @@ package view.space.background
 		{
 			if(_focus != null)
 			{
-				centerY = _focus.posY / _mainLayer;
-				trace("y: " + _focus.posY / _mainLayer);
+				trace("y: " + _centerY);
+				var offset: Number = (_focus.posY - _focus.lastPosY) / _mainLayer / _mainLayer;
+				_focus.lastPosY = _focus.posY;
+				centerY = _centerY + offset;
 			}
 			return _centerY;
 		}
