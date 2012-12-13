@@ -17,6 +17,7 @@
 		<blockHeight>26</blockHeight>
 		<tileWidth>210</tileWidth>
 		<tileHeight>131</tileHeight>
+		<enableAstar>true</enableAstar>
 		<resources>
 			<background name="background_main_1" className="space.background.Background1" deep="0.15" x="0" y="0"></background>
 			<roadmap name="background_main_1" className="space.background.RoadMap1"></roadmap>

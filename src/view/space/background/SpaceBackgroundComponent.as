@@ -51,6 +51,7 @@ package view.space.background
 		public var startX: int;
 		public var startY: int;
 		private var _focus: SpaceComponent;
+		private var _enableAstar: Boolean;
 		
 		public function SpaceBackgroundComponent()
 		{
@@ -62,6 +63,7 @@ package view.space.background
 			_mapReady = false;
 			_cameraView = new Rectangle();
 			_cameraCutView = new Rectangle();
+			_enableAstar = false;
 		}
 		
 		public function load(): void
@@ -100,6 +102,7 @@ package view.space.background
 				MapContextConfig.BlockSize.y = parseFloat(_mapXML.blockHeight);
 				MapContextConfig.TileSize.x = parseFloat(_mapXML.tileWidth);
 				MapContextConfig.TileSize.y = parseFloat(_mapXML.tileHeight);
+				_enableAstar = (_mapXML.enableAstar == "true");
 				
 				centerX = startX;
 				centerY = startY;
