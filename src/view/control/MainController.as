@@ -26,6 +26,7 @@ package view.control
 		protected var _listenerSetuped: Boolean = false;
 		protected var _preSyncTimer: uint;
 		protected var _currentKey: int;
+		protected var _backgroundComponent: SpaceBackgroundComponent;
 		
 		public static const MOUSE: uint = 1;
 		public static const KEY: uint = 2;
@@ -41,6 +42,8 @@ package view.control
 			_key_d = false;
 			_lastAttackTime = 0;
 			_preSyncTimer = GlobalContextConfig.Timer;
+			var _mediator: SpaceBackgroundMediator = ApplicationFacade.getInstance().retrieveMediator(SpaceBackgroundMediator.NAME) as SpaceBackgroundMediator;
+			_backgroundComponent = _mediator.component;
 		}
 		
 		override public function setupListener():void
@@ -66,12 +69,13 @@ package view.control
 		{
 			if(!isStatic)
 			{
+				var _posX: Number = _target.posX / _backgroundComponent.mainLayer;
+				var _posY: Number = _target.posY / _backgroundComponent.mainLayer;
 				_target.action = EnumAction.STOP;
 				
-				var _mediator: SpaceBackgroundMediator = ApplicationFacade.getInstance().retrieveMediator(SpaceBackgroundMediator.NAME) as SpaceBackgroundMediator;
-				_endPoint = _mediator.component.getMapPosition(new Point(evt.stageX, evt.stageY));
+				_endPoint = _backgroundComponent.getMapPosition(new Point(evt.stageX, evt.stageY));
 				
-				var node: Array = SpaceBackgroundComponent.AStar.find(_target.posX, _target.posY, _endPoint.x, _endPoint.y);
+				var node: Array = SpaceBackgroundComponent.AStar.find(_posX, _posY, _endPoint.x, _endPoint.y);
 				if(node == null)
 				{
 					return;
@@ -92,9 +96,12 @@ package view.control
 		
 		public function moveTo(_x: Number, _y: Number): void
 		{
+			var _posX: Number = _target.posX / _backgroundComponent.mainLayer;
+			var _posY: Number = _target.posY / _backgroundComponent.mainLayer;
+			
 			_target.action = EnumAction.STOP;
 			
-			var node: Array = SpaceBackgroundComponent.AStar.find(_target.posX, _target.posY, _x, _y);
+			var node: Array = SpaceBackgroundComponent.AStar.find(_posX, _posY, _x, _y);
 			if(node == null)
 			{
 				return;
@@ -114,7 +121,7 @@ package view.control
 		
 		protected function move(nextX: Number, nextY: Number): void
 		{
-			_target.setPos(nextX, nextY);
+			_target.setPos(nextX * _backgroundComponent.mainLayer, nextY * _backgroundComponent.mainLayer);
 			
 			if (_target.action != EnumAction.DIE)
 			{
@@ -141,7 +148,10 @@ package view.control
 			{
 				_nextPoint = _step == _path.length ? _endPoint : SpaceBackgroundComponent.blockToMapPosition(new Point(_path[_step][0], _path[_step][1]));
 				
-				var degress: Number = EnumShipDirection.getDegress(_nextPoint.x - _target.posX, _nextPoint.y - _target.posY);
+				var _posX: Number = _target.posX / _backgroundComponent.mainLayer;
+				var _posY: Number = _target.posY / _backgroundComponent.mainLayer;
+				
+				var degress: Number = EnumShipDirection.getDegress(_nextPoint.x - _posX, _nextPoint.y - _posY);
 				var angle: Number = EnumShipDirection.degressToRadians(degress);
 				
 				var readyX: Boolean = false;
@@ -150,18 +160,18 @@ package view.control
 				var speedX: Number = _target.info.speed * Math.cos(degress);
 				var speedY: Number = _target.info.speed * Math.sin(degress);
 				
-				if (Math.abs(_target.posX - _nextPoint.x) <= speedX)
+				if (Math.abs(_posX - _nextPoint.x) <= speedX)
 				{
 					readyX = true;
 					speedX = 0;
 				}
-				if (Math.abs(_target.posY - _nextPoint.y) <= speedY)
+				if (Math.abs(_posY - _nextPoint.y) <= speedY)
 				{
 					readyY = true;
 					speedY = 0;
 				}
 				
-				move(_target.posX + speedX, _target.posY + speedY);
+				move(_posX + speedX, _posY + speedY);
 				
 				if (readyX && readyY)
 				{
@@ -200,5 +210,11 @@ package view.control
 			_path = null;
 			_endPoint = null;
 		}
+
+		public function get backgroundComponent():SpaceBackgroundComponent
+		{
+			return _backgroundComponent;
+		}
+
 	}
 }

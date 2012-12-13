@@ -27,8 +27,8 @@ package controller.space
 			var parameter: ShipParameter = new ShipParameter();
 			parameter.id = 123435;
 			parameter.speed = 10;
-			parameter.x = 550;
-			parameter.y = 200;
+			parameter.x = 16500;
+			parameter.y = 9900;
 			parameter.shipResource = 1;
 			
 			facade.sendNotification(SpaceMainShipMediator.SHOW_NOTE, parameter);

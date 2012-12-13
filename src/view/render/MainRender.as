@@ -4,6 +4,8 @@ package view.render
 	
 	import utils.configuration.GlobalContextConfig;
 	import utils.configuration.MapContextConfig;
+	
+	import view.control.MainController;
 
 	public class MainRender extends Render
 	{
@@ -18,6 +20,8 @@ package view.render
 			{
 				return;
 			}
+			var _posX: Number = _target.posX / (_target.controller as MainController).backgroundComponent.mainLayer;
+			var _posY: Number = _target.posY / (_target.controller as MainController).backgroundComponent.mainLayer;
 			
 			var targetX: Number = 0;
 			var targetY: Number = 0;
@@ -27,16 +31,16 @@ package view.render
 			
 			if(_target.focused)
 			{
-				targetX = _target.posX < GlobalContextConfig.Width / 2 ? _target.posX : GlobalContextConfig.Width / 2;
-				targetY = _target.posY < GlobalContextConfig.Height / 2 ? _target.posY : GlobalContextConfig.Height / 2;
+				targetX = _posX < GlobalContextConfig.Width / 2 ? _posX : GlobalContextConfig.Width / 2;
+				targetY = _posY < GlobalContextConfig.Height / 2 ? _posY : GlobalContextConfig.Height / 2;
 				
-				targetX = _target.posX > (maxX - GlobalContextConfig.Width / 2) ? _target.posX - (maxX - GlobalContextConfig.Width) : targetX;
-				targetY = _target.posY > (maxY - GlobalContextConfig.Height / 2) ? _target.posY - (maxY - GlobalContextConfig.Height) : targetY;
+				targetX = _posX > (maxX - GlobalContextConfig.Width / 2) ? _posX - (maxX - GlobalContextConfig.Width) : targetX;
+				targetY = _posY > (maxY - GlobalContextConfig.Height / 2) ? _posY - (maxY - GlobalContextConfig.Height) : targetY;
 			}
 			else
 			{
-				targetX = _target.posX;
-				targetY = _target.posY;
+				targetX = _posX;
+				targetY = _posY;
 			}
 			
 			_target.x = targetX;

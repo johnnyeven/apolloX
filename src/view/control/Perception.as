@@ -8,7 +8,7 @@ package view.control
 	{
 		private var _control: BaseController;
 		
-		public function Perception(ctrl)
+		public function Perception(ctrl: BaseController)
 		{
 			_control = ctrl;
 		}

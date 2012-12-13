@@ -13,8 +13,14 @@
 		<mapId>10001</mapId>
 		<width>2100</width>
 		<height>1310</height>
+		<blockWidth>42</blockWidth>
+		<blockHeight>26</blockHeight>
+		<tileWidth>210</tileWidth>
+		<tileHeight>131</tileHeight>
 		<resources>
 			<background name="background_main_1" className="space.background.Background1" deep="1" x="0" y="0"></background>
+			<roadmap name="background_main_1" className="space.background.RoadMap1"></roadmap>
+			<alphamap name="background_main_1" className="space.background.AlphaMap1"></alphamap>
 			<background name="background_dust" className="space.background.SpaceDust1" deep="1.3" x="100" y="100"></background>
 			<background name="background_dust" className="space.background.SpaceDust2" deep="1.3" x="200" y="138"></background>
 			<background name="background_dust" className="space.background.SpaceDust3" deep="1.3" x="410" y="273"></background>

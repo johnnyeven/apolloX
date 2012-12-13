@@ -1,5 +1,7 @@
 package view.space.background
 {
+	import enum.EnumAction;
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
@@ -10,6 +12,8 @@ package view.space.background
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.system.System;
+	import flash.utils.getTimer;
 	
 	import utils.algorithms.SilzAstar;
 	import utils.configuration.GlobalContextConfig;
@@ -30,7 +34,7 @@ package view.space.background
 		private var _id: String = "default";
 		private var _xmlLoader: XMLLoader;
 		private static var _astar: SilzAstar;
-		private var _buffer: BitmapData;
+		private var _alphaMap: BitmapData;
 		private var _bufferContainer: Vector.<DisplayObject>;
 		private var _displayBufferContainer: Vector.<DisplayObject>;
 		private var _displayBufferDeep: Array;
@@ -53,7 +57,6 @@ package view.space.background
 			super();
 			
 			_preCenter = new Point();
-			_negativePath = new Array();
 			_displayBufferDeep = new Array();
 			_displayBufferPoint = new Array();
 			_mapReady = false;
@@ -91,8 +94,12 @@ package view.space.background
 			}
 			else
 			{
-				MapContextConfig.MapSize.x = parseInt(_mapXML.width);
-				MapContextConfig.MapSize.y = parseInt(_mapXML.height);
+				MapContextConfig.MapSize.x = parseFloat(_mapXML.width);
+				MapContextConfig.MapSize.y = parseFloat(_mapXML.height);
+				MapContextConfig.BlockSize.x = parseFloat(_mapXML.blockWidth);
+				MapContextConfig.BlockSize.y = parseFloat(_mapXML.blockHeight);
+				MapContextConfig.TileSize.x = parseFloat(_mapXML.tileWidth);
+				MapContextConfig.TileSize.y = parseFloat(_mapXML.tileHeight);
 				
 				centerX = startX;
 				centerY = startY;
@@ -132,20 +139,77 @@ package view.space.background
 			var _resource: XML;
 			for each(_resource in _mapXML.resources.children())
 			{
-				if(_resource.localName() == "background")
+				switch(_resource.localName())
 				{
-					_bufferContainer.push(ResourcePool.getResource(_resource.@className));
-					_displayBufferDeep.push(parseFloat(_resource.@deep));
-					_displayBufferPoint.push(new Point(parseInt(_resource.@x), parseInt(_resource.@y)));
-				}
-				else if(_resource.localName() == "mainLayer")
-				{
-					_mainLayer = parseFloat(_resource.@deep);
+					case "background":
+						_bufferContainer.push(ResourcePool.getResource(_resource.@className));
+						_displayBufferDeep.push(parseFloat(_resource.@deep));
+						_displayBufferPoint.push(new Point(parseInt(_resource.@x), parseInt(_resource.@y)));
+						break;
+					case "mainLayer":
+						_mainLayer = parseFloat(_resource.@deep);
+						break;
+					case "roadmap":
+						resetRoadPath();
+						var _roadMap: BitmapData = (ResourcePool.getResource(_resource.@className) as Bitmap).bitmapData;
+						
+						var percentage: Number = _roadMap.width / MapContextConfig.MapSize.x;
+						var width: uint = int(MapContextConfig.MapSize.x / MapContextConfig.BlockSize.x);
+						var height: uint = int(MapContextConfig.MapSize.y / MapContextConfig.BlockSize.y);
+						
+						for (var y: uint = 0; y < height; y++)
+						{
+							for (var x: uint = 0; x < width; x++)
+							{
+								_negativePath[y][x] = _roadMap.getPixel32(int(MapContextConfig.BlockSize.x * x * percentage), int(MapContextConfig.BlockSize.y * y * percentage)) == 0x00000000 ? true : false;
+							}
+						}
+						_roadMap.dispose();
+						_roadMap = null;
+						
+						initAstar();
+						break;
+					case "alphamap":
+						if(_alphaMap != null)
+						{
+							_alphaMap.dispose();
+							_alphaMap = null;
+						}
+						_alphaMap = (ResourcePool.getResource(_resource.@className) as Bitmap).bitmapData;
+						break;
 				}
 			}
 			_mapReady = true;
 			
 			init();
+		}
+		
+		protected function resetRoadPath(): void
+		{
+			if (_negativePath != null)
+			{
+				_negativePath.splice(0, _negativePath.length);
+				_negativePath = null;
+			}
+			_negativePath = new Array();
+			
+			var width: uint = int(MapContextConfig.MapSize.x / MapContextConfig.BlockSize.x) + 1;
+			var height: uint = int(MapContextConfig.MapSize.y / MapContextConfig.BlockSize.y) + 1;
+			
+			for (var y: uint = 0; y < height; y++)
+			{
+				var temp: Array = new Array();
+				for (var x: uint = 0; x < width; x++)
+				{
+					temp.push(true);
+				}
+				_negativePath.push(temp);
+			}
+		}
+		
+		private function initAstar(): void
+		{
+			_astar = new SilzAstar(_negativePath);
 		}
 		
 		public function init(): void
@@ -189,12 +253,17 @@ package view.space.background
 		
 		public function render(enforceRender: Boolean = false): void
 		{
-			if(!enforceRender && _centerX == _preCenter.x && _centerY == _preCenter.y)
+			cameraCutView;
+			if(!enforceRender && _focus != null && _focus.action == EnumAction.STOP)
 			{
 				return;
 			}
 			else
 			{
+				if (!enforceRender && _centerX == _preCenter.x && _centerY == _preCenter.y)
+				{
+					return;
+				}
 				for(var i: int = 0; i<_displayBufferContainer.length; i++)
 				{
 					_displayBufferContainer[i].x = -screenStartX * _displayBufferDeep[i];
@@ -252,7 +321,8 @@ package view.space.background
 		{
 			if(_focus != null)
 			{
-				_centerX = _focus.posX;
+				centerX = _focus.posX / _mainLayer;
+				trace("x: " + _focus.posX / _mainLayer);
 			}
 			return _centerX;
 		}
@@ -268,7 +338,8 @@ package view.space.background
 		{
 			if(_focus != null)
 			{
-				_centerY = _focus.posY;
+				centerY = _focus.posY / _mainLayer;
+				trace("y: " + _focus.posY / _mainLayer);
 			}
 			return _centerY;
 		}
@@ -280,7 +351,7 @@ package view.space.background
 			_centerY = value;
 		}
 		
-		protected function get screenStartX(): Number
+		public function get screenStartX(): Number
 		{
 			var _screenStartX: Number = centerX - int(GlobalContextConfig.Width * .5);
 			_screenStartX = Math.max(0, _screenStartX);
@@ -289,7 +360,7 @@ package view.space.background
 			return _screenStartX;
 		}
 		
-		protected function get screenStartY(): Number
+		public function get screenStartY(): Number
 		{
 			var _screenStartY: Number = centerY - int(GlobalContextConfig.Height * .5);
 			_screenStartY = Math.max(0, _screenStartY);
@@ -357,6 +428,29 @@ package view.space.background
 		public static function get AStar(): SilzAstar
 		{
 			return _astar;
+		}
+
+		public function get cameraView():Rectangle
+		{
+			_cameraView.x = screenStartX > MapContextConfig.MapSize.x - GlobalContextConfig.Width ? MapContextConfig.MapSize.x - GlobalContextConfig.Width : screenStartX;
+			_cameraView.y = screenStartY > MapContextConfig.MapSize.y - GlobalContextConfig.Height ? MapContextConfig.MapSize.y - GlobalContextConfig.Height : screenStartY;
+			
+			_cameraView.width = GlobalContextConfig.Width;
+			_cameraView.height = GlobalContextConfig.Height;
+			
+			return _cameraView;
+		}
+
+		public function get cameraCutView():Rectangle
+		{
+			_cameraCutView.x = cutviewStartX;
+			_cameraCutView.y = cutviewStartY;
+			_cameraCutView.width = centerX < MapContextConfig.TileSize.x + GlobalContextConfig.Width / 2 ? centerX + GlobalContextConfig.Width / 2 + MapContextConfig.TileSize.x : GlobalContextConfig.Width + MapContextConfig.TileSize.x * 2;
+			_cameraCutView.height = centerY < MapContextConfig.TileSize.y + GlobalContextConfig.Height / 2 ? centerY + GlobalContextConfig.Height / 2 + MapContextConfig.TileSize.y : GlobalContextConfig.Height + MapContextConfig.TileSize.y * 2;
+			_cameraCutView.width = cutviewStartX > MapContextConfig.MapSize.x - (GlobalContextConfig.Width + MapContextConfig.TileSize.x * 2) ? MapContextConfig.MapSize.x - cutviewStartX : _cameraCutView.width;
+			_cameraCutView.height = cutviewStartY > MapContextConfig.MapSize.y - (GlobalContextConfig.Width + MapContextConfig.TileSize.y * 2) ? MapContextConfig.MapSize.y - cutviewStartY : _cameraCutView.height;
+			
+			return _cameraCutView;
 		}
 	}
 }
