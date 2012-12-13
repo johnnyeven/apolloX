@@ -1,5 +1,7 @@
 package controller.space
 {
+	import enum.EnumShipDirection;
+	
 	import mediator.space.SpaceMainShipMediator;
 	
 	import org.puremvc.as3.interfaces.INotification;
@@ -26,9 +28,10 @@ package controller.space
 			
 			var parameter: ShipParameter = new ShipParameter();
 			parameter.id = 123435;
-			parameter.speed = 10;
-			parameter.x = 16500;
-			parameter.y = 9900;
+			parameter.speed = 5;
+			parameter.x = 1100;
+			parameter.y = 1900;
+			parameter.direction = EnumShipDirection.RADIANS_100;
 			parameter.shipResource = 1;
 			
 			facade.sendNotification(SpaceMainShipMediator.SHOW_NOTE, parameter);

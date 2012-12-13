@@ -321,10 +321,11 @@ package view.space.background
 		{
 			if(_focus != null)
 			{
-				trace("x: " + _centerX);
-				var offset: Number = (_focus.posX - _focus.lastPosX) / _mainLayer / _mainLayer;
-				_focus.lastPosX = _focus.posX;
-				centerX = _centerX + offset;
+				//trace("x: " + _centerX);
+//				var offset: Number = (_focus.posX - _focus.lastPosX) / _mainLayer / _mainLayer;
+//				_focus.lastPosX = _focus.posX;
+//				centerX = _centerX + offset;
+				centerX = _focus.posX;
 			}
 			return _centerX;
 		}
@@ -340,10 +341,11 @@ package view.space.background
 		{
 			if(_focus != null)
 			{
-				trace("y: " + _centerY);
-				var offset: Number = (_focus.posY - _focus.lastPosY) / _mainLayer / _mainLayer;
-				_focus.lastPosY = _focus.posY;
-				centerY = _centerY + offset;
+				//trace("y: " + _centerY);
+//				var offset: Number = (_focus.posY - _focus.lastPosY) / _mainLayer / _mainLayer;
+//				_focus.lastPosY = _focus.posY;
+//				centerY = _centerY + offset;
+				centerY = _focus.posY;
 			}
 			return _centerY;
 		}
