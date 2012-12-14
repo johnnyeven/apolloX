@@ -11,34 +11,23 @@ package view.space
 	
 	import parameters.ship.ShipParameter;
 	
-	import utils.liteui.core.Component;
 	import utils.resource.ResourcePool;
 	
 	import view.control.BaseController;
 	import view.render.Render;
 	
-	public class SpaceComponent extends Component
+	public class MovableComponent extends StaticComponent
 	{
-		public var focused: Boolean = false;
-		public var inUse: Boolean = true;
-		public var canBeAttack: Boolean = false;
-		public var staticUpdate: Boolean = false;
-		protected var _graphic: MovieClip;
 		protected var _info: ShipParameter;
 		protected var _direction: int;
 		protected var _action: int;
-		protected var _posX: Number;
-		protected var _posY: Number;
 		protected var _lastPosX: Number;
 		protected var _lastPosY: Number;
 		protected var _targetX: Number;
 		protected var _targetY: Number;
-		protected var _zIndex: uint = 0;
-		protected var _zIndexOffset: uint = 0;
 		protected var _controller: BaseController;
-		protected var _render: Render;
 		
-		public function SpaceComponent(parameter: ShipParameter = null)
+		public function MovableComponent(parameter: ShipParameter = null)
 		{
 			super();
 			_direction = EnumShipDirection.RADIANS_20;
@@ -53,11 +42,6 @@ package view.space
 			}
 			
 			loadResource();
-		}
-		
-		protected function loadResourceConfig(): void
-		{
-			
 		}
 		
 		protected function loadResource(): void
@@ -100,23 +84,6 @@ package view.space
 		{
 			_direction = value;
 		}
-
-		public function get posX():Number
-		{
-			return _posX;
-		}
-
-		public function get posY():Number
-		{
-			return _posY;
-		}
-		
-		public function setPos(_x: Number, _y: Number): void
-		{
-			_posX = _x;
-			_posY = _y;
-			_zIndex = y;
-		}
 		
 		public function isMovingOut(callback: Function = null): void
 		{
@@ -152,16 +119,6 @@ package view.space
 			}
 		}
 
-		public function get graphic():MovieClip
-		{
-			return _graphic;
-		}
-
-		public function set graphic(value:MovieClip):void
-		{
-			_graphic = value;
-		}
-
 		public function get controller():BaseController
 		{
 			return _controller;
@@ -179,32 +136,6 @@ package view.space
 				_controller.target = this;
 				_controller.setupListener();
 			}
-		}
-
-		public function get render():Render
-		{
-			return _render;
-		}
-
-		public function set render(value:Render):void
-		{
-			_render = value;
-			_render.target = this;
-		}
-
-		public function get zIndex():uint
-		{
-			return _zIndex + _zIndexOffset;
-		}
-
-		public function get zIndexOffset():uint
-		{
-			return _zIndexOffset;
-		}
-
-		public function set zIndexOffset(value:uint):void
-		{
-			_zIndexOffset = value;
 		}
 
 		public function get action():int

@@ -12,7 +12,7 @@ package mediator.space
 	
 	import view.control.MainController;
 	import view.render.MainRender;
-	import view.space.SpaceComponent;
+	import view.space.ship.ShipComponent;
 	
 	public class SpaceMainShipMediator extends BaseMediator
 	{
@@ -25,9 +25,9 @@ package mediator.space
 			super(NAME, null);
 		}
 		
-		public function get component(): SpaceComponent
+		public function get component(): ShipComponent
 		{
-			return viewComponent as SpaceComponent;
+			return viewComponent as ShipComponent;
 		}
 		
 		override public function listNotificationInterests():Array
@@ -41,7 +41,7 @@ package mediator.space
 			{
 				case SHOW_NOTE:
 					var parameter: ShipParameter = notification.getBody() as ShipParameter;
-					viewComponent = new SpaceComponent(parameter);
+					viewComponent = new ShipComponent(parameter);
 					component.controller = new MainController();
 					component.render = new MainRender();
 					component.mediator = this;

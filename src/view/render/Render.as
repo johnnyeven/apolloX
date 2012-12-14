@@ -1,10 +1,10 @@
 package view.render
 {
-	import view.space.SpaceComponent;
+	import view.space.StaticComponent;
 
 	public class Render
 	{
-		protected var _target: SpaceComponent;
+		protected var _target: StaticComponent;
 		
 		public function Render()
 		{
@@ -20,12 +20,12 @@ package view.render
 			_target.graphic.gotoAndStop(_direction);
 		}
 
-		public function get target():SpaceComponent
+		public function get target():StaticComponent
 		{
 			return _target;
 		}
 
-		public function set target(value:SpaceComponent):void
+		public function set target(value: StaticComponent):void
 		{
 			_target = value;
 		}

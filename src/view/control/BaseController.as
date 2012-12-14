@@ -6,11 +6,11 @@ package view.control
 	import flash.events.IEventDispatcher;
 	import flash.geom.Point;
 	
-	import view.space.SpaceComponent;
+	import view.space.MovableComponent;
 	
 	public class BaseController extends EventDispatcher
 	{
-		protected var _target: SpaceComponent;
+		protected var _target: MovableComponent;
 		protected var _endPoint: Point;
 		protected var _nextPoint: Point;
 		protected var _perception: Perception;
@@ -44,7 +44,7 @@ package view.control
 			{
 				_angle += 360;
 			}
-			dir = Math.floor(_angle / 20) + 1;
+			dir = Math.floor(_angle / 11.25) + 1;
 			if (dir != _target.direction)
 			{
 				_target.direction = dir;
@@ -56,12 +56,12 @@ package view.control
 			changeDirectionByAngle(EnumShipDirection.degressToRadians(EnumShipDirection.getDegress(_x - _target.posX, _y - _target.posY)) + 90);
 		}
 
-		public function get target():SpaceComponent
+		public function get target():MovableComponent
 		{
 			return _target;
 		}
 
-		public function set target(value:SpaceComponent):void
+		public function set target(value:MovableComponent):void
 		{
 			_target = value;
 		}

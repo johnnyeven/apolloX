@@ -27,7 +27,7 @@ package view.space.background
 	import utils.loader.XMLLoader;
 	import utils.resource.ResourcePool;
 	
-	import view.space.SpaceComponent;
+	import view.space.MovableComponent;
 	
 	public class SpaceBackgroundComponent extends Component
 	{
@@ -50,7 +50,7 @@ package view.space.background
 		protected var _mapXML: XML;
 		public var startX: int;
 		public var startY: int;
-		private var _focus: SpaceComponent;
+		private var _focus: MovableComponent;
 		private var _enableAstar: Boolean;
 		
 		public function SpaceBackgroundComponent()
@@ -153,24 +153,27 @@ package view.space.background
 						_mainLayer = parseFloat(_resource.@deep);
 						break;
 					case "roadmap":
-						resetRoadPath();
-						var _roadMap: BitmapData = (ResourcePool.getResource(_resource.@className) as Bitmap).bitmapData;
-						
-						var percentage: Number = _roadMap.width / MapContextConfig.MapSize.x;
-						var width: uint = int(MapContextConfig.MapSize.x / MapContextConfig.BlockSize.x);
-						var height: uint = int(MapContextConfig.MapSize.y / MapContextConfig.BlockSize.y);
-						
-						for (var y: uint = 0; y < height; y++)
+						if(_enableAstar)
 						{
-							for (var x: uint = 0; x < width; x++)
+							resetRoadPath();
+							var _roadMap: BitmapData = (ResourcePool.getResource(_resource.@className) as Bitmap).bitmapData;
+							
+							var percentage: Number = _roadMap.width / MapContextConfig.MapSize.x;
+							var width: uint = int(MapContextConfig.MapSize.x / MapContextConfig.BlockSize.x);
+							var height: uint = int(MapContextConfig.MapSize.y / MapContextConfig.BlockSize.y);
+							
+							for (var y: uint = 0; y < height; y++)
 							{
-								_negativePath[y][x] = _roadMap.getPixel32(int(MapContextConfig.BlockSize.x * x * percentage), int(MapContextConfig.BlockSize.y * y * percentage)) == 0x00000000 ? true : false;
+								for (var x: uint = 0; x < width; x++)
+								{
+									_negativePath[y][x] = _roadMap.getPixel32(int(MapContextConfig.BlockSize.x * x * percentage), int(MapContextConfig.BlockSize.y * y * percentage)) == 0x00000000 ? true : false;
+								}
 							}
+							_roadMap.dispose();
+							_roadMap = null;
+							
+							initAstar();
 						}
-						_roadMap.dispose();
-						_roadMap = null;
-						
-						initAstar();
 						break;
 					case "alphamap":
 						if(_alphaMap != null)
@@ -278,7 +281,7 @@ package view.space.background
 			}
 		}
 		
-		public function follow(target: SpaceComponent, cancel: Boolean = false): void
+		public function follow(target: MovableComponent, cancel: Boolean = false): void
 		{
 			if(cancel)
 			{
@@ -397,7 +400,7 @@ package view.space.background
 			return _mainLayer;
 		}
 
-		public function get focus():SpaceComponent
+		public function get focus():MovableComponent
 		{
 			return _focus;
 		}
@@ -461,5 +464,11 @@ package view.space.background
 			
 			return _cameraCutView;
 		}
+
+		public function get enableAstar():Boolean
+		{
+			return _enableAstar;
+		}
+
 	}
 }

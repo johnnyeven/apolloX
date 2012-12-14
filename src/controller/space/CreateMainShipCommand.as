@@ -32,7 +32,7 @@ package controller.space
 			parameter.x = 1100;
 			parameter.y = 1900;
 			parameter.direction = EnumShipDirection.RADIANS_100;
-			parameter.shipResource = 1;
+			parameter.shipResource = 15;
 			
 			facade.sendNotification(SpaceMainShipMediator.SHOW_NOTE, parameter);
 		}

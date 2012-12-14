@@ -73,7 +73,42 @@ package view.control
 				
 				_endPoint = _backgroundComponent.getMapPosition(new Point(evt.stageX, evt.stageY));
 				
-				var node: Array = SpaceBackgroundComponent.AStar.find(_target.posX, _target.posY, _endPoint.x, _endPoint.y);
+				if(_backgroundComponent.enableAstar)
+				{
+					var node: Array = SpaceBackgroundComponent.AStar.find(_target.posX, _target.posY, _endPoint.x, _endPoint.y);
+					if(node == null)
+					{
+						return;
+					}
+					else
+					{
+						_path = new Array();
+						for (var i: uint = 0; i < node.length; i++)
+						{
+							_path.push([node[i].x, node[i].y]);
+						}
+					}
+					_endPoint = SpaceBackgroundComponent.blockToMapPosition(new Point(_path[_path.length - 1][0], _path[_path.length - 1][1]));
+				}
+				else
+				{
+					_path = new Array();
+					_path.push([_target.posX, _target.posY]);
+					_path.push([_endPoint.x, _endPoint.y]);
+				}
+				//CCommandCenter.commandMoveTo(_endPoint.x, _endPoint.y);
+				_step = 1;
+			}
+		}
+		
+		public function moveTo(_x: Number, _y: Number): void
+		{
+			_target.action = EnumAction.STOP;
+			
+			_endPoint = new Point(_x, _y);
+			if(_backgroundComponent.enableAstar)
+			{
+				var node: Array = SpaceBackgroundComponent.AStar.find(_target.posX, _target.posY, _x, _y);
 				if(node == null)
 				{
 					return;
@@ -87,29 +122,13 @@ package view.control
 					}
 				}
 				_endPoint = SpaceBackgroundComponent.blockToMapPosition(new Point(_path[_path.length - 1][0], _path[_path.length - 1][1]));
-				//CCommandCenter.commandMoveTo(_endPoint.x, _endPoint.y);
-				_step = 1;
-			}
-		}
-		
-		public function moveTo(_x: Number, _y: Number): void
-		{
-			_target.action = EnumAction.STOP;
-			
-			var node: Array = SpaceBackgroundComponent.AStar.find(_target.posX, _target.posY, _x, _y);
-			if(node == null)
-			{
-				return;
 			}
 			else
 			{
 				_path = new Array();
-				for (var i: uint = 0; i < node.length; i++)
-				{
-					_path.push([node[i].x, node[i].y]);
-				}
+				_path.push([_target.posX, _target.posY]);
+				_path.push([_endPoint.x, _endPoint.y]);
 			}
-			_endPoint = SpaceBackgroundComponent.blockToMapPosition(new Point(_path[_path.length - 1][0], _path[_path.length - 1][1]));
 			//CCommandCenter.commandMoveTo(_endPoint.x, _endPoint.y);
 			_step = 1;
 		}
@@ -141,7 +160,14 @@ package view.control
 		{
 			if(!isStatic && _path != null && _path[_step] != null)
 			{
-				_nextPoint = _step == _path.length ? _endPoint : SpaceBackgroundComponent.blockToMapPosition(new Point(_path[_step][0], _path[_step][1]));
+				if(_backgroundComponent.enableAstar)
+				{
+					_nextPoint = _step == _path.length ? _endPoint : SpaceBackgroundComponent.blockToMapPosition(new Point(_path[_step][0], _path[_step][1]));
+				}
+				else
+				{
+					_nextPoint = _step == _path.length ? _endPoint : new Point(_path[_step][0], _path[_step][1]);
+				}
 				
 				var degress: Number = EnumShipDirection.getDegress(_nextPoint.x - _target.posX, _nextPoint.y - _target.posY);
 				var angle: Number = EnumShipDirection.degressToRadians(degress);
@@ -188,9 +214,9 @@ package view.control
 		{
 			if (_target == null)
 			{
-				return false;
+				return true;
 			}
-			if (_target.action == 1)
+			if (_target.action == EnumAction.DIE)
 			{
 				return true;
 			}

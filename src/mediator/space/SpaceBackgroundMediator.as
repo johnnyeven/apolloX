@@ -17,7 +17,7 @@ package mediator.space
 	import utils.StringUtils;
 	import utils.events.MapEvent;
 	
-	import view.space.SpaceComponent;
+	import view.space.MovableComponent;
 	import view.space.background.SpaceBackgroundComponent;
 	
 	public class SpaceBackgroundMediator extends BaseMediator
@@ -67,7 +67,7 @@ package mediator.space
 					dispose();
 					break;
 				case FOCUS_NOTE:
-					var target: SpaceComponent = notification.getBody() as SpaceComponent;
+					var target: MovableComponent = notification.getBody() as MovableComponent;
 					if(target != null)
 					{
 						component.follow(target);
