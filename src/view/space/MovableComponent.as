@@ -2,16 +2,14 @@ package view.space
 {
 	import com.greensock.TweenLite;
 	
+	import enum.EnumAction;
 	import enum.EnumShipDirection;
 	
-	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
 	import parameters.ship.ShipParameter;
-	
-	import utils.resource.ResourcePool;
 	
 	import view.control.BaseController;
 	import view.render.Render;
@@ -27,49 +25,22 @@ package view.space
 		protected var _targetY: Number;
 		protected var _controller: BaseController;
 		
-		public function MovableComponent(parameter: ShipParameter = null)
+		public function MovableComponent(_skin:DisplayObjectContainer=null)
 		{
-			super();
+			super(_skin);
 			_direction = EnumShipDirection.RADIANS_20;
-			if(parameter != null)
-			{
-				_info = parameter;
-				_direction = parameter.direction;
-				_posX = parameter.x;
-				_posY = parameter.y;
-				_lastPosX = parameter.x;
-				_lastPosY = parameter.y;
-			}
-			
-			loadResource();
+			_action = EnumAction.STOP;
 		}
 		
 		protected function loadResource(): void
 		{
-			ResourcePool.getResourceByLoader("resources/ship/ship" + _info.shipResource + ".swf", "space.ship.Ship" + _info.shipResource, onResourceLoaded);
-		}
-		
-		protected function onResourceLoaded(target: DisplayObject): void
-		{
-			_graphic = target as MovieClip;
-			_graphic.gotoAndStop(_direction);
-			addChild(_graphic);
+			//Interface: Load graphic
 		}
 		
 		override public function update(): void
 		{
 			_controller.calculateAction();
 			super.update();
-		}
-
-		public function get info():ShipParameter
-		{
-			return _info;
-		}
-
-		public function set info(value:ShipParameter):void
-		{
-			_info = value;
 		}
 
 		public function get direction():int
@@ -114,6 +85,16 @@ package view.space
 				inUse = false;
 				isMovingOut(dispose);
 			}
+		}
+		
+		public function get info():ShipParameter
+		{
+			return _info;
+		}
+		
+		public function set info(value:ShipParameter):void
+		{
+			_info = value;
 		}
 
 		public function get controller():BaseController

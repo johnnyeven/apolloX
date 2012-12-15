@@ -26,7 +26,7 @@ package view.render
 				if(_targetComponent.action == EnumAction.STOP && _targetComponent.graphic != null && !_isMoving)
 				{
 					_isMoving = true;
-					TweenLite.to(_targetComponent.graphic, 2, {y: -10, ease: Linear.easeNone, onComplete: function(): void
+					TweenLite.to(_targetComponent.graphic, 2, {y: -10, ease:Linear.easeNone, onComplete: function(): void
 					{
 						TweenLite.to(_targetComponent.graphic, 2, {y: 0, ease: Linear.easeNone, onComplete: function(): void
 						{
