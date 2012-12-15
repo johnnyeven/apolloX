@@ -2,7 +2,7 @@ package view.render
 {
 	import view.space.StaticComponent;
 
-	public class Render
+	public class Render implements IRender
 	{
 		protected var _target: StaticComponent;
 		

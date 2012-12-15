@@ -56,13 +56,10 @@ package view.space
 			addChild(_graphic);
 		}
 		
-		public function update(): void
+		override public function update(): void
 		{
 			_controller.calculateAction();
-			if(_graphic != null && inUse)
-			{
-				_render.rendering();
-			}
+			super.update();
 		}
 
 		public function get info():ShipParameter

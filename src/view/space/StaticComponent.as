@@ -6,6 +6,7 @@ package view.space
 	import utils.liteui.core.Component;
 	
 	import view.control.BaseController;
+	import view.render.IRender;
 	import view.render.Render;
 	
 	public class StaticComponent extends Component
@@ -20,10 +21,49 @@ package view.space
 		protected var _zIndex: uint = 0;
 		protected var _zIndexOffset: uint = 0;
 		protected var _render: Render;
+		protected var _additionalRender: Vector.<IRender>;
 		
 		public function StaticComponent(_skin:DisplayObjectContainer=null)
 		{
 			super(_skin);
+		}
+		
+		public function update(): void
+		{
+			if(_graphic != null && inUse)
+			{
+				_render.rendering();
+			}
+			if(_additionalRender != null)
+			{
+				for(var i: int = 0; i<_additionalRender.length; i++)
+				{
+					_additionalRender[i].rendering();
+				}
+			}
+		}
+		
+		public function addRender(value: IRender): void
+		{
+			if(_additionalRender == null)
+			{
+				_additionalRender = new Vector.<IRender>();
+			}
+			_additionalRender.push(value);
+			value.target = this;
+		}
+		
+		public function removeRender(value: IRender): void
+		{
+			if(_additionalRender != null)
+			{
+				var i: int = _additionalRender.indexOf(value);
+				if(i != -1)
+				{
+					_additionalRender[i].target = null;
+					_additionalRender.splice(i, 1);
+				}
+			}
 		}
 		
 		public function get posX():Number
