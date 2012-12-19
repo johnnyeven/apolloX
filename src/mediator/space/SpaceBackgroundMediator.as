@@ -1,6 +1,7 @@
 package mediator.space
 {
 	import controller.space.CreateMainShipCommand;
+	import controller.space.CreateStationCommand;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -94,6 +95,7 @@ package mediator.space
 			GameManager.container.addEventListener(Event.ENTER_FRAME, onRender);
 //			
 			facade.sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
+			facade.sendNotification(CreateStationCommand.CREATE_STATION_NOTE);
 		}
 		
 		private function onRender(evt: Event): void

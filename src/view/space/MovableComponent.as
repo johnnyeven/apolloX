@@ -16,7 +16,6 @@ package view.space
 	
 	public class MovableComponent extends StaticComponent
 	{
-		protected var _info: ShipParameter;
 		protected var _direction: int;
 		protected var _action: int;
 		protected var _lastPosX: Number;
@@ -32,7 +31,7 @@ package view.space
 			_action = EnumAction.STOP;
 		}
 		
-		protected function loadResource(): void
+		override protected function loadResource(): void
 		{
 			//Interface: Load graphic
 		}
@@ -85,16 +84,6 @@ package view.space
 				inUse = false;
 				isMovingOut(dispose);
 			}
-		}
-		
-		public function get info():ShipParameter
-		{
-			return _info;
-		}
-		
-		public function set info(value:ShipParameter):void
-		{
-			_info = value;
 		}
 
 		public function get controller():BaseController

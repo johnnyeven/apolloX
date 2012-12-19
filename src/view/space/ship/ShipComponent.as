@@ -12,6 +12,7 @@ package view.space.ship
 	
 	public class ShipComponent extends MovableComponent
 	{
+		protected var _info: ShipParameter;
 		
 		public function ShipComponent(parameter:ShipParameter=null)
 		{
@@ -28,6 +29,16 @@ package view.space.ship
 			
 			loadResource();
 			addRender(new ShipStopRender());
+		}
+		
+		public function get info():ShipParameter
+		{
+			return _info;
+		}
+		
+		public function set info(value:ShipParameter):void
+		{
+			_info = value;
 		}
 		
 		override protected function loadResource(): void

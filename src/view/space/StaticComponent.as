@@ -28,6 +28,11 @@ package view.space
 			super(_skin);
 		}
 		
+		protected function loadResource(): void
+		{
+			//Interface: Load graphic
+		}
+		
 		public function update(): void
 		{
 			if(_graphic != null && inUse)

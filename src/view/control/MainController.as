@@ -12,6 +12,7 @@ package view.control
 	import utils.configuration.GlobalContextConfig;
 	
 	import view.space.background.SpaceBackgroundComponent;
+	import view.space.ship.ShipComponent;
 
 	public class MainController extends BaseController
 	{
@@ -160,6 +161,7 @@ package view.control
 		{
 			if(!isStatic && _path != null && _path[_step] != null)
 			{
+				var target: ShipComponent = _target as ShipComponent;
 				if(_backgroundComponent.enableAstar)
 				{
 					_nextPoint = _step == _path.length ? _endPoint : SpaceBackgroundComponent.blockToMapPosition(new Point(_path[_step][0], _path[_step][1]));
@@ -169,34 +171,34 @@ package view.control
 					_nextPoint = _step == _path.length ? _endPoint : new Point(_path[_step][0], _path[_step][1]);
 				}
 				
-				var degress: Number = EnumShipDirection.getDegress(_nextPoint.x - _target.posX, _nextPoint.y - _target.posY);
+				var degress: Number = EnumShipDirection.getDegress(_nextPoint.x - target.posX, _nextPoint.y - target.posY);
 				var angle: Number = EnumShipDirection.degressToRadians(degress);
 				
 				var readyX: Boolean = false;
 				var readyY: Boolean = false;
 				
-				var speedX: Number = _target.info.speed * Math.cos(degress);
-				var speedY: Number = _target.info.speed * Math.sin(degress);
+				var speedX: Number = target.info.speed * Math.cos(degress);
+				var speedY: Number = target.info.speed * Math.sin(degress);
 				
-				if (Math.abs(_target.posX - _nextPoint.x) <= speedX)
+				if (Math.abs(target.posX - _nextPoint.x) <= speedX)
 				{
 					readyX = true;
 					speedX = 0;
 				}
-				if (Math.abs(_target.posY - _nextPoint.y) <= speedY)
+				if (Math.abs(target.posY - _nextPoint.y) <= speedY)
 				{
 					readyY = true;
 					speedY = 0;
 				}
 				
-				move(_target.posX + speedX, _target.posY + speedY);
+				move(target.posX + speedX, target.posY + speedY);
 				
 				if (readyX && readyY)
 				{
 					_step++;
 					if (_step >= _path.length)
 					{
-						_target.action = EnumAction.STOP;
+						target.action = EnumAction.STOP;
 						_path = null;
 						_step = 1;
 						//dispatchEvent(new ControllerEvent(ControllerEvent.MOVE_INTO_POSITION));
