@@ -52,6 +52,12 @@ package mediator.space
 			}
 		}
 		
+		override public function show():void
+		{
+			GameManager.instance.addView(component);
+			onShowComplete();
+		}
+		
 		private function onRender(evt: Event): void
 		{
 			component.update();

@@ -77,6 +77,12 @@ package mediator.space
 			}
 		}
 		
+		override public function show():void
+		{
+			GameManager.instance.addBack(component);
+			onShowComplete();
+		}
+		
 		override public function dispose():void
 		{
 			super.dispose();
@@ -94,8 +100,8 @@ package mediator.space
 //			GameManager.container.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 			GameManager.container.addEventListener(Event.ENTER_FRAME, onRender);
 //			
-			facade.sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
-			facade.sendNotification(CreateStationCommand.CREATE_STATION_NOTE);
+			sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
+			sendNotification(CreateStationCommand.CREATE_STATION_NOTE);
 		}
 		
 		private function onRender(evt: Event): void

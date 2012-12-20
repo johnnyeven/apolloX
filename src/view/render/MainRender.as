@@ -3,18 +3,26 @@ package view.render
 	import enum.EnumAction;
 	
 	import flash.errors.IllegalOperationError;
+	import flash.geom.Point;
+	
+	import mediator.space.SpaceBackgroundMediator;
 	
 	import utils.configuration.GlobalContextConfig;
 	import utils.configuration.MapContextConfig;
 	
 	import view.control.MainController;
 	import view.space.MovableComponent;
+	import view.space.background.SpaceBackgroundComponent;
 
 	public class MainRender extends Render
 	{
+		protected var _backgroundComponent: SpaceBackgroundComponent;
+		
 		public function MainRender()
 		{
 			super();
+			var _mediator: SpaceBackgroundMediator = ApplicationFacade.getInstance().retrieveMediator(SpaceBackgroundMediator.NAME) as SpaceBackgroundMediator;
+			_backgroundComponent = _mediator.component;
 		}
 		
 		override public function rendering(force:Boolean=false):void
@@ -42,8 +50,9 @@ package view.render
 				}
 				else
 				{
-					targetX = _targetComponent.posX;
-					targetY = _targetComponent.posY;
+					var _pos: Point = _backgroundComponent.getScreenPosition(new Point(_target.posX, _target.posY));
+					targetX = _pos.x;
+					targetY = _pos.y;
 				}
 				
 				_targetComponent.x = targetX;

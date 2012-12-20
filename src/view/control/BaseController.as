@@ -37,6 +37,10 @@ package view.control
 		{
 		}
 		
+		public function moveTo(_x: Number, _y: Number): void
+		{
+		}
+		
 		protected function changeDirectionByAngle(_angle:int): void
 		{
 			var dir: uint;

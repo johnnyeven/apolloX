@@ -3,7 +3,7 @@ package controller.scene
 	import controller.init.LoadServerListCommand;
 	import controller.space.CreateMainShipCommand;
 	import controller.space.CreateStationCommand;
-	import controller.space.LeaveIntoSpaceCommand;
+	import controller.space.CreateSpaceBackgroundCommand;
 	
 	import mediator.loader.ProgressBarMediator;
 	import mediator.login.StartMediator;
@@ -39,7 +39,7 @@ package controller.scene
 		{
 			facade.registerMediator(new SceneBackgroundMediator());
 			facade.registerMediator(new StationViewMediator());
-			facade.registerCommand(LeaveIntoSpaceCommand.LEAVE_INTO_SPACE_NOTE, LeaveIntoSpaceCommand);
+			facade.registerCommand(CreateSpaceBackgroundCommand.CREATE_SPACE_BACKGROUND_NOTE, CreateSpaceBackgroundCommand);
 			facade.registerCommand(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE, CreateMainShipCommand);
 			facade.registerCommand(CreateStationCommand.CREATE_STATION_NOTE, CreateStationCommand);
 			facade.registerCommand(CreateAssemblyViewCommand.LOAD_ASSEMBLY_VIEW_NOTE, CreateAssemblyViewCommand);

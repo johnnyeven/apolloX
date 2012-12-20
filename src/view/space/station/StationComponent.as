@@ -1,5 +1,7 @@
 package view.space.station
 {
+	import com.greensock.TweenLite;
+	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	
@@ -15,6 +17,7 @@ package view.space.station
 		protected var _info: SpaceStationParameter;
 		private var _btnTask: Button;
 		private var _selectedSkin: MovieClip;
+		private var _selected: Boolean;
 		
 		public function StationComponent(parameter: SpaceStationParameter=null)
 		{
@@ -25,6 +28,7 @@ package view.space.station
 				_posX = parameter.x;
 				_posY = parameter.y;
 			}
+			_selected = false;
 			
 			loadResource();
 		}
@@ -50,10 +54,35 @@ package view.space.station
 			
 			_btnTask = getUIByDisplay(Button, _graphic.getChildByName("btnTask")) as Button;
 			_selectedSkin = _graphic.getChildByName("selected") as MovieClip;
+			_graphic.addChild(_btnTask);
+			
+			_btnTask.visible = false;
+			_selectedSkin.alpha = 0;
+			_graphic.cacheAsBitmap = true;
 			
 			addChild(_graphic);
 			
 			sortChildIndex();
 		}
+
+		public function get selected():Boolean
+		{
+			return _selected;
+		}
+
+		public function set selected(value:Boolean):void
+		{
+			_selected = value;
+			
+			if(_selected)
+			{
+				TweenLite.to(_selectedSkin, .5, {alpha: 1});
+			}
+			else
+			{
+				TweenLite.to(_selectedSkin, .5, {alpha: 0});
+			}
+		}
+
 	}
 }

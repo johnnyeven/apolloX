@@ -1,6 +1,6 @@
 package view.scene.station
 {
-	import controller.space.LeaveIntoSpaceCommand;
+	import controller.space.CreateSpaceBackgroundCommand;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
@@ -27,7 +27,7 @@ package view.scene.station
 		
 		private function onBtnLeftClick(evt: MouseEvent): void
 		{
-			ApplicationFacade.getInstance().sendNotification(LeaveIntoSpaceCommand.LEAVE_INTO_SPACE_NOTE);
+			ApplicationFacade.getInstance().sendNotification(CreateSpaceBackgroundCommand.CREATE_SPACE_BACKGROUND_NOTE);
 			ApplicationFacade.getInstance().sendNotification(StationViewMediator.STATION_DISPOSE_NOTE);
 		}
 	}

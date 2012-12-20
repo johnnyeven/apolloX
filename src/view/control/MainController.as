@@ -102,7 +102,7 @@ package view.control
 			}
 		}
 		
-		public function moveTo(_x: Number, _y: Number): void
+		override public function moveTo(_x: Number, _y: Number): void
 		{
 			_target.action = EnumAction.STOP;
 			

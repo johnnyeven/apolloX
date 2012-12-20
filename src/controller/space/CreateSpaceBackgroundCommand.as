@@ -7,11 +7,11 @@ package controller.space
 	
 	import parameters.space.LeaveIntoSpaceParameter;
 	
-	public class LeaveIntoSpaceCommand extends SimpleCommand
+	public class CreateSpaceBackgroundCommand extends SimpleCommand
 	{
-		public static const LEAVE_INTO_SPACE_NOTE: String = "LeaseIntoSpaceNote";
+		public static const CREATE_SPACE_BACKGROUND_NOTE: String = "CreateSpaceBackgroundNote";
 		
-		public function LeaveIntoSpaceCommand()
+		public function CreateSpaceBackgroundCommand()
 		{
 			super();
 		}

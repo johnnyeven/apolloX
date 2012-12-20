@@ -1,6 +1,7 @@
 package mediator.space
 {
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import mediator.BaseMediator;
 	
@@ -14,6 +15,7 @@ package mediator.space
 	import view.control.MainController;
 	import view.render.MainRender;
 	import view.render.StaticRender;
+	import view.space.ship.ShipComponent;
 	import view.space.station.StationComponent;
 	
 	public class SpaceStationMediator extends BaseMediator
@@ -48,9 +50,18 @@ package mediator.space
 					component.mediator = this;
 					show();
 					facade.sendNotification(SpaceBackgroundMediator.FOCUS_NOTE, component);
+					component.addEventListener(MouseEvent.CLICK, onComponentClick);
 					GameManager.container.addEventListener(Event.ENTER_FRAME, onRender);
 					break;
 			}
+		}
+		
+		private function onComponentClick(evt: MouseEvent): void
+		{
+			var _ship: ShipComponent = (ApplicationFacade.getInstance().retrieveMediator(SpaceMainShipMediator.NAME) as SpaceMainShipMediator).component;
+			_ship.controller.moveTo(component.posX, component.posY);
+			component.selected = true;
+			evt.stopImmediatePropagation();
 		}
 		
 		private function onRender(evt: Event): void
