@@ -1,5 +1,7 @@
 package view.space
 {
+	import com.greensock.TweenLite;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	
@@ -69,6 +71,16 @@ package view.space
 					_additionalRender.splice(i, 1);
 				}
 			}
+		}
+		
+		public function isMovingOut(callback: Function = null): void
+		{
+			TweenLite.to(this, .5, {alpha: 0, onComplete: callback});
+		}
+		
+		public function isMovingIn(callback: Function = null): void
+		{
+			TweenLite.to(this, .5, {alpha: 1, onComplete: callback});
 		}
 		
 		public function get posX():Number

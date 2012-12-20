@@ -52,16 +52,6 @@ package view.space
 			_direction = value;
 		}
 		
-		public function isMovingOut(callback: Function = null): void
-		{
-			TweenLite.to(this, 1, {alpha: 0, onComplete: callback});
-		}
-		
-		public function isMovingIn(callback: Function = null): void
-		{
-			TweenLite.to(this, 1, {alpha: 1, onComplete: callback});
-		}
-		
 		override public function dispose():void
 		{
 			super.dispose();

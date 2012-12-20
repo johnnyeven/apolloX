@@ -1,6 +1,8 @@
 package mediator.space
 {
+	import controller.space.CreateMainShipCommand;
 	import controller.space.CreateSpaceBackgroundCommand;
+	import controller.space.CreateStationCommand;
 	
 	import flash.utils.getTimer;
 	
@@ -18,7 +20,8 @@ package mediator.space
 	public class SpaceSceneMediator extends Mediator implements IMediator
 	{
 		public static const NAME: String = "SpaceSceneMediator";
-		public static const CREATE_NOTE: String = "SpaceSceneMediator.CreateNote";
+		public static const CREATE_BACKGROUND_NOTE: String = "SpaceSceneMediator.CreateBackgroundNote";
+		public static const CREATE_COMPONENT_NOTE: String = "SpaceSceneMediator.CreateComponentNote";
 		
 		protected var _backgroundComponent: SpaceBackgroundComponent;
 		protected var _objectList: Array;
@@ -35,9 +38,15 @@ package mediator.space
 			_renderList = new Array();
 		}
 		
-		private function createScene(): void
+		private function createBackground(): void
 		{
 			sendNotification(CreateSpaceBackgroundCommand.CREATE_SPACE_BACKGROUND_NOTE);
+		}
+		
+		private function createComponents(): void
+		{
+			sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
+			sendNotification(CreateStationCommand.CREATE_STATION_NOTE);
 		}
 		
 		private function clear(): void
@@ -91,7 +100,59 @@ package mediator.space
 		
 		private function refreshScene(): void
 		{
-			
+			for each(var _child: StaticComponent in _objectList)
+			{
+				if(_child == _mainShip)
+				{
+					continue;
+				}
+				if(_backgroundComponent.cameraView.contains(_child.posX, _child.posY))
+				{
+					pushRenderList(_child);
+				}
+				else
+				{
+					pullRenderList(_child);
+				}
+				if (!_backgroundComponent.cameraCutView.contains(_child.posX, _child.posY))
+				{
+					pullRenderList(_child, true);
+				}
+			}
+		}
+		
+		private function pushRenderList(child: StaticComponent): void
+		{
+			if(_renderList.indexOf(child) != -1)
+			{
+				return;
+			}
+			_renderList.push(child);
+			GameManager.instance.addBase(child);
+			child.inUse = true;
+			child.isMovingIn();
+		}
+		
+		private function pullRenderList(child: StaticComponent, dispose: Boolean = false): void
+		{
+			var i: int = _renderList.indexOf(child);
+			if(i != -1)
+			{
+				_renderList.splice(i, 1);
+				child.inUse = false;
+				child.isMovingOut(function(): void
+				{
+					GameManager.instance.removeBase(child);
+					if(dispose)
+					{
+						child.dispose();
+					}
+				});
+			}
+			else if(dispose)
+			{
+				child.dispose();
+			}
 		}
 		
 		private function updateTimer(): void
@@ -106,15 +167,18 @@ package mediator.space
 		
 		override public function listNotificationInterests():Array
 		{
-			return [CREATE_NOTE];
+			return [CREATE_BACKGROUND_NOTE, CREATE_COMPONENT_NOTE];
 		}
 		
 		override public function handleNotification(notification:INotification):void
 		{
 			switch(notification.getName())
 			{
-				case CREATE_NOTE:
-					createScene():
+				case CREATE_BACKGROUND_NOTE:
+					createBackground():
+					break;
+				case CREATE_COMPONENT_NOTE:
+					createComponents();
 					break;
 			}
 		}

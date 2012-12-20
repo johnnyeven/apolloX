@@ -100,6 +100,7 @@ package mediator.space
 //			GameManager.container.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 			GameManager.container.addEventListener(Event.ENTER_FRAME, onRender);
 //			
+			//sendNotification(SpaceSceneMediator.CREATE_COMPONENT_NOTE);
 			sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
 			sendNotification(CreateStationCommand.CREATE_STATION_NOTE);
 		}
