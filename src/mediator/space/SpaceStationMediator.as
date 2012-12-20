@@ -49,24 +49,24 @@ package mediator.space
 					component.render = new StaticRender();
 					component.mediator = this;
 					show();
-					facade.sendNotification(SpaceBackgroundMediator.FOCUS_NOTE, component);
 					component.addEventListener(MouseEvent.CLICK, onComponentClick);
-					GameManager.container.addEventListener(Event.ENTER_FRAME, onRender);
 					break;
 			}
 		}
 		
-		private function onComponentClick(evt: MouseEvent): void
+		override public function show():void
+		{
+			var _mediator: SpaceSceneMediator = facade.retrieveMediator(SpaceSceneMediator.NAME) as SpaceSceneMediator;
+			_mediator.addObject(component);
+			onShowComplete();
+		}
+		
+		private function onComponentClick(evt: Event): void
 		{
 			var _ship: ShipComponent = (ApplicationFacade.getInstance().retrieveMediator(SpaceMainShipMediator.NAME) as SpaceMainShipMediator).component;
 			_ship.controller.moveTo(component.posX, component.posY);
 			component.selected = true;
 			evt.stopImmediatePropagation();
-		}
-		
-		private function onRender(evt: Event): void
-		{
-			component.update();
 		}
 	}
 }

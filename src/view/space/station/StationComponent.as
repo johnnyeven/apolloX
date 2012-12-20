@@ -67,6 +67,7 @@ package view.space.station
 
 		public function get selected():Boolean
 		{
+			trace(_selectedSkin);
 			return _selected;
 		}
 

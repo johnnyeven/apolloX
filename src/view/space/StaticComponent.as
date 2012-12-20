@@ -97,7 +97,7 @@ package view.space
 		{
 			_posX = _x;
 			_posY = _y;
-			_zIndex = y;
+			_zIndex = _y;
 		}
 		
 		public function get graphic():MovieClip
@@ -123,7 +123,7 @@ package view.space
 		
 		public function get zIndex():uint
 		{
-			return _zIndex + _zIndexOffset;
+			return _posY + _zIndexOffset;
 		}
 		
 		public function get zIndexOffset():uint

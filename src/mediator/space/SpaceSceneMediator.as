@@ -4,6 +4,7 @@ package mediator.space
 	import controller.space.CreateSpaceBackgroundCommand;
 	import controller.space.CreateStationCommand;
 	
+	import flash.events.Event;
 	import flash.utils.getTimer;
 	
 	import org.puremvc.as3.interfaces.IMediator;
@@ -32,8 +33,6 @@ package mediator.space
 		{
 			super(NAME, viewComponent);
 			
-			_backgroundComponent = (ApplicationFacade.getInstance().retrieveMediator(SpaceBackgroundMediator.NAME) as SpaceBackgroundMediator).component;
-			_mainShip = (ApplicationFacade.getInstance().retrieveMediator(SpaceMainShipMediator.NAME) as SpaceMainShipMediator).component;
 			_objectList = new Array();
 			_renderList = new Array();
 		}
@@ -41,12 +40,16 @@ package mediator.space
 		private function createBackground(): void
 		{
 			sendNotification(CreateSpaceBackgroundCommand.CREATE_SPACE_BACKGROUND_NOTE);
+			_backgroundComponent = (ApplicationFacade.getInstance().retrieveMediator(SpaceBackgroundMediator.NAME) as SpaceBackgroundMediator).component;
 		}
 		
 		private function createComponents(): void
 		{
-			sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
 			sendNotification(CreateStationCommand.CREATE_STATION_NOTE);
+			sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
+			_mainShip = (ApplicationFacade.getInstance().retrieveMediator(SpaceMainShipMediator.NAME) as SpaceMainShipMediator).component;
+			
+			GameManager.instance.addEventListener(Event.ENTER_FRAME, render);
 		}
 		
 		private function clear(): void
@@ -64,7 +67,7 @@ package mediator.space
 			}
 		}
 		
-		private function render(): void
+		private function render(evt: Event = null): void
 		{
 			updateTimer();
 			_backgroundComponent.render();
@@ -121,6 +124,30 @@ package mediator.space
 			}
 		}
 		
+		public function addObject(child: StaticComponent): void
+		{
+			if(_objectList.indexOf(child) != -1)
+			{
+				return;
+			}
+			_objectList.push(child);
+			pushRenderList(child);
+			if(_backgroundComponent.cameraView.contains(child.posX, child.posY))
+			{
+				pushRenderList(child);
+			}
+		}
+		
+		public function removeObject(child: StaticComponent): void
+		{
+			var i: int = _objectList.indexOf(child);
+			if (i != -1)
+			{
+				_objectList.splice(i, 1);
+			}
+			pullRenderList(child);
+		}
+		
 		private function pushRenderList(child: StaticComponent): void
 		{
 			if(_renderList.indexOf(child) != -1)
@@ -175,7 +202,7 @@ package mediator.space
 			switch(notification.getName())
 			{
 				case CREATE_BACKGROUND_NOTE:
-					createBackground():
+					createBackground();
 					break;
 				case CREATE_COMPONENT_NOTE:
 					createComponents();

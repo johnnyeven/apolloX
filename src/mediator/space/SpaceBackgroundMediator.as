@@ -90,7 +90,7 @@ package mediator.space
 //			GameManager.container.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 //			GameManager.container.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 //			GameManager.container.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-			GameManager.container.removeEventListener(Event.ENTER_FRAME, onRender);
+//			GameManager.container.removeEventListener(Event.ENTER_FRAME, onRender);
 		}
 		
 		private function onBackgroundReady(evt: MapEvent): void
@@ -98,17 +98,14 @@ package mediator.space
 //			GameManager.container.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 //			GameManager.container.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 //			GameManager.container.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-			GameManager.container.addEventListener(Event.ENTER_FRAME, onRender);
-//			
-			//sendNotification(SpaceSceneMediator.CREATE_COMPONENT_NOTE);
-			sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
-			sendNotification(CreateStationCommand.CREATE_STATION_NOTE);
+//			GameManager.container.addEventListener(Event.ENTER_FRAME, onRender);
+			sendNotification(SpaceSceneMediator.CREATE_COMPONENT_NOTE);
 		}
 		
-		private function onRender(evt: Event): void
-		{
-			component.render();
-		}
+//		private function onRender(evt: Event): void
+//		{
+//			component.render();
+//		}
 		
 		private function onMouseDown(evt: MouseEvent): void
 		{

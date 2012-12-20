@@ -1,6 +1,7 @@
 package mediator.space
 {
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import mediator.BaseMediator;
 	
@@ -47,20 +48,21 @@ package mediator.space
 					component.mediator = this;
 					show();
 					facade.sendNotification(SpaceBackgroundMediator.FOCUS_NOTE, component);
-					GameManager.container.addEventListener(Event.ENTER_FRAME, onRender);
+					component.addEventListener(MouseEvent.CLICK, clickComponent);
 					break;
 			}
 		}
 		
-		override public function show():void
+		private function clickComponent(evt: MouseEvent): void
 		{
-			GameManager.instance.addView(component);
-			onShowComplete();
+			trace("click");
 		}
 		
-		private function onRender(evt: Event): void
+		override public function show():void
 		{
-			component.update();
+			var _mediator: SpaceSceneMediator = facade.retrieveMediator(SpaceSceneMediator.NAME) as SpaceSceneMediator;
+			_mediator.addObject(component);
+			onShowComplete();
 		}
 	}
 }

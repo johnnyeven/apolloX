@@ -259,7 +259,6 @@ package view.space.background
 		
 		public function render(enforceRender: Boolean = false): void
 		{
-			cameraCutView;
 			if(!enforceRender && _focus != null && _focus.action == EnumAction.STOP)
 			{
 				return;
