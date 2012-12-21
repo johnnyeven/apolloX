@@ -61,7 +61,7 @@ package mediator.space
 		override public function show():void
 		{
 			var _mediator: SpaceSceneMediator = facade.retrieveMediator(SpaceSceneMediator.NAME) as SpaceSceneMediator;
-			_mediator.addObject(component);
+			_mediator.addMainObject(component);
 			onShowComplete();
 		}
 	}

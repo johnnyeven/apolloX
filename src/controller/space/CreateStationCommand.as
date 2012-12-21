@@ -29,8 +29,8 @@ package controller.space
 			var parameter: SpaceStationParameter = new SpaceStationParameter();
 			parameter.id = 123435;
 			parameter.stationResource = 2;
-			parameter.x = 1100;
-			parameter.y = 2000;
+			parameter.x = 2100;
+			parameter.y = 1200;
 			
 			facade.sendNotification(SpaceStationMediator.SHOW_NOTE, parameter);
 		}

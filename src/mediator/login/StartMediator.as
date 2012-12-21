@@ -45,16 +45,17 @@ package mediator.login
 		
 		public function addBg(): void
 		{
-			GameManager.instance.addBase(LoginBGComponent.getInstance());
+			GameManager.instance.addBack(LoginBGComponent.getInstance());
 			LoginBGComponent.getInstance().show();
 		}
 		
 		public function removeBg(): void
 		{
-			LoginBGComponent.getInstance().hide(function(): void
-			{
-				GameManager.instance.removeBase(LoginBGComponent.getInstance());
-			});
+			GameManager.instance.removeBack(LoginBGComponent.getInstance());
+//			LoginBGComponent.getInstance().hide(function(): void
+//			{
+//				GameManager.instance.removeBase(LoginBGComponent.getInstance());
+//			});
 		}
 		
 		private function onLoginStart(evt: LoginEvent): void

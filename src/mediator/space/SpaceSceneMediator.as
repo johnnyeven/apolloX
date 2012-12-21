@@ -71,11 +71,12 @@ package mediator.space
 		{
 			updateTimer();
 			_backgroundComponent.render();
+			_mainShip.update();
 			
-			if(_renderList.length == 0)
-			{
-				return;
-			}
+//			if(_renderList.length == 0)
+//			{
+//				return;
+//			}
 			
 			var _length: int = _renderList.length;
 			_renderList.sortOn("zIndex", Array.NUMERIC);
@@ -109,17 +110,13 @@ package mediator.space
 				{
 					continue;
 				}
-				if(_backgroundComponent.cameraView.contains(_child.posX, _child.posY))
+				if(_backgroundComponent.cameraCutView.contains(_child.posX, _child.posY))
 				{
 					pushRenderList(_child);
 				}
 				else
 				{
 					pullRenderList(_child);
-				}
-				if (!_backgroundComponent.cameraCutView.contains(_child.posX, _child.posY))
-				{
-					pullRenderList(_child, true);
 				}
 			}
 		}
@@ -138,6 +135,11 @@ package mediator.space
 			}
 		}
 		
+		public function addMainObject(child: StaticComponent): void
+		{
+			GameManager.instance.addView(child);
+		}
+		
 		public function removeObject(child: StaticComponent): void
 		{
 			var i: int = _objectList.indexOf(child);
@@ -146,6 +148,11 @@ package mediator.space
 				_objectList.splice(i, 1);
 			}
 			pullRenderList(child);
+		}
+		
+		public function removeMainObject(child: StaticComponent): void
+		{
+			GameManager.instance.removeView(child);
 		}
 		
 		private function pushRenderList(child: StaticComponent): void
