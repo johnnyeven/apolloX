@@ -28,7 +28,7 @@ package controller.space
 			
 			var parameter: ShipParameter = new ShipParameter();
 			parameter.id = 123435;
-			parameter.speed = 5;
+			parameter.speed = 6;
 			parameter.x = 1100;
 			parameter.y = 1900;
 			parameter.direction = EnumShipDirection.RADIANS_100;

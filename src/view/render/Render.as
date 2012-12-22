@@ -1,10 +1,12 @@
 package view.render
 {
+	import utils.liteui.core.Component;
+	
 	import view.space.StaticComponent;
 
 	public class Render implements IRender
 	{
-		protected var _target: StaticComponent;
+		protected var _target: Component;
 		
 		public function Render()
 		{
@@ -17,15 +19,18 @@ package view.render
 		
 		protected function draw(_direction: int): void
 		{
-			_target.graphic.gotoAndStop(_direction);
+			if(_target is StaticComponent)
+			{
+				(_target as StaticComponent).graphic.gotoAndStop(_direction);
+			}
 		}
 
-		public function get target():StaticComponent
+		public function get target():Component
 		{
 			return _target;
 		}
 
-		public function set target(value: StaticComponent):void
+		public function set target(value: Component):void
 		{
 			_target = value;
 		}

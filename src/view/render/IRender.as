@@ -1,11 +1,11 @@
 package view.render
 {
-	import view.space.StaticComponent;
+	import utils.liteui.core.Component;
 	
 	public interface IRender
 	{
 		function rendering(force: Boolean = false): void;
-		function get target():StaticComponent;
-		function set target(value: StaticComponent):void;
+		function get target():Component;
+		function set target(value: Component):void;
 	}
 }

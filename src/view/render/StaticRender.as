@@ -12,6 +12,7 @@ package view.render
 	
 	import view.control.MainController;
 	import view.space.MovableComponent;
+	import view.space.StaticComponent;
 	import view.space.background.SpaceBackgroundComponent;
 
 	public class StaticRender extends Render
@@ -38,37 +39,45 @@ package view.render
 //				{
 //					return;
 //				}
-				var targetX: Number = 0;
-				var targetY: Number = 0;
-				
-				var maxX: uint = MapContextConfig.MapSize.x;
-				var maxY: uint = MapContextConfig.MapSize.y;
-				
-				if(_target.focused)
+				if(_target is StaticComponent)
 				{
-					targetX = _target.posX < GlobalContextConfig.Width / 2 ? _target.posX : GlobalContextConfig.Width / 2;
-					targetY = _target.posY < GlobalContextConfig.Height / 2 ? _target.posY : GlobalContextConfig.Height / 2;
+					var _targetComponent: StaticComponent = _target as StaticComponent;
+					var targetX: Number = 0;
+					var targetY: Number = 0;
 					
-					targetX = _target.posX > (maxX - GlobalContextConfig.Width / 2) ? _target.posX - (maxX - GlobalContextConfig.Width) : targetX;
-					targetY = _target.posY > (maxY - GlobalContextConfig.Height / 2) ? _target.posY - (maxY - GlobalContextConfig.Height) : targetY;
+					var maxX: uint = MapContextConfig.MapSize.x;
+					var maxY: uint = MapContextConfig.MapSize.y;
+					
+					if(_targetComponent.focused)
+					{
+						targetX = _targetComponent.posX < GlobalContextConfig.Width / 2 ? _targetComponent.posX : GlobalContextConfig.Width / 2;
+						targetY = _targetComponent.posY < GlobalContextConfig.Height / 2 ? _targetComponent.posY : GlobalContextConfig.Height / 2;
+						
+						targetX = _targetComponent.posX > (maxX - GlobalContextConfig.Width / 2) ? _targetComponent.posX - (maxX - GlobalContextConfig.Width) : targetX;
+						targetY = _targetComponent.posY > (maxY - GlobalContextConfig.Height / 2) ? _targetComponent.posY - (maxY - GlobalContextConfig.Height) : targetY;
+					}
+					else
+					{
+						var _pos: Point = _backgroundComponent.getScreenPosition(new Point(_targetComponent.posX, _targetComponent.posY));
+						targetX = _pos.x;
+						targetY = _pos.y;
+					}
+					
+					_targetComponent.x = targetX;
+					_targetComponent.y = targetY;
+					
+					_targetComponent.staticUpdate = true;
+					
+					super.rendering(force);
+					
+					if(!_isRendering)
+					{
+						draw(1);
+					}
 				}
 				else
 				{
-					var _pos: Point = _backgroundComponent.getScreenPosition(new Point(_target.posX, _target.posY));
-					targetX = _pos.x;
-					targetY = _pos.y;
-				}
-				
-				_target.x = targetX;
-				_target.y = targetY;
-				
-				_target.staticUpdate = true;
-				
-				super.rendering(force);
-				
-				if(!_isRendering)
-				{
-					draw(1);
+					throw new IllegalOperationError("StaticRender must use in a StaticComponent");
 				}
 			}
 		}

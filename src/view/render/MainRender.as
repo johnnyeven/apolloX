@@ -50,7 +50,7 @@ package view.render
 				}
 				else
 				{
-					var _pos: Point = _backgroundComponent.getScreenPosition(new Point(_target.posX, _target.posY));
+					var _pos: Point = _backgroundComponent.getScreenPosition(new Point(_targetComponent.posX, _targetComponent.posY));
 					targetX = _pos.x;
 					targetY = _pos.y;
 				}

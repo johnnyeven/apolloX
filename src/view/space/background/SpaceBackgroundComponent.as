@@ -28,6 +28,7 @@ package view.space.background
 	import utils.resource.ResourcePool;
 	
 	import view.space.MovableComponent;
+	import view.render.IRender;
 	
 	public class SpaceBackgroundComponent extends Component
 	{
@@ -52,6 +53,7 @@ package view.space.background
 		public var startY: int;
 		private var _focus: MovableComponent;
 		private var _enableAstar: Boolean;
+		protected var _additionalRender: Vector.<IRender>;
 		
 		public function SpaceBackgroundComponent()
 		{
@@ -259,6 +261,13 @@ package view.space.background
 		
 		public function render(enforceRender: Boolean = false): void
 		{
+			if(_additionalRender != null)
+			{
+				for(var i: int = 0; i<_additionalRender.length; i++)
+				{
+					_additionalRender[i].rendering();
+				}
+			}
 			if(!enforceRender && _focus != null && _focus.action == EnumAction.STOP)
 			{
 				return;
@@ -269,10 +278,10 @@ package view.space.background
 				{
 					return;
 				}
-				for(var i: int = 0; i<_displayBufferContainer.length; i++)
+				for(var j: int = 0; j<_displayBufferContainer.length; j++)
 				{
-					_displayBufferContainer[i].x = -screenStartX * _displayBufferDeep[i];
-					_displayBufferContainer[i].y = -screenStartY * _displayBufferDeep[i];
+					_displayBufferContainer[j].x = -screenStartX * _displayBufferDeep[j];
+					_displayBufferContainer[j].y = -screenStartY * _displayBufferDeep[j];
 				}
 				
 				_preCenter.x = _centerX;
@@ -468,6 +477,28 @@ package view.space.background
 		{
 			return _enableAstar;
 		}
-
+		
+		public function addRender(value: IRender): void
+		{
+			if(_additionalRender == null)
+			{
+				_additionalRender = new Vector.<IRender>();
+			}
+			_additionalRender.push(value);
+			value.target = this;
+		}
+		
+		public function removeRender(value: IRender): void
+		{
+			if(_additionalRender != null)
+			{
+				var i: int = _additionalRender.indexOf(value);
+				if(i != -1)
+				{
+					_additionalRender[i].target = null;
+					_additionalRender.splice(i, 1);
+				}
+			}
+		}
 	}
 }
