@@ -27,8 +27,9 @@ package view.space.background
 	import utils.loader.XMLLoader;
 	import utils.resource.ResourcePool;
 	
-	import view.space.MovableComponent;
 	import view.render.IRender;
+	import view.render.SpaceStarRender;
+	import view.space.MovableComponent;
 	
 	public class SpaceBackgroundComponent extends Component
 	{
@@ -66,6 +67,11 @@ package view.space.background
 			_cameraView = new Rectangle();
 			_cameraCutView = new Rectangle();
 			_enableAstar = false;
+		}
+		
+		public function initRender(): void
+		{
+			addRender(new SpaceStarRender());
 		}
 		
 		public function load(): void

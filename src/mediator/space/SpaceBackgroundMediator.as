@@ -80,6 +80,7 @@ package mediator.space
 		override public function show():void
 		{
 			GameManager.instance.addBack(component);
+			component.initRender();
 			onShowComplete();
 		}
 		
