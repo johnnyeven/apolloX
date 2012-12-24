@@ -1,5 +1,7 @@
 package view.render
 {
+	import com.greensock.TweenLite;
+	
 	import utils.liteui.core.Component;
 	
 	import view.space.StaticComponent;

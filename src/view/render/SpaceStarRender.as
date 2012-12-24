@@ -2,6 +2,7 @@ package view.render
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.errors.IllegalOperationError;
 	import flash.geom.Rectangle;
@@ -14,11 +15,12 @@ package view.render
 
 	public class SpaceStarRender extends Render
 	{
-		private static const STAR_LEVEL: int = 2;
-		private static const STAR_COUNT: int = 50;
+		private static const STAR_LEVEL: int = 5;
+		private static const STAR_COUNT: int = 100;
 		private var _container: Sprite;
 		private var _displayBitmapData: BitmapData;
 		private var _displayContainer: Vector.<Bitmap>;
+		private var _deepContainer: Array;
 		private var _backgroundComponent: SpaceBackgroundComponent;
 		
 		public function SpaceStarRender()
@@ -28,36 +30,57 @@ package view.render
 			_displayBitmapData.fillRect(new Rectangle(0, 0, 1, 1), 0xFFFFFF);
 			
 			_displayContainer = new Vector.<Bitmap>();
+			_deepContainer = new Array();
 		}
 		
 		override public function rendering(force:Boolean=false):void
 		{
-			_container.x = -_backgroundComponent.screenStartX;
-			_container.y = -_backgroundComponent.screenStartY;
+			var _childContainer: Sprite;
+			
+			for(var i: int = 0; i<_container.numChildren; i++)
+			{
+				_container.getChildAt(i).x = -_backgroundComponent.screenStartX * (1 / (i + 1));
+				_container.getChildAt(i).y = -_backgroundComponent.screenStartY * (1 / (i + 1));
+			}
 			
 			if(_displayContainer.length < STAR_COUNT)
 			{
+				var childIndex: int = Math.floor(Math.random() * 5);
+				_childContainer = _container.getChildAt(childIndex) as Sprite;
+				
 				var _star: Bitmap;
 				_star = new Bitmap(_displayBitmapData);
-				_star.x = Math.random() * GlobalContextConfig.Width + _backgroundComponent.screenStartX;
-				_star.y = Math.random() * GlobalContextConfig.Height + _backgroundComponent.screenStartY;
-				_container.addChild(_star);
+//				var _star: Shape = new Shape();
+//				_star.graphics.beginBitmapFill(_displayBitmapData);
+//				_star.graphics.drawRect(0, 0, 1, 1);
+//				_star.graphics.endFill();
+				_star.x = Math.random() * GlobalContextConfig.Width + _backgroundComponent.screenStartX * 1 / (childIndex + 1);
+				_star.y = Math.random() * GlobalContextConfig.Height + _backgroundComponent.screenStartY * 1 / (childIndex + 1);
+				_star.alpha = 1 / (childIndex + 1);
+				_childContainer.addChild(_star);
 				_displayContainer.push(_star);
+				_deepContainer.push(childIndex);
 			}
 			
-			for(var i: int = 0; i<_displayContainer.length; i++)
+			for(i = 0; i<_displayContainer.length; i++)
 			{
-				if(_displayContainer[i].x > GlobalContextConfig.Width + _backgroundComponent.screenStartX ||
-				_displayContainer[i].x < _backgroundComponent.screenStartX ||
-				_displayContainer[i].y > GlobalContextConfig.Height + _backgroundComponent.screenStartY ||
-				_displayContainer[i].y < _backgroundComponent.screenStartY)
+				var _percent: Number = 1 / (_deepContainer[i] + 1);
+				var _startX: Number = _backgroundComponent.screenStartX * _percent;
+				var _startY: Number = _backgroundComponent.screenStartY * _percent;
+				_childContainer = _container.getChildAt(_deepContainer[i]) as Sprite;
+				
+				if(_displayContainer[i].x > GlobalContextConfig.Width + _startX ||
+				_displayContainer[i].x < _startX ||
+				_displayContainer[i].y > GlobalContextConfig.Height + _startY ||
+				_displayContainer[i].y < _startY)
 				{
-					_container.removeChild(_displayContainer[i]);
+					_childContainer.removeChild(_displayContainer[i]);
 					_displayContainer.splice(i, 1);
+					_deepContainer.splice(i, 1);
 				}
 				else
 				{
-					_displayContainer[i].x++;
+					_displayContainer[i].x += (.5 * _percent);
 				}
 			}
 		}
@@ -69,6 +92,11 @@ package view.render
 				_backgroundComponent = value as SpaceBackgroundComponent;
 				_container = new Sprite();
 				GameManager.instance.addBack(_container);
+				
+				for(var i: int = 0; i<STAR_LEVEL; i++)
+				{
+					_container.addChild(new Sprite());
+				}
 			}
 			else
 			{

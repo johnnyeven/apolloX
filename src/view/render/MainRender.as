@@ -9,6 +9,7 @@ package view.render
 	
 	import utils.configuration.GlobalContextConfig;
 	import utils.configuration.MapContextConfig;
+	import utils.liteui.core.Component;
 	
 	import view.control.MainController;
 	import view.space.MovableComponent;
@@ -17,6 +18,7 @@ package view.render
 	public class MainRender extends Render
 	{
 		protected var _backgroundComponent: SpaceBackgroundComponent;
+		protected var _preDirection: int;
 		
 		public function MainRender()
 		{
@@ -67,6 +69,24 @@ package view.render
 			{
 				throw new IllegalOperationError("MainRender must use in a SpaceComponent");
 			}
+		}
+		
+		override public function set target(value:Component):void
+		{
+			if(_target is MovableComponent)
+			{
+				super.target = value;
+				_preDirection = (_target as MovableComponent).direction;
+			}
+			else
+			{
+				throw new IllegalOperationError("MainRender must use in a SpaceComponent");
+			}
+		}
+		
+		override protected function draw(_direction:int):void
+		{
+			
 		}
 	}
 }
