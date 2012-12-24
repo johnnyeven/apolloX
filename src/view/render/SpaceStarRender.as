@@ -15,10 +15,11 @@ package view.render
 	public class SpaceStarRender extends Render
 	{
 		private static const STAR_LEVEL: int = 2;
-		private static const STAR_COUNT: int = 100;
+		private static const STAR_COUNT: int = 50;
 		private var _container: Sprite;
 		private var _displayBitmapData: BitmapData;
 		private var _displayContainer: Vector.<Bitmap>;
+		private var _backgroundComponent: SpaceBackgroundComponent;
 		
 		public function SpaceStarRender()
 		{
@@ -31,9 +32,25 @@ package view.render
 		
 		override public function rendering(force:Boolean=false):void
 		{
+			_container.x = -_backgroundComponent.screenStartX;
+			_container.y = -_backgroundComponent.screenStartY;
+			
+			if(_displayContainer.length < STAR_COUNT)
+			{
+				var _star: Bitmap;
+				_star = new Bitmap(_displayBitmapData);
+				_star.x = Math.random() * GlobalContextConfig.Width + _backgroundComponent.screenStartX;
+				_star.y = Math.random() * GlobalContextConfig.Height + _backgroundComponent.screenStartY;
+				_container.addChild(_star);
+				_displayContainer.push(_star);
+			}
+			
 			for(var i: int = 0; i<_displayContainer.length; i++)
 			{
-				if(_displayContainer[i].x > GlobalContextConfig.Width)
+				if(_displayContainer[i].x > GlobalContextConfig.Width + _backgroundComponent.screenStartX ||
+				_displayContainer[i].x < _backgroundComponent.screenStartX ||
+				_displayContainer[i].y > GlobalContextConfig.Height + _backgroundComponent.screenStartY ||
+				_displayContainer[i].y < _backgroundComponent.screenStartY)
 				{
 					_container.removeChild(_displayContainer[i]);
 					_displayContainer.splice(i, 1);
@@ -49,18 +66,9 @@ package view.render
 		{
 			if(value is SpaceBackgroundComponent)
 			{
+				_backgroundComponent = value as SpaceBackgroundComponent;
 				_container = new Sprite();
 				GameManager.instance.addBack(_container);
-				
-				var _star: Bitmap;
-				for(var i: int = 0; i<STAR_COUNT; i++)
-				{
-					_star = new Bitmap(_displayBitmapData);
-					_star.x = Math.random() * GlobalContextConfig.Width;
-					_star.y = Math.random() * GlobalContextConfig.Height;
-					_container.addChild(_star);
-					_displayContainer.push(_star);
-				}
 			}
 			else
 			{
