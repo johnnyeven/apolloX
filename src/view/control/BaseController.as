@@ -1,5 +1,7 @@
 package view.control
 {
+	import com.greensock.TweenLite;
+	
 	import enum.EnumShipDirection;
 	
 	import flash.events.EventDispatcher;
@@ -14,6 +16,7 @@ package view.control
 		protected var _endPoint: Point;
 		protected var _nextPoint: Point;
 		protected var _perception: Perception;
+		protected var _preDirection: int = -1;
 		
 		public function BaseController()
 		{
@@ -43,15 +46,48 @@ package view.control
 		
 		protected function changeDirectionByAngle(_angle:int): void
 		{
-			var dir: uint;
+			var dir: int;
 			if (_angle < 0)
 			{
 				_angle += 360;
 			}
 			dir = Math.floor(_angle / 11.25) + 1;
-			if (dir != _target.direction)
+			
+			var duijiao: int;
+			if(_target.direction > 17)
 			{
-				_target.direction = dir;
+				duijiao = _target.direction - 16;
+				if(Math.abs(dir - _target.direction) > 16 && dir < duijiao)
+				{
+					if(dir > _target.direction)
+					{
+						dir -= 32;
+					}
+					else
+					{
+						dir += 32;
+					}
+				}
+			}
+			else
+			{
+				duijiao = _target.direction + 16;
+				if(Math.abs(dir - _target.direction) > 16 && dir > duijiao)
+				{
+					if(dir > _target.direction)
+					{
+						dir -= 32;
+					}
+					else
+					{
+						dir += 32;
+					}
+				}
+			}
+			if (/*dir != _target.direction && */dir != _preDirection)
+			{
+				TweenLite.to(_target, .3, {direction: dir});
+				_preDirection = dir;
 			}
 		}
 		

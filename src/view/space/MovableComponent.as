@@ -49,7 +49,15 @@ package view.space
 
 		public function set direction(value:int):void
 		{
-			_direction = value;
+			value %= 32;
+			if(value < 1)
+			{
+				_direction = value + 32;
+			}
+			else
+			{
+				_direction = value;
+			}
 		}
 		
 		override public function dispose():void

@@ -73,7 +73,7 @@ package view.render
 		
 		override public function set target(value:Component):void
 		{
-			if(_target is MovableComponent)
+			if(value is MovableComponent)
 			{
 				super.target = value;
 				_preDirection = (_target as MovableComponent).direction;
@@ -86,7 +86,10 @@ package view.render
 		
 		override protected function draw(_direction:int):void
 		{
-			
+			if(_target is MovableComponent)
+			{
+				(_target as MovableComponent).graphic.gotoAndStop(_direction);
+			}
 		}
 	}
 }

@@ -395,14 +395,14 @@ package view.space.background
 			return _screenStartY;
 		}
 		
-		protected function get cutviewStartX(): Number
+		public function get cutviewStartX(): Number
 		{
 			var _cutviewStartX: Number = screenStartX - MapContextConfig.TileSize.x;
 			_cutviewStartX = Math.max(0, _cutviewStartX);
 			return _cutviewStartX;
 		}
 		
-		protected function get cutviewStartY(): Number
+		public function get cutviewStartY(): Number
 		{
 			var _cutviewStartY: Number = screenStartY - MapContextConfig.TileSize.y;
 			_cutviewStartY = Math.max(0, _cutviewStartY);
