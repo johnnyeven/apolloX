@@ -156,6 +156,7 @@ package view.render
 		
 		override public function set target(value:Component):void
 		{
+			super.target = value;
 			if(value is SpaceBackgroundComponent)
 			{
 				_backgroundComponent = value as SpaceBackgroundComponent;

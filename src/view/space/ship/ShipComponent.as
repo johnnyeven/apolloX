@@ -2,17 +2,20 @@ package view.space.ship
 {
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	
 	import parameters.ship.ShipParameter;
 	
 	import utils.resource.ResourcePool;
 	
+	import view.render.ShipEngineRender;
 	import view.render.ShipStopRender;
 	import view.space.MovableComponent;
 	
 	public class ShipComponent extends MovableComponent
 	{
 		protected var _info: ShipParameter;
+		protected var _effectLayer: Sprite;
 		
 		public function ShipComponent(parameter:ShipParameter=null)
 		{
@@ -28,7 +31,6 @@ package view.space.ship
 			}
 			
 			loadResource();
-			addRender(new ShipStopRender());
 		}
 		
 		public function get info():ShipParameter
@@ -51,6 +53,18 @@ package view.space.ship
 			_graphic = target as MovieClip;
 			_graphic.gotoAndStop(_direction);
 			addChild(_graphic);
+			
+			_effectLayer = new Sprite();
+			addChild(_effectLayer);
+			
+			addRender(new ShipEngineRender());
+			addRender(new ShipStopRender());
 		}
+
+		public function get effectLayer():Sprite
+		{
+			return _effectLayer;
+		}
+
 	}
 }

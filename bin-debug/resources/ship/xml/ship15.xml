@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<loader>
+		<BatchLoader name="ship15_resource">
+			<loader>
+				<ClassLoader name="engine0" url="resources/engine/engine0.swf" version="1.0.0" />
+			</loader>
+		</BatchLoader>
+	</loader>
+	<config>
+		<engines>
+			<engine class="space.engine.Engine1">
+				<frame id="1" angle="180" x="-38" y="-9"></frame>
+				<frame id="2" angle="191.25" x="-37" y="-14"></frame>
+				<frame id="3" angle="202.5" x="-35" y="-19"></frame>
+				<frame id="4" angle="213.75" x="-32" y="-24"></frame>
+				<frame id="5" angle="225" x="-28" y="-28"></frame>
+				<frame id="6" angle="236.25" x="-22.5" y="-31.5"></frame>
+				<frame id="7" angle="247.5" x="-15" y="-41"></frame>
+				<frame id="8" angle="258.75" x="-6" y="-42"></frame>
+				<frame id="9" angle="270" x="0" y="-43"></frame>
+				<frame id="10" angle="281.25" x="7" y="-42"></frame>
+				<frame id="11" angle="292.5" x="15" y="-41"></frame>
+				<frame id="12" angle="303.75" x="21.5" y="-39"></frame>
+				<frame id="13" angle="315" x="31" y="-27"></frame>
+				<frame id="14" angle="326.25" x="33" y="-23"></frame>
+				<frame id="15" angle="337.5" x="36" y="-19.5"></frame>
+				<frame id="16" angle="348.75" x="39" y="-14.5"></frame>
+				<frame id="17" angle="0" x="38" y="-9"></frame>
+				<frame id="18" angle="11.25" x="37" y="-4"></frame>
+				<frame id="19" angle="22.5" x="34" y="0"></frame>
+				<frame id="20" angle="33.75" x="32" y="6"></frame>
+				<frame id="21" angle="45" x="27" y="10"></frame>
+				<frame id="22" angle="56.25" x="22" y="14"></frame>
+				<frame id="23" angle="67.5" x="15" y="17"></frame>
+				<frame id="24" angle="78.75" x="8" y="17"></frame>
+				<frame id="25" angle="90" x="0" y="17"></frame>
+				<frame id="26" angle="101.25" x="-7" y="16"></frame>
+				<frame id="27" angle="112.5" x="-14" y="15"></frame>
+				<frame id="28" angle="123.75" x="-21" y="13"></frame>
+				<frame id="29" angle="135" x="-25" y="9"></frame>
+				<frame id="30" angle="146.25" x="-31" y="6"></frame>
+				<frame id="31" angle="157.5" x="-34" y="1"></frame>
+				<frame id="32" angle="168.75" x="-36" y="-4"></frame>
+			</engine>
+		</engines>
+	</config>
+</root>

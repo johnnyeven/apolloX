@@ -34,6 +34,13 @@ package view.render
 						}});
 					}});
 				}
+				if(_targetComponent.action != EnumAction.STOP && _targetComponent.graphic != null)
+				{
+					_isMoving = false;
+					TweenLite.killTweensOf(_targetComponent.graphic);
+					_targetComponent.graphic.x = 0;
+					_targetComponent.graphic.y = 0;
+				}
 			}
 			else
 			{
