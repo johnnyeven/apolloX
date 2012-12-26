@@ -4,6 +4,7 @@
 		<BatchLoader name="ship15_resource">
 			<loader>
 				<ClassLoader name="engine0" url="resources/engine/engine0.swf" version="1.0.0" />
+				<ClassLoader name="engineSmoke" url="resources/smoke/engineSmoke.swf" version="1.0.0" />
 			</loader>
 		</BatchLoader>
 	</loader>
