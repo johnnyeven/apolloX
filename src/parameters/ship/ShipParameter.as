@@ -17,9 +17,11 @@ package parameters.ship
 		public var x: Number;
 		public var y: Number;
 		public var speed: Number;
+		public var equipments: Vector.<EquipmentParameter>;
 		
 		public function ShipParameter()
 		{
+			equipments = new Vector.<EquipmentParameter>(24);
 		}
 		
 		public function fill(data:Object):void

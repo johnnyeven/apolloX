@@ -3,12 +3,14 @@
 	<loader>
 		<BatchLoader name="ship15_resource">
 			<loader>
+				<ClassLoader name="ship15" url="resources/ship/ship15.swf" version="1.0.0" />
 				<ClassLoader name="engine0" url="resources/engine/engine0.swf" version="1.0.0" />
 				<ClassLoader name="engineSmoke" url="resources/smoke/engineSmoke.swf" version="1.0.0" />
 			</loader>
 		</BatchLoader>
 	</loader>
 	<config>
+		<float>false</float>
 		<engines>
 			<engine class="space.engine.Engine1">
 				<frame id="1" angle="180" x="-38" y="-9"></frame>

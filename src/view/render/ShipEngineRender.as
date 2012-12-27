@@ -43,24 +43,6 @@ package view.render
 			_backgroundComponent = _mediator.component;
 		}
 		
-		private function onConfigLoaded(evt: LoaderEvent): void
-		{
-			var _loader: XMLLoader = evt.loader as XMLLoader;
-			_configXML = _loader.configXML;
-			
-			if(_configXML != null && _configXML.hasOwnProperty("engines") && _configXML.engines.hasOwnProperty("engine"))
-			{
-//				if(LoaderPool.instance.getLoader("ship" + _shipResourceId + "_resource") != null)
-//				{
-//					init();
-//				}
-//				else
-//				{
-				ResourceLoadManager.load("ship" + _shipResourceId + "_resource", false, "", init);
-//				}
-			}
-		}
-		
 		override public function rendering(force:Boolean=false):void
 		{
 			if(_effectReady)
@@ -138,7 +120,11 @@ package view.render
 				_engineContainer = _shipComponent.effectLayer;
 				_shipResourceId = _shipComponent.info.shipResource;
 				_preAction = _shipComponent.action;
-				ResourceLoadManager.load("resources/ship/xml/ship" + _shipResourceId + ".xml", false, "", onConfigLoaded);
+				_configXML = _shipComponent.configXML;	
+				if(_configXML != null && _configXML.hasOwnProperty("engines") && _configXML.engines.hasOwnProperty("engine"))
+				{
+					init();
+				}
 			}
 			else
 			{

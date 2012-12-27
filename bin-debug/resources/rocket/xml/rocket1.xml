@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<loader>
+		<BatchLoader name="rocket1_resource">
+			<loader>
+				<ClassLoader name="rocket1" url="resources/rocket/rocket1.swf" version="1.0.0" />
+				<ClassLoader name="rocketSmoke0" url="resources/smoke/rocketSmoke0.swf" version="1.0.0" />
+			</loader>
+		</BatchLoader>
+	</loader>
+	<config>
+		<resourceId>1</resourceId>
+		<rockets>
+			<texture class="space.rocket.Rocket1"></texture>
+		</rockets>
+		<smoke>
+			<texture class="space.smoke.rocketSmoke0"></texture>
+		</smoke>
+	</config>
+</root>

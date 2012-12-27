@@ -17,6 +17,8 @@ package controller
 	import proxy.LoginProxy;
 	import proxy.ServerListProxy;
 	
+	import utils.HotkeyManager;
+	
 	import view.PromptComponent;
 	
 	public class ApplicationCommand extends SimpleCommand
@@ -29,6 +31,7 @@ package controller
 		override public function execute(notification: INotification): void
 		{
 			TweenPlugin.activate([TransformAroundCenterPlugin, FramePlugin]);
+			HotkeyManager.instance;
 			
 			facade.registerCommand(LoadResourcesCommand.LOAD_RESOURCES_NOTE, LoadResourcesCommand);
 			facade.registerCommand(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE, CreateStartMediatorCommand);
