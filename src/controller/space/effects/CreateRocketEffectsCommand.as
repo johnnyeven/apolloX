@@ -1,5 +1,7 @@
 package controller.space.effects
 {
+	import mediator.space.effects.EffectRocketMediator;
+	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
@@ -45,7 +47,10 @@ package controller.space.effects
 		
 		private function onResourceLoaded(evt: LoaderEvent): void
 		{
-			
+			if(!facade.hasMediator(EffectRocketMediator.NAME))
+			{
+				facade.registerMediator(new EffectRocketMediator());
+			}
 		}
 	}
 }
