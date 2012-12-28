@@ -9,6 +9,7 @@ package view.space.ship
 	import flash.display.Sprite;
 	
 	import parameters.ship.ShipParameter;
+	import parameters.space.RocketRegisterParameter;
 	
 	import utils.HotkeyManager;
 	import utils.events.LoaderEvent;
@@ -55,28 +56,31 @@ package view.space.ship
 		
 		protected function registerEquipments(): void
 		{
-			if(!ApplicationFacade.getInstance().hasCommand(CreateRocketEffectsCommand.INIT_NOTE))
+//			if(!ApplicationFacade.getInstance().hasCommand(CreateRocketEffectsCommand.INIT_NOTE))
+//			{
+//				ApplicationFacade.getInstance().registerCommand(CreateRocketEffectsCommand.INIT_NOTE, CreateRocketEffectsCommand);
+//			}
+			if(!ApplicationFacade.getInstance().hasCommand(CreateRocketEffectsCommand.FIRE_NOTE))
 			{
-				ApplicationFacade.getInstance().registerCommand(CreateRocketEffectsCommand.INIT_NOTE, CreateRocketEffectsCommand);
-			}
-			if(!ApplicationFacade.getInstance().hasCommand(CreateRocketEffectsCommand.SHOW_NOTE))
-			{
-				ApplicationFacade.getInstance().registerCommand(CreateRocketEffectsCommand.SHOW_NOTE, CreateRocketEffectsCommand);
+				ApplicationFacade.getInstance().registerCommand(CreateRocketEffectsCommand.FIRE_NOTE, CreateRocketEffectsCommand);
 			}
 			
 			for(var i: int = 0; i<_info.equipments.length; i++)
 			{
 				if(_info.equipments[i] != null && _info.equipments[i].equipmentType == EnumEquipmentType.ROCKET)
 				{
-					ApplicationFacade.getInstance().sendNotification(CreateRocketEffectsCommand.INIT_NOTE, _info.equipments[i].resourceId);
-					HotkeyManager.instance.registerHotkey(112, CreateRocketEffectsCommand.SHOW_NOTE, CreateRocketEffectsCommand, _info.equipments[i].resourceId);	//F1
+//					ApplicationFacade.getInstance().sendNotification(CreateRocketEffectsCommand.INIT_NOTE, _info.equipments[i].resourceId);
+					var parameter: RocketRegisterParameter = new RocketRegisterParameter();
+					parameter.target = this;
+					parameter.resourceId = _info.equipments[i].resourceId;
+					HotkeyManager.instance.registerHotkey(112, CreateRocketEffectsCommand.FIRE_NOTE, CreateRocketEffectsCommand, parameter);	//F1
 				}
 			}
 		}
 		
 		protected function loadResourceConfig(): void
 		{
-			ResourceLoadManager.load("resources/ship/xml/ship" + info.shipResource + ".xml", false, "", onConfigLoaded);
+			ResourceLoadManager.load("resources/ship/xml/ship" + _info.shipResource + ".xml", false, "", onConfigLoaded);
 		}
 		
 		protected function onConfigLoaded(evt: LoaderEvent): void
@@ -89,7 +93,7 @@ package view.space.ship
 		
 		override protected function loadResource(): void
 		{
-			ResourceLoadManager.load("ship15_resource", false, "", onResourceLoaded);
+			ResourceLoadManager.load("ship" + _info.shipResource + "_resource", false, "", onResourceLoaded);
 		}
 		
 		protected function onResourceLoaded(evt: LoaderEvent): void

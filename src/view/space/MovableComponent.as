@@ -38,7 +38,10 @@ package view.space
 		
 		override public function update(): void
 		{
-			_controller.calculateAction();
+			if(_controller != null)
+			{
+				_controller.calculateAction();
+			}
 			super.update();
 		}
 

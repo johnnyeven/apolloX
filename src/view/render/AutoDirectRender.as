@@ -1,7 +1,5 @@
 package view.render
 {
-	import enum.EnumAction;
-	
 	import flash.errors.IllegalOperationError;
 	import flash.geom.Point;
 	
@@ -15,12 +13,12 @@ package view.render
 	import view.space.StaticComponent;
 	import view.space.background.SpaceBackgroundComponent;
 
-	public class StaticRender extends Render
+	public class AutoDirectRender extends Render
 	{
 		protected var _backgroundComponent: SpaceBackgroundComponent;
 		protected var _isRendering: Boolean = false;
 		
-		public function StaticRender()
+		public function AutoDirectRender()
 		{
 			super();
 			var _mediator: SpaceBackgroundMediator = ApplicationFacade.getInstance().retrieveMediator(SpaceBackgroundMediator.NAME) as SpaceBackgroundMediator;
@@ -29,9 +27,9 @@ package view.render
 		
 		override public function rendering(force:Boolean=false):void
 		{
-			if(_target is StaticComponent)
+			if(_target is MovableComponent)
 			{
-				var _targetComponent: StaticComponent = _target as StaticComponent;
+				var _targetComponent: MovableComponent = _target as MovableComponent;
 				var targetX: Number = 0;
 				var targetY: Number = 0;
 				
@@ -62,12 +60,20 @@ package view.render
 				
 				if(!_isRendering)
 				{
-					draw(1);
+					draw(_targetComponent.direction);
 				}
 			}
 			else
 			{
-				throw new IllegalOperationError("StaticRender must use in a StaticComponent");
+				throw new IllegalOperationError("AutoDirectRender must use in a MovableComponent");
+			}
+		}
+		
+		override protected function draw(_direction:int):void
+		{
+			if(_target is MovableComponent)
+			{
+				(_target as MovableComponent).graphic.rotation = _direction;
 			}
 		}
 	}

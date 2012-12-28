@@ -5,14 +5,16 @@ package controller.space.effects
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
+	import parameters.space.RocketLuanchParameter;
+	import parameters.space.RocketRegisterParameter;
+	
 	import utils.events.LoaderEvent;
 	import utils.loader.ResourceLoadManager;
 	import utils.loader.XMLLoader;
 	
 	public class CreateRocketEffectsCommand extends SimpleCommand
 	{
-		public static const INIT_NOTE: String = "CreateRocketEffectsCommand.InitNote";
-		public static const SHOW_NOTE: String = "CreateRocketEffectsCommand.ShowNote";
+		public static const FIRE_NOTE: String = "CreateRocketEffectsCommand.FireNote";
 		
 		public function CreateRocketEffectsCommand()
 		{
@@ -23,33 +25,13 @@ package controller.space.effects
 		{
 			switch(notification.getName())
 			{
-				case INIT_NOTE:
-					init(int(notification.getBody()));
+				case FIRE_NOTE:
+					if(!facade.hasMediator(EffectRocketMediator.NAME))
+					{
+						facade.registerMediator(new EffectRocketMediator());
+					}
+					sendNotification(EffectRocketMediator.SHOW_NOTE, notification.getBody());
 					break;
-				case SHOW_NOTE:
-					trace("fire: " + notification.getBody());
-					break;
-			}
-		}
-		
-		private function init(resourceId: int): void
-		{
-			ResourceLoadManager.load("resources/rocket/xml/rocket" + resourceId + ".xml", false, "", onLoaderReady);
-		}
-		
-		private function onLoaderReady(evt: LoaderEvent): void
-		{
-			var _loader: XMLLoader = evt.loader as XMLLoader;
-			var _configXML: XML = _loader.configXML;
-			
-			ResourceLoadManager.load("rocket" + _configXML.resourceId + "_resource", false, "", onResourceLoaded);
-		}
-		
-		private function onResourceLoaded(evt: LoaderEvent): void
-		{
-			if(!facade.hasMediator(EffectRocketMediator.NAME))
-			{
-				facade.registerMediator(new EffectRocketMediator());
 			}
 		}
 	}

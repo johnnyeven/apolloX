@@ -10,6 +10,8 @@
 	</loader>
 	<config>
 		<resourceId>1</resourceId>
+		<speed>40</speed>
+		<acceleration>0.3</acceleration>
 		<rockets>
 			<texture class="space.rocket.Rocket1"></texture>
 		</rockets>
