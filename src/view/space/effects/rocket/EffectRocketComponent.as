@@ -4,6 +4,8 @@ package view.space.effects.rocket
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.geom.Matrix;
 	
 	import parameters.space.RocketRegisterParameter;
 	
@@ -12,6 +14,7 @@ package view.space.effects.rocket
 	import utils.loader.XMLLoader;
 	import utils.resource.ResourcePool;
 	
+	import view.render.RocketEngineRender;
 	import view.space.MovableComponent;
 	
 	public class EffectRocketComponent extends MovableComponent
@@ -20,6 +23,7 @@ package view.space.effects.rocket
 		protected var _configXML: XML;
 		private var _currentSpeed: Number;
 		private var _maxSpeed: Number;
+		protected var _effectLayer: Sprite;
 		
 		public function EffectRocketComponent(parameter: RocketRegisterParameter=null)
 		{
@@ -64,12 +68,35 @@ package view.space.effects.rocket
 		
 		protected function onResourceLoaded(evt: LoaderEvent): void
 		{
-			var bitmap: BitmapData = (ResourcePool.getResource("space.rocket.Rocket" + _info.resourceId) as Bitmap).bitmapData;
 			_graphic = new MovieClip();
-			_graphic.graphics.beginBitmapFill(bitmap, null, false, true);
-			_graphic.graphics.drawRect(0, 0, bitmap.width, bitmap.height);
-			_graphic.graphics.endFill();
+			
+			var _matrix: Matrix;
+			var _offsetX: Number;
+			var _offsetY: Number;
+			if(_configXML.hasOwnProperty("rockets"))
+			{
+				var bitmap: BitmapData;
+				for(var i: int = 0; i<_configXML.rockets.texture.length(); i++)
+				{
+					bitmap = (ResourcePool.getResource(_configXML.rockets.texture[i]["@class"]) as Bitmap).bitmapData;
+					_offsetX = parseFloat(_configXML.rockets.texture[i]["@x"]);
+					_offsetY = parseFloat(_configXML.rockets.texture[i]["@y"]);
+					_matrix = new Matrix();
+					_matrix.translate(_offsetX, _offsetY);
+					_graphic.graphics.beginBitmapFill(bitmap, _matrix, false, true);
+					_graphic.graphics.drawRect(_offsetX, _offsetY, bitmap.width, bitmap.height);
+					_graphic.graphics.endFill();
+				}
+			}
 			addChild(_graphic);
+			
+			_effectLayer = new Sprite();
+			addChild(_effectLayer);
+			
+			if(_configXML.hasOwnProperty("smoke"))
+			{
+				addRender(new RocketEngineRender());
+			}
 		}
 
 		public function get info():RocketRegisterParameter
@@ -102,5 +129,21 @@ package view.space.effects.rocket
 				_currentSpeed = value;
 			}
 		}
+		
+		override public function set direction(value:int):void
+		{
+			_direction = value;
+		}
+		
+		public function get effectLayer():Sprite
+		{
+			return _effectLayer;
+		}
+
+		public function get configXML():XML
+		{
+			return _configXML;
+		}
+
 	}
 }

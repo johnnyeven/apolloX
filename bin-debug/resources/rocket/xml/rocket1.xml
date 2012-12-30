@@ -13,10 +13,10 @@
 		<speed>40</speed>
 		<acceleration>0.3</acceleration>
 		<rockets>
-			<texture class="space.rocket.Rocket1"></texture>
+			<texture class="space.rocket.Rocket1" x="-26" y="-2.5"></texture>
 		</rockets>
 		<smoke>
-			<texture class="space.smoke.rocketSmoke0"></texture>
+			<texture class="space.smoke.RocketSmoke0"></texture>
 		</smoke>
 	</config>
 </root>

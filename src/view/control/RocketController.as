@@ -86,11 +86,7 @@ package view.control
 		
 		override protected function changeDirectionByAngle(_angle:int): void
 		{
-			if (_angle < 0)
-			{
-				_angle += 360;
-			}
-			_rocket.direction = _angle;
+			_rocket.direction = _angle + 180;
 //			if (_angle != _preDirection)
 //			{
 //				TweenLite.to(_target, .3, {direction: _angle});
