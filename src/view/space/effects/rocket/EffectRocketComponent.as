@@ -24,6 +24,7 @@ package view.space.effects.rocket
 		private var _currentSpeed: Number;
 		private var _maxSpeed: Number;
 		protected var _effectLayer: Sprite;
+		protected var _resourceReady: Boolean = false;
 		
 		public function EffectRocketComponent(parameter: RocketRegisterParameter=null)
 		{
@@ -93,6 +94,7 @@ package view.space.effects.rocket
 			_effectLayer = new Sprite();
 			addChild(_effectLayer);
 			
+			_resourceReady = true;
 			if(_configXML.hasOwnProperty("smoke"))
 			{
 				addRender(new RocketEngineRender());
@@ -144,6 +146,12 @@ package view.space.effects.rocket
 		{
 			return _configXML;
 		}
+
+		public function get resourceReady():Boolean
+		{
+			return _resourceReady;
+		}
+
 
 	}
 }

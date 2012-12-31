@@ -31,39 +31,42 @@ package view.control
 		
 		override public function calculateAction():void
 		{
-			_nextPoint = _endPoint;
-			
-			var degress: Number = EnumShipDirection.getDegress(_nextPoint.x - _rocket.posX, _nextPoint.y - _rocket.posY);
-			var angle: Number = EnumShipDirection.degressToRadians(degress);
-			
-			var readyX: Boolean = false;
-			var readyY: Boolean = false;
-			
-			var speedX: Number = _rocket.currentSpeed * Math.cos(degress);
-			var speedY: Number = _rocket.currentSpeed * Math.sin(degress);
-			
-			_rocket.currentSpeed += _rocket.info.acceleration;
-			
-			if (Math.abs(_rocket.posX - _nextPoint.x) <= speedX)
+			if(_rocket.resourceReady)
 			{
-				readyX = true;
-				speedX = 0;
-			}
-			if (Math.abs(_rocket.posY - _nextPoint.y) <= speedY)
-			{
-				readyY = true;
-				speedY = 0;
-			}
-			
-			move(_rocket.posX + speedX, _rocket.posY + speedY);
-			
-			if (readyX && readyY)
-			{
-				_rocket.action = EnumAction.STOP;
-			}
-			else
-			{
-				changeDirectionByAngle(angle);
+				_nextPoint = _endPoint;
+				
+				var degress: Number = EnumShipDirection.getDegress(_nextPoint.x - _rocket.posX, _nextPoint.y - _rocket.posY);
+				var angle: Number = EnumShipDirection.degressToRadians(degress);
+				
+				var readyX: Boolean = false;
+				var readyY: Boolean = false;
+				
+				var speedX: Number = _rocket.currentSpeed * Math.cos(degress);
+				var speedY: Number = _rocket.currentSpeed * Math.sin(degress);
+				
+				_rocket.currentSpeed += _rocket.info.acceleration;
+				
+				if (Math.abs(_rocket.posX - _nextPoint.x) <= speedX)
+				{
+					readyX = true;
+					speedX = 0;
+				}
+				if (Math.abs(_rocket.posY - _nextPoint.y) <= speedY)
+				{
+					readyY = true;
+					speedY = 0;
+				}
+				
+				move(_rocket.posX + speedX, _rocket.posY + speedY);
+				
+				if (readyX && readyY)
+				{
+					_rocket.action = EnumAction.STOP;
+				}
+				else
+				{
+					changeDirectionByAngle(angle);
+				}
 			}
 		}
 		

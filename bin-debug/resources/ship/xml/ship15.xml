@@ -10,7 +10,7 @@
 		</BatchLoader>
 	</loader>
 	<config>
-		<float>false</float>
+		<float>true</float>
 		<engines>
 			<engine class="space.engine.Engine1">
 				<frame id="1" angle="180" x="-38" y="-9"></frame>
