@@ -26,6 +26,7 @@ package view.space.ship
 		protected var _info: ShipParameter;
 		protected var _effectLayer: Sprite;
 		protected var _configXML: XML;
+		protected var _invisibleMode: Boolean = false;
 		
 		public function ShipComponent(parameter:ShipParameter=null)
 		{
@@ -127,5 +128,18 @@ package view.space.ship
 		{
 			return _configXML;
 		}
+
+		public function get invisibleMode():Boolean
+		{
+			return _invisibleMode;
+		}
+
+		public function set invisibleMode(value:Boolean):void
+		{
+			_invisibleMode = value;
+			
+			visible = value;
+		}
+
 	}
 }
