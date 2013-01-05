@@ -1,6 +1,6 @@
 package controller.init
 {
-	import controller.init.LoadServerListCommand;
+	import controller.init.InitLoginServerCommand;
 	
 	import mediator.loader.ProgressBarMediator;
 	
@@ -29,7 +29,7 @@ package controller.init
 		
 		private function onLoadComplete(evt: LoaderEvent): void
 		{
-			sendNotification(LoadServerListCommand.LOAD_SERVERLIST_NOTE);
+			sendNotification(InitLoginServerCommand.LOAD_SERVER_NOTE);
 		}
 		
 		private function onLoadProgress(evt: LoaderEvent): void

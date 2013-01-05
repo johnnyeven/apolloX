@@ -1,23 +1,24 @@
 package proxy
 {
-	import utils.configuration.ConnectorContextConfig;
+	import controller.scene.LoadSceneResourcesCommand;
 	
 	import mediator.PromptMediator;
-	import controller.scene.LoadSceneResourcesCommand;
+	
+	import network.command.receiving.Receive_Info_QuickStart;
+	import network.command.sending.Send_Info_QuickStart;
 	
 	import org.puremvc.as3.interfaces.IProxy;
 	import org.puremvc.as3.patterns.proxy.Proxy;
 	
+	import utils.configuration.GlobalContextConfig;
 	import utils.network.CCommandCenter;
 	import utils.network.command.CCommandList;
-	import network.command.receiving.Receive_Info_QuickStart;
-	import network.command.sending.Send_Info_QuickStart;
 	
 	public class LoginProxy extends Proxy implements IProxy
 	{
 		public static const NAME: String = "LoginProxy";
 		
-		public static const QUICK_START: uint = 0x0002;
+		public static const QUICK_START: uint = 0x0008;
 		
 		public function LoginProxy(data:Object=null)
 		{
@@ -32,7 +33,7 @@ package proxy
 			CCommandCenter.getInstance().add(QUICK_START, onQuickStart);
 			
 			var _protocol: Send_Info_QuickStart = new Send_Info_QuickStart();
-			_protocol.GameId = ConnectorContextConfig.GAME_ID;
+			_protocol.GameId = GlobalContextConfig.GameId;
 			CCommandCenter.getInstance().send(_protocol);
 		}
 		

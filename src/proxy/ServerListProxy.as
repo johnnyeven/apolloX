@@ -1,17 +1,22 @@
 package proxy
 {
+	import controller.login.CreateStartMediatorCommand;
+	
 	import mediator.PromptMediator;
 	import mediator.loader.ProgressBarMediator;
 	
 	import org.puremvc.as3.interfaces.IProxy;
 	import org.puremvc.as3.patterns.proxy.Proxy;
 	
-	import controller.login.CreateStartMediatorCommand;
+	import parameters.CServerListParameter;
+	
+	import utils.configuration.ConnectorContextConfig;
+	import utils.events.LoaderEvent;
+	import utils.language.LanguageManager;
+	import utils.loader.ResourceLoadManager;
+	import utils.loader.XMLLoader;
 	import utils.network.CCommandCenter;
 	import utils.network.command.CCommandList;
-	import network.command.receiving.Receive_Server_ServerList;
-	import network.command.sending.Send_Server_ServerList;
-	import utils.configuration.ConnectorContextConfig;
 	
 	public class ServerListProxy extends Proxy implements IProxy
 	{
@@ -28,22 +33,28 @@ package proxy
 		{
 			sendNotification(PromptMediator.LOADING_SHOW_NOTE);
 			
-			CCommandList.getInstance().bind(SERVER_LIST, Receive_Server_ServerList);
-			CCommandCenter.getInstance().add(SERVER_LIST, onGetServerList);
-			
-			var protocol: Send_Server_ServerList = new Send_Server_ServerList();
-			protocol.GameId = ConnectorContextConfig.GAME_ID;
-			
-			CCommandCenter.getInstance().send(protocol);
+			ResourceLoadManager.load("config/" + LanguageManager.language + "/server_list.xml", false, "", onGetServerList);
 		}
 		
-		private function onGetServerList(protocol: Receive_Server_ServerList): void
+		private function onGetServerList(evt: LoaderEvent): void
 		{
+			var _config: XML = (evt.loader as XMLLoader).configXML;
+			var _container: Vector.<CServerListParameter> = new Vector.<CServerListParameter>();
+			
+			for(var i: int = 0; i < _config.server.length(); i++)
+			{
+				var parameter: CServerListParameter = new CServerListParameter();
+				parameter.id = _config.server[i].@id;
+				parameter.name = _config.server[i].@name;
+				parameter.ip = _config.server[i].@ip;
+				parameter.port = _config.server[i].@port;
+				_container.push(parameter);
+			}
+			setData(_container);
+			
 			sendNotification(PromptMediator.LOADING_HIDE_NOTE);
 			sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
 			sendNotification(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE);
-			
-			setData(protocol.ServerList);
 		}
 	}
 }

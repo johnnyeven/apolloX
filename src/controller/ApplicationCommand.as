@@ -33,6 +33,7 @@ package controller
 			TweenPlugin.activate([TransformAroundCenterPlugin, FramePlugin]);
 			HotkeyManager.instance;
 			
+			facade.registerCommand(InitLoginServerCommand.LOAD_SERVER_NOTE, InitLoginServerCommand);
 			facade.registerCommand(LoadResourcesCommand.LOAD_RESOURCES_NOTE, LoadResourcesCommand);
 			facade.registerCommand(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE, CreateStartMediatorCommand);
 			facade.registerCommand(LoadServerListCommand.LOAD_SERVERLIST_NOTE, LoadServerListCommand);
@@ -51,7 +52,7 @@ package controller
 			{
 				trace("Main Loaded");
 			}
-			//sendNotification(LoadResourcesCommand.LOAD_RESOURCES_NOTE);
+			
 			sendNotification(LoadResourceConfigCommand.LOAD_CONFIG_NOTE);
 		}
 	}
