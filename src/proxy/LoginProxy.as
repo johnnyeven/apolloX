@@ -1,5 +1,6 @@
 package proxy
 {
+	import controller.init.LoadServerListCommand;
 	import controller.scene.LoadSceneResourcesCommand;
 	
 	import mediator.PromptMediator;
@@ -41,7 +42,7 @@ package proxy
 		{
 			setData(protocol);
 			sendNotification(PromptMediator.LOADING_HIDE_NOTE);
-			sendNotification(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE);
+			sendNotification(LoadServerListCommand.LOAD_SERVERLIST_NOTE);
 		}
 	}
 }

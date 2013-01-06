@@ -1,6 +1,7 @@
 package proxy
 {
 	import controller.login.CreateStartMediatorCommand;
+	import controller.scene.LoadSceneResourcesCommand;
 	
 	import mediator.PromptMediator;
 	import mediator.loader.ProgressBarMediator;
@@ -54,7 +55,8 @@ package proxy
 			
 			sendNotification(PromptMediator.LOADING_HIDE_NOTE);
 			sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
-			sendNotification(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE);
+			//sendNotification(CreateServerMediatorCommand.CREATE_SERVER_VIEW_NOTE);
+			//sendNotification(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE);
 		}
 	}
 }
