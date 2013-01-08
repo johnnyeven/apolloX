@@ -55,8 +55,8 @@ package proxy
 			
 			sendNotification(PromptMediator.LOADING_HIDE_NOTE);
 			sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
-			//sendNotification(CreateServerMediatorCommand.CREATE_SERVER_VIEW_NOTE);
 			//sendNotification(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE);
+			//发送通知 显示区服列表
 		}
 	}
 }

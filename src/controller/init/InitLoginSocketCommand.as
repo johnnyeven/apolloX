@@ -44,7 +44,6 @@ package controller.init
 		{
 			trace("服务器已连接");
 			facade.removeCommand(CONNECT_SOCKET_NOTE);
-			//sendNotification(LoadServerListCommand.LOAD_SERVERLIST_NOTE);
 			sendNotification(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE);
 		}
 		
