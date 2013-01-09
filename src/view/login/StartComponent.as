@@ -4,13 +4,12 @@ package view.login
 	
 	import events.LoginEvent;
 	
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
+	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
-	import flash.utils.getDefinitionByName;
 	
 	import utils.liteui.component.Button;
 	import utils.liteui.core.Component;
+	import utils.resource.ResourcePool;
 	
 	public class StartComponent extends Component
 	{
@@ -23,9 +22,7 @@ package view.login
 		
 		public function StartComponent()
 		{
-			var _class: Class = getDefinitionByName("ui.login.StartWindowSkin") as Class;
-			var _skin: MovieClip = new _class() as MovieClip;
-			super(_skin);
+			super(ResourcePool.getResource("ui.login.StartWindowSkin") as DisplayObjectContainer);
 			
 			_topDoorMC = getUI(Component, "topDoorMC") as Component;
 			_bottomDoorMC = getUI(Component, "bottomDoorMC") as Component;

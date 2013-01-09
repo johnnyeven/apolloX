@@ -5,6 +5,7 @@ package proxy
 	
 	import mediator.PromptMediator;
 	import mediator.loader.ProgressBarMediator;
+	import mediator.login.ServerMediator;
 	
 	import org.puremvc.as3.interfaces.IProxy;
 	import org.puremvc.as3.patterns.proxy.Proxy;
@@ -55,6 +56,7 @@ package proxy
 			
 			sendNotification(PromptMediator.LOADING_HIDE_NOTE);
 			sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
+			sendNotification(ServerMediator.SHOW_SERVER_NOTE);
 			//sendNotification(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE);
 			//发送通知 显示区服列表
 		}

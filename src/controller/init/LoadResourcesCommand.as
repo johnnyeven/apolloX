@@ -24,7 +24,7 @@ package controller.init
 		{
 			facade.removeCommand(LOAD_RESOURCES_NOTE);
 			sendNotification(ProgressBarMediator.SHOW_RANDOM_BG);
-			ResourceLoadManager.load("login_ui", true, LanguageManager.getInstance().lang("load_loagin_ui"), onLoadComplete, onLoadProgress, onLoadIOError);
+			ResourceLoadManager.load("loginResources", true, LanguageManager.getInstance().lang("load_loagin_ui"), onLoadComplete, onLoadProgress, onLoadIOError);
 		}
 		
 		private function onLoadComplete(evt: LoaderEvent): void
