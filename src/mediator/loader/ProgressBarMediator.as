@@ -9,6 +9,7 @@ package mediator.loader
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 	
+	import utils.GameManager;
 	import utils.UIUtils;
 	
 	import view.loader.LoaderProgressBarComponent;
@@ -66,7 +67,7 @@ package mediator.loader
 		
 		private function showRandomBg(): void
 		{
-			stage.addChild(_loader);
+			GameManager.instance.addBase(_loader);
 			var _index: int = Math.random() * 10 + 1;
 			var _urlRequest: URLRequest = new URLRequest("resources/loader_bg/bg_" + _index + ".jpg");
 			_loader.load(_urlRequest);

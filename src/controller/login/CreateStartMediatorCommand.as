@@ -19,7 +19,7 @@ package controller.login
 			var _startMediator: StartMediator = new StartMediator();
 			facade.registerMediator(_startMediator);
 			
-			_startMediator.addBg();
+			//_startMediator.addBg();
 			_startMediator.show();
 		}
 	}
