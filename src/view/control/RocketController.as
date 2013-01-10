@@ -12,12 +12,14 @@ package view.control
 	import utils.configuration.GlobalContextConfig;
 	
 	import view.space.MovableComponent;
+	import view.space.StaticComponent;
 	import view.space.background.SpaceBackgroundComponent;
 	import view.space.effects.rocket.EffectRocketComponent;
 
 	public class RocketController extends BaseController
 	{
 		private var _rocket: EffectRocketComponent;
+		protected var _lockedObject: StaticComponent;
 		protected var _preSyncTimer: uint;
 		protected var _backgroundComponent: SpaceBackgroundComponent;
 		
@@ -27,13 +29,22 @@ package view.control
 			_preSyncTimer = GlobalContextConfig.Timer;
 			var _mediator: SpaceBackgroundMediator = ApplicationFacade.getInstance().retrieveMediator(SpaceBackgroundMediator.NAME) as SpaceBackgroundMediator;
 			_backgroundComponent = _mediator.component;
+			_nextPoint = new Point();
 		}
 		
 		override public function calculateAction():void
 		{
 			if(_rocket.resourceReady)
 			{
-				_nextPoint = _endPoint;
+				if(_lockedObject != null)
+				{
+					_nextPoint.x = _lockedObject.posX;
+					_nextPoint.y = _lockedObject.posY;
+				}
+				else
+				{
+					_nextPoint = _endPoint;
+				}
 				
 				var degress: Number = EnumShipDirection.getDegress(_nextPoint.x - _rocket.posX, _nextPoint.y - _rocket.posY);
 				var angle: Number = EnumShipDirection.degressToRadians(degress);
@@ -84,7 +95,15 @@ package view.control
 		{
 			super.target = value;
 			_rocket = value as EffectRocketComponent;
-			_endPoint = _rocket.info.targetPos as Point;
+			if(_rocket.info.targetPos is StaticComponent)
+			{
+				_lockedObject = _rocket.info.targetPos as StaticComponent;
+				_endPoint = new Point(_lockedObject.posX, _lockedObject.posY);
+			}
+			else
+			{
+				_endPoint = _rocket.info.targetPos as Point;
+			}
 		}
 		
 		override protected function changeDirectionByAngle(_angle:int): void

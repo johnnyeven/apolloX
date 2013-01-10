@@ -52,7 +52,6 @@ package mediator.space.effects
 		{
 			var _mediator: SpaceSceneMediator = facade.retrieveMediator(SpaceSceneMediator.NAME) as SpaceSceneMediator;
 			_mediator.addObject(component);
-			trace("added");
 			onShowComplete();
 		}
 	}
