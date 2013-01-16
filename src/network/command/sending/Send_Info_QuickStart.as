@@ -25,6 +25,11 @@ package network.command.sending
 			_byteArray.writeByte(SocketContextConfig.TYPE_INT);
 			_byteArray.writeInt(GameId);
 		}
+		
+		override public function get protocolName():String
+		{
+			return "Send_Info_QuickStart";
+		}
 	}
 
 }

@@ -29,6 +29,11 @@ package network.command.sending
 			_byteArray.writeByte(SocketContextConfig.TYPE_STRING);
 			_byteArray.writeUTFBytes(UserPass);
 		}
+		
+		override public function get protocolName():String
+		{
+			return "Send_Info_Login";
+		}
 	}
 
 }
