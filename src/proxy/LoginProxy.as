@@ -41,6 +41,8 @@ package proxy
 		
 		private function onQuickStart(protocol: Receive_Info_QuickStart): void
 		{
+			facade.registerCommand(CreateServerMediatorCommand.CREATE_NOTE, CreateServerMediatorCommand);
+			
 			setData(protocol);
 			sendNotification(PromptMediator.LOADING_HIDE_NOTE);
 			sendNotification(CreateServerMediatorCommand.CREATE_NOTE);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
 	<config>
-		<server id="1001" name="守望者" ip="johnnyeven.3322.org" port="9050"></server>
-		<server id="1002" name="灵动者" ip="loverjohnny.3322.org" port="9050"></server>
+		<server id="1001" name="守望者" ip="johnnyeven.3322.org" port="9050" recommand="true" hot="true"></server>
+		<server id="1002" name="灵动者" ip="loverjohnny.3322.org" port="9050" recommand="true" hot="false"></server>
 	</config>
 </root>

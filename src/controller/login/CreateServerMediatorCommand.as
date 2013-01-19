@@ -20,6 +20,8 @@ package controller.login
 		
 		override public function execute(notification:INotification):void
 		{
+			facade.removeCommand(CreateServerMediatorCommand.CREATE_NOTE);
+			
 			var _mediator: ServerMediator = facade.retrieveMediator(ServerMediator.NAME) as ServerMediator;
 			if (_mediator != null)
 			{

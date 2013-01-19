@@ -6,6 +6,10 @@ package mediator.login
 	
 	import org.puremvc.as3.interfaces.INotification;
 	
+	import parameters.CServerListParameter;
+	
+	import proxy.ServerListProxy;
+	
 	import utils.enum.PopupEffect;
 	
 	import view.login.ServerComponent;
@@ -47,19 +51,21 @@ package mediator.login
 					dispose();
 					break;
 				case SHOW_SERVER_NOTE:
-					
+					showServerComponent();
 					break;
 			}
 		}
 		
-		private function onShowCallback(): void
+		private function onShowCallback(_mediator: BaseMediator): void
 		{
 			sendNotification(LoadServerListCommand.LOAD_SERVERLIST_NOTE);
 		}
 		
 		private function showServerComponent(): void
 		{
+			var _proxy: ServerListProxy = facade.retrieveProxy(ServerListProxy.NAME) as ServerListProxy;
 			
+			component.showServerList(_proxy.getData() as Vector.<CServerListParameter>);
 		}
 	}
 }

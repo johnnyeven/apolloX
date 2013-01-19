@@ -1,5 +1,7 @@
 package network.command.receiving 
 {
+	import com.adobe.utils.IntUtil;
+	
 	import flash.utils.ByteArray;
 	
 	import utils.StringUtils;
@@ -12,7 +14,9 @@ package network.command.receiving
 	 */
 	public class Receive_Info_QuickStart extends CNetPackageReceiving 
 	{
-		public var GUID: String = "";
+		public var GUID: Number;
+		public var accountName: String;
+		public var accountPass: String;
 		
 		public function Receive_Info_QuickStart() 
 		{
@@ -33,10 +37,22 @@ package network.command.receiving
 					type = bytes.readByte();
 					switch(type)
 					{
-						case SocketContextConfig.TYPE_STRING:
-							if (StringUtils.empty(GUID))
+						case SocketContextConfig.TYPE_INT:
+							if (isNaN(GUID))
 							{
-								GUID = bytes.readUTFBytes(length);
+								GUID = bytes.readInt();
+							}
+							break;
+						case SocketContextConfig.TYPE_STRING:
+							if (StringUtils.empty(accountName))
+							{
+								accountName = bytes.readUTFBytes(length);
+								break;
+							}
+							if (StringUtils.empty(accountPass))
+							{
+								accountPass = bytes.readUTFBytes(length);
+								break;
 							}
 							break;
 					}

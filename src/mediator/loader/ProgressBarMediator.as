@@ -75,7 +75,7 @@ package mediator.loader
 		
 		private function hideRandomBg(): void
 		{
-			stage.removeChild(_loader);
+			GameManager.instance.removeBase(_loader);
 		}
 		
 		private function showProgressBar(): void

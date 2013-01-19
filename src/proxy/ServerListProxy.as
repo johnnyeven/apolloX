@@ -50,12 +50,13 @@ package proxy
 				parameter.name = _config.server[i].@name;
 				parameter.ip = _config.server[i].@ip;
 				parameter.port = _config.server[i].@port;
+				parameter.recommand = _config.server[i].@recommand == "true";
+				parameter.hot = _config.server[i].@hot == "true";
 				_container.push(parameter);
 			}
 			setData(_container);
 			
 			sendNotification(PromptMediator.LOADING_HIDE_NOTE);
-			sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
 			sendNotification(ServerMediator.SHOW_SERVER_NOTE, _container);
 			//sendNotification(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE);
 			//发送通知 显示区服列表
