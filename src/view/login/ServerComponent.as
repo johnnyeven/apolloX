@@ -16,6 +16,7 @@ package view.login
 	{
 		private var _txtCaption: Label;
 		private var _btnBack: Button;
+		private var _selectedFrame: ServerItemSelectedComponent;
 		
 		public function ServerComponent()
 		{
@@ -25,6 +26,8 @@ package view.login
 			_btnBack = getUI(Button, "back") as Button;
 			
 			sortChildIndex();
+			
+			_selectedFrame = new ServerItemSelectedComponent();
 		}
 		
 		public function showServerList(container: Vector.<CServerListParameter>): void
@@ -36,7 +39,7 @@ package view.login
 				var point2: Point = new Point();
 				for(var i: int = 0; i<container.length; i++)
 				{
-					var _item: ServerItemComponent = new ServerItemComponent(container[i]);
+					var _item: ServerItemComponent = new ServerItemComponent(container[i], _selectedFrame);
 					if(container[i].recommand)
 					{
 						_item.x = point1.x;

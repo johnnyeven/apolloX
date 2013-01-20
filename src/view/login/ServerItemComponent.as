@@ -16,9 +16,11 @@ package view.login
 		private var silverRiver1: MovieClip;
 		private var silverRiver2: MovieClip;
 		private var lblServerName: Label;
+		private var selectedFrame: ServerItemSelectedComponent;
 		
-		public function ServerItemComponent(parameter: CServerListParameter)
+		public function ServerItemComponent(parameter: CServerListParameter, selectedComponent: ServerItemSelectedComponent)
 		{
+			selectedFrame = selectedComponent;
 			if(parameter != null)
 			{
 				super(ResourcePool.getResource("ui.login.ServerItemSkin") as DisplayObjectContainer);
@@ -52,7 +54,10 @@ package view.login
 		
 		private function onServerClick(evt: MouseEvent): void
 		{
-			trace("click");
+			if(selectedFrame != null)
+			{
+				addChild(selectedFrame);
+			}
 		}
 	}
 }
