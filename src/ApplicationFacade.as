@@ -7,7 +7,7 @@ package
 	
 	public class ApplicationFacade extends Facade
 	{
-		public static const START_APP: String = "start_app";
+		public static const START_APP: String = "ApplicationFacade.StartAppNote";
 		
 		public function ApplicationFacade()
 		{

@@ -33,12 +33,7 @@ package controller
 			TweenPlugin.activate([TransformAroundCenterPlugin, FramePlugin]);
 			HotkeyManager.instance;
 			
-			facade.registerCommand(InitLoginServerCommand.LOAD_SERVER_NOTE, InitLoginServerCommand);
-			facade.registerCommand(LoadResourcesCommand.LOAD_RESOURCES_NOTE, LoadResourcesCommand);
-			facade.registerCommand(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE, CreateStartMediatorCommand);
-			facade.registerCommand(LoadServerListCommand.LOAD_SERVERLIST_NOTE, LoadServerListCommand);
-			facade.registerCommand(LoadResourceConfigCommand.LOAD_CONFIG_NOTE, LoadResourceConfigCommand);
-			facade.registerCommand(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE, LoadSceneResourcesCommand);
+			initCommand();
 			
 			var _main: Main = notification.getBody() as Main;
 			
@@ -54,6 +49,16 @@ package controller
 			}
 			
 			sendNotification(LoadResourceConfigCommand.LOAD_CONFIG_NOTE);
+		}
+		
+		private function initCommand(): void
+		{
+			facade.registerCommand(InitLoginServerCommand.LOAD_SERVER_NOTE, InitLoginServerCommand);
+			facade.registerCommand(LoadResourcesCommand.LOAD_RESOURCES_NOTE, LoadResourcesCommand);
+			facade.registerCommand(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE, CreateStartMediatorCommand);
+			facade.registerCommand(LoadServerListCommand.LOAD_SERVERLIST_NOTE, LoadServerListCommand);
+			facade.registerCommand(LoadResourceConfigCommand.LOAD_CONFIG_NOTE, LoadResourceConfigCommand);
+			facade.registerCommand(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE, LoadSceneResourcesCommand);
 		}
 	}
 }
