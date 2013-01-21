@@ -23,18 +23,18 @@ package controller.init
 		override public function execute(notification:INotification):void
 		{
 			facade.removeCommand(LOAD_RESOURCES_NOTE);
-			sendNotification(ProgressBarMediator.SHOW_RANDOM_BG);
+			facade.sendNotification(ProgressBarMediator.SHOW_RANDOM_BG);
 			ResourceLoadManager.load("loginResources", true, LanguageManager.getInstance().lang("load_loagin_ui"), onLoadComplete, onLoadProgress, onLoadIOError);
 		}
 		
 		private function onLoadComplete(evt: LoaderEvent): void
 		{
-			sendNotification(InitLoginServerCommand.LOAD_SERVER_NOTE);
+			facade.sendNotification(InitLoginServerCommand.LOAD_SERVER_NOTE);
 		}
 		
 		private function onLoadProgress(evt: LoaderEvent): void
 		{
-			sendNotification(ProgressBarMediator.SET_PROGRESSBAR_PERCENT_NOTE, Math.floor(evt.bytesLoaded / evt.bytesTotal));
+			facade.sendNotification(ProgressBarMediator.SET_PROGRESSBAR_PERCENT_NOTE, Math.floor(evt.bytesLoaded / evt.bytesTotal));
 		}
 		
 		private function onLoadIOError(evt: LoaderEvent): void

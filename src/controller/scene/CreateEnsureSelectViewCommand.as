@@ -34,8 +34,7 @@ package controller.scene
 		
 		private function onLoadComplete(target: DisplayObject): void
 		{
-			var _mediator: EnsureSelectViewMediator = new EnsureSelectViewMediator();
-			facade.registerMediator(_mediator);
+			facade.registerMediator(new EnsureSelectViewMediator());
 			
 			facade.sendNotification(EnsureSelectViewMediator.ENSURE_SHOW_NOTE);
 		}

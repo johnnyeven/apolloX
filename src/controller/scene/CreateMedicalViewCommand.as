@@ -33,8 +33,7 @@ package controller.scene
 		
 		private function onLoadComplete(target: DisplayObject): void
 		{
-			var _mediator: MedicalViewMediator = new MedicalViewMediator();
-			facade.registerMediator(_mediator);
+			facade.registerMediator(new MedicalViewMediator());
 			
 			facade.sendNotification(MedicalViewMediator.MEDICAL_SHOW_NOTE);
 		}

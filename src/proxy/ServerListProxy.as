@@ -57,7 +57,7 @@ package proxy
 			setData(_container);
 			
 			sendNotification(PromptMediator.LOADING_HIDE_NOTE);
-			sendNotification(ServerMediator.SHOW_SERVER_NOTE, _container);
+			sendNotification(ServerMediator.SHOW_SERVER_NOTE);
 			//sendNotification(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE);
 			//发送通知 显示区服列表
 		}

@@ -33,8 +33,7 @@ package controller.scene
 		
 		private function onLoadComplete(target: DisplayObject): void
 		{
-			var _mediator: AssemblyViewMediator = new AssemblyViewMediator();
-			facade.registerMediator(_mediator);
+			facade.registerMediator(new AssemblyViewMediator());
 			
 			facade.sendNotification(AssemblyViewMediator.ASSEMBLY_SHOW_NOTE);
 		}

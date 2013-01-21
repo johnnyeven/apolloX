@@ -32,7 +32,7 @@ package controller.scene
 		{
 			facade.removeCommand(LOAD_RESOURCES_NOTE);
 			
-			sendNotification(ProgressBarMediator.SHOW_RANDOM_BG);
+			facade.sendNotification(ProgressBarMediator.SHOW_RANDOM_BG);
 			ResourceLoadManager.load("necessaryResources", true, LanguageManager.getInstance().lang("load_scene_ui"), onLoadComplete, onLoadProgress, onLoadIOError);
 		}
 		
@@ -52,22 +52,13 @@ package controller.scene
 			facade.registerCommand(CreateEnsureViewCommand.LOAD_ENSURE_VIEW_NOTE, CreateEnsureViewCommand);
 			facade.registerCommand(CreateEnsureSelectViewCommand.LOAD_ENSURE_VIEW_NOTE, CreateEnsureSelectViewCommand);
 			
-//			var _backgroundMediator: SceneBackgroundMediator = facade.retrieveMediator(SceneBackgroundMediator.NAME) as SceneBackgroundMediator;
-//			_backgroundMediator.show();
-//			
-//			var _controlMediator: SceneControlMediator = new SceneControlMediator();
-//			facade.registerMediator(_controlMediator);
-//			_controlMediator.show();
-			
-			var _stationMediator: StationViewMediator = facade.retrieveMediator(StationViewMediator.NAME) as StationViewMediator;
 			facade.sendNotification(StationViewMediator.STATION_SHOW_NOTE);
-			
-			sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
+			facade.sendNotification(ProgressBarMediator.HIDE_RANDOM_BG);
 		}
 		
 		private function onLoadProgress(evt: LoaderEvent): void
 		{
-			sendNotification(ProgressBarMediator.SET_PROGRESSBAR_PERCENT_NOTE, evt.bytesLoaded / evt.bytesTotal);
+			facade.sendNotification(ProgressBarMediator.SET_PROGRESSBAR_PERCENT_NOTE, evt.bytesLoaded / evt.bytesTotal);
 		}
 		
 		private function onLoadIOError(evt: LoaderEvent): void

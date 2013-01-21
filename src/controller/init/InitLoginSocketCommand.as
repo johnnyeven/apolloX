@@ -44,7 +44,7 @@ package controller.init
 		{
 			trace("服务器已连接");
 			facade.removeCommand(CONNECT_SOCKET_NOTE);
-			sendNotification(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE);
+			facade.sendNotification(CreateStartMediatorCommand.CREATE_LOGIN_VIEW_NOTE);
 		}
 		
 		private function onIOError(event: IOErrorEvent): void

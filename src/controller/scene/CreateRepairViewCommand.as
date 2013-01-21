@@ -33,8 +33,7 @@ package controller.scene
 		
 		private function onLoadComplete(target: DisplayObject): void
 		{
-			var _mediator: RepairViewMediator = new RepairViewMediator();
-			facade.registerMediator(_mediator);
+			facade.registerMediator(new RepairViewMediator());
 			
 			facade.sendNotification(RepairViewMediator.REPAIR_SHOW_NOTE);
 		}

@@ -23,7 +23,7 @@ package controller.space
 			{
 				facade.registerMediator(new SpaceSceneMediator());
 			}
-			sendNotification(SpaceSceneMediator.CREATE_BACKGROUND_NOTE);
+			facade.sendNotification(SpaceSceneMediator.CREATE_BACKGROUND_NOTE);
 		}
 	}
 }

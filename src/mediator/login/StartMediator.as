@@ -2,22 +2,23 @@ package mediator.login
 {
 	import events.LoginEvent;
 	
-	import mediator.StageMediator;
 	import mediator.BaseMediator;
+	import mediator.StageMediator;
 	
 	import org.puremvc.as3.interfaces.INotification;
 	
 	import proxy.LoginProxy;
 	
+	import utils.GameManager;
+	
 	import view.login.LoginBGComponent;
 	import view.login.StartComponent;
-	
-	import utils.GameManager;
 	
 	public class StartMediator extends BaseMediator
 	{
 		public static const NAME: String = "LoginMediator";
 		
+		public static const SHOW_NOTE: String = "Show" + NAME;
 		public static const DESTROY_NOTE: String = "Destroy" + NAME;
 		
 		public function StartMediator(viewComponent:Object=null)
@@ -30,13 +31,16 @@ package mediator.login
 		
 		override public function listNotificationInterests():Array
 		{
-			return [DESTROY_NOTE];
+			return [SHOW_NOTE, DESTROY_NOTE];
 		}
 		
 		override public function handleNotification(notification:INotification):void
 		{
 			switch(notification.getName())
 			{
+				case SHOW_NOTE:
+					show();
+					break;
 				case DESTROY_NOTE:
 					dispose();
 					break;
@@ -94,11 +98,11 @@ package mediator.login
 			component.closeDoor();
 		}
 		
-		override public function dispose(): void
-		{
-			super.dispose();
-			removeBg();
-			LoginBGComponent.getInstance().destroy();
-		}
+//		override public function dispose(): void
+//		{
+//			super.dispose();
+//			removeBg();
+//			LoginBGComponent.getInstance().destroy();
+//		}
 	}
 }

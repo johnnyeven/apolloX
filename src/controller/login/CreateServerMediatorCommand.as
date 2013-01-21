@@ -35,8 +35,7 @@ package controller.login
 		
 		private function onLoadComplete(target: DisplayObject): void
 		{
-			var _mediator: ServerMediator = new ServerMediator();
-			facade.registerMediator(_mediator);
+			facade.registerMediator(new ServerMediator());
 			
 			facade.sendNotification(ServerMediator.SHOW_NOTE);
 		}

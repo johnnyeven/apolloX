@@ -20,7 +20,7 @@ package proxy
 	{
 		public static const NAME: String = "LoginProxy";
 		
-		public static const QUICK_START: uint = 0x0008;
+		public static const QUICK_START: uint = 0x0800;
 		
 		public function LoginProxy(data:Object=null)
 		{

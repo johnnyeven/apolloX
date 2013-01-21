@@ -33,8 +33,8 @@ package controller.init
 			_xmlLoader.addEventListener(LoaderEvent.PROGRESS, onLoadProgress);
 			_xmlLoader.addEventListener(LoaderEvent.IO_ERROR, onLoadIOError);
 			
-			sendNotification(ResourceLoadManager.SET_PROGRESSBAR_TITLE_NOTE, LanguageManager.getInstance().lang("load_resource_config"));
-			sendNotification(ResourceLoadManager.SHOW_PROGRESSBAR_NOTE);
+			facade.sendNotification(ResourceLoadManager.SET_PROGRESSBAR_TITLE_NOTE, LanguageManager.getInstance().lang("load_resource_config"));
+			facade.sendNotification(ResourceLoadManager.SHOW_PROGRESSBAR_NOTE);
 			
 			_xmlLoader.load();
 		}
@@ -55,22 +55,22 @@ package controller.init
 		
 		protected function onLoadComplete(evt: LoaderEvent): void
 		{
-			sendNotification(ResourceLoadManager.HIDE_PROGRESSBAR_NOTE);
+			facade.sendNotification(ResourceLoadManager.HIDE_PROGRESSBAR_NOTE);
 			removeListener();
 			
-			sendNotification(LoadResourcesCommand.LOAD_RESOURCES_NOTE);
+			facade.sendNotification(LoadResourcesCommand.LOAD_RESOURCES_NOTE);
 		}
 		
 		protected function onLoadProgress(evt: LoaderEvent): void
 		{
 			var _percent: int = Math.floor(evt.bytesLoaded / evt.bytesTotal);
-			sendNotification(ResourceLoadManager.SET_PROGRESSBAR_PERCENT_NOTE, _percent);
+			facade.sendNotification(ResourceLoadManager.SET_PROGRESSBAR_PERCENT_NOTE, _percent);
 		}
 		
 		protected function onLoadIOError(evt: LoaderEvent): void
 		{
 			removeListener();
-			sendNotification(ResourceLoadManager.HIDE_PROGRESSBAR_NOTE);
+			facade.sendNotification(ResourceLoadManager.HIDE_PROGRESSBAR_NOTE);
 		}
 	}
 }

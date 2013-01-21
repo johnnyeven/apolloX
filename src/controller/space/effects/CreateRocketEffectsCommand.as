@@ -30,7 +30,7 @@ package controller.space.effects
 					{
 						facade.registerMediator(new EffectRocketMediator());
 					}
-					sendNotification(EffectRocketMediator.SHOW_NOTE, notification.getBody());
+					facade.sendNotification(EffectRocketMediator.SHOW_NOTE, notification.getBody());
 					break;
 			}
 		}

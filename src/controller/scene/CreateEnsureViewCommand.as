@@ -33,8 +33,7 @@ package controller.scene
 		
 		private function onLoadComplete(target: DisplayObject): void
 		{
-			var _mediator: EnsureViewMediator = new EnsureViewMediator();
-			facade.registerMediator(_mediator);
+			facade.registerMediator(new EnsureViewMediator());
 			
 			facade.sendNotification(EnsureViewMediator.ENSURE_SHOW_NOTE);
 		}

@@ -1,6 +1,9 @@
 package view.login
 {
 	import flash.display.DisplayObjectContainer;
+	import flash.events.MouseEvent;
+	
+	import parameters.CServerListParameter;
 	
 	import utils.liteui.component.CaptionButton;
 	import utils.liteui.component.Label;
@@ -12,6 +15,7 @@ package view.login
 		private var lblDelayTitle: Label;
 		private var lblDelay: Label;
 		private var btnEnter: CaptionButton;
+		private var _serverListParameter: CServerListParameter;
 		
 		public function ServerItemSelectedComponent()
 		{
@@ -20,6 +24,30 @@ package view.login
 			lblDelayTitle = getUI(Label, "lblDelay") as Label;
 			lblDelay = getUI(Label, "delay") as Label;
 			btnEnter = getUI(CaptionButton, "btnEnter") as CaptionButton;
+			
+			btnEnter.addEventListener(MouseEvent.CLICK, onBtnEnterClick);
+		}
+		
+		public function set serverListParameter(value: CServerListParameter): void
+		{
+			if(value != null && value != _serverListParameter)
+			{
+				_serverListParameter = value;
+				updateUI();
+			}
+		}
+		
+		private function updateUI(): void
+		{
+			if(_serverListParameter != null)
+			{
+				
+			}
+		}
+		
+		private function onBtnEnterClick(evt: MouseEvent): void
+		{
+			trace(_serverListParameter.ip);
 		}
 	}
 }

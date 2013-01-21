@@ -16,6 +16,8 @@ package controller.init
 		
 		override public function execute(notification:INotification):void
 		{
+			facade.removeCommand(LOAD_SERVERLIST_NOTE);
+			
 			var _proxy: ServerListProxy = facade.retrieveProxy(ServerListProxy.NAME) as ServerListProxy;
 			_proxy.getServerList();
 		}

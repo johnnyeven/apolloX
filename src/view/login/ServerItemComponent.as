@@ -13,34 +13,36 @@ package view.login
 	
 	public class ServerItemComponent extends Component
 	{
-		private var silverRiver1: MovieClip;
-		private var silverRiver2: MovieClip;
-		private var lblServerName: Label;
-		private var selectedFrame: ServerItemSelectedComponent;
+		private var _silverRiver1: MovieClip;
+		private var _silverRiver2: MovieClip;
+		private var _lblServerName: Label;
+		private var _selectedFrame: ServerItemSelectedComponent;
+		private var _parameter: CServerListParameter;
 		
 		public function ServerItemComponent(parameter: CServerListParameter, selectedComponent: ServerItemSelectedComponent)
 		{
-			selectedFrame = selectedComponent;
+			_selectedFrame = selectedComponent;
 			if(parameter != null)
 			{
 				super(ResourcePool.getResource("ui.login.ServerItemSkin") as DisplayObjectContainer);
 				
-				silverRiver1 = getSkin("silverRiver1") as MovieClip;
-				silverRiver2 = getSkin("silverRiver2") as MovieClip;
-				lblServerName = getUI(Label, "lblServerName") as Label;
+				_parameter = parameter;
+				_silverRiver1 = getSkin("silverRiver1") as MovieClip;
+				_silverRiver2 = getSkin("silverRiver2") as MovieClip;
+				_lblServerName = getUI(Label, "lblServerName") as Label;
 				
-				silverRiver1.visible = false;
-				silverRiver2.visible = false;
+				_silverRiver1.visible = false;
+				_silverRiver2.visible = false;
 				
 				if(parameter.hot)
 				{
-					silverRiver2.visible = true;
+					_silverRiver2.visible = true;
 				}
 				else
 				{
-					silverRiver1.visible = true;
+					_silverRiver1.visible = true;
 				}
-				lblServerName.text = parameter.name;
+				_lblServerName.text = parameter.name;
 				
 				sortChildIndex();
 				
@@ -54,9 +56,10 @@ package view.login
 		
 		private function onServerClick(evt: MouseEvent): void
 		{
-			if(selectedFrame != null)
+			if(_selectedFrame != null)
 			{
-				addChild(selectedFrame);
+				_selectedFrame.serverListParameter = _parameter;
+				addChild(_selectedFrame);
 			}
 		}
 	}

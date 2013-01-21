@@ -16,11 +16,10 @@ package controller.login
 		
 		override public function execute(notification:INotification):void
 		{
-			var _startMediator: StartMediator = new StartMediator();
-			facade.registerMediator(_startMediator);
+			facade.removeCommand(CREATE_LOGIN_VIEW_NOTE);
 			
-			//_startMediator.addBg();
-			_startMediator.show();
+			facade.registerMediator(new StartMediator());
+			facade.sendNotification(StartMediator.SHOW_NOTE);
 		}
 	}
 }

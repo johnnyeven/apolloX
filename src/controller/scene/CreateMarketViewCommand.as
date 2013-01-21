@@ -33,8 +33,7 @@ package controller.scene
 		
 		private function onLoadComplete(target: DisplayObject): void
 		{
-			var _mediator: MarketViewMediator = new MarketViewMediator();
-			facade.registerMediator(_mediator);
+			facade.registerMediator(new MarketViewMediator());
 			
 			facade.sendNotification(MarketViewMediator.MARKET_SHOW_NOTE);
 		}
