@@ -1,5 +1,7 @@
 package view.login
 {
+	import controller.init.InitGameSocketCommand;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	
@@ -47,7 +49,8 @@ package view.login
 		
 		private function onBtnEnterClick(evt: MouseEvent): void
 		{
-			trace(_serverListParameter.ip);
+			ApplicationFacade.getInstance().registerCommand(InitGameSocketCommand.CONNECT_SOCKET_NOTE, InitGameSocketCommand);
+			ApplicationFacade.getInstance().sendNotification(InitGameSocketCommand.CONNECT_SOCKET_NOTE, _serverListParameter);
 		}
 	}
 }
