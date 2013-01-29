@@ -2,7 +2,6 @@ package proxy
 {
 	import controller.init.LoadServerListCommand;
 	import controller.login.CreateServerMediatorCommand;
-	import controller.scene.LoadSceneResourcesCommand;
 	
 	import mediator.PromptMediator;
 	

@@ -1,8 +1,12 @@
 package controller.init
 {
+	import controller.scene.LoadSceneResourcesCommand;
+	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.SecurityErrorEvent;
+	
+	import mediator.login.ServerMediator;
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
@@ -51,6 +55,8 @@ package controller.init
 		private function onConnected(event: CommandEvent): void
 		{
 			facade.removeCommand(CONNECT_SOCKET_NOTE);
+			facade.sendNotification(ServerMediator.DISPOSE_NOTE);
+			facade.sendNotification(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE);
 		}
 		
 		private function onIOError(event: CommandEvent): void
