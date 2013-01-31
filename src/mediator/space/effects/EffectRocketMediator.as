@@ -15,6 +15,8 @@ package mediator.space.effects
 	{
 		public static const NAME: String = "EffectRocketMediator";
 		public static const SHOW_NOTE: String = "EffectRocketMediator.ShowNote";
+		public static const HIT_NOTE: String = "EffectRocketMediator.HitNote";
+		public static const DISPOSE_NOTE: String = "EffectRocketMediator.DisposeNote";
 		
 		public function EffectRocketMediator()
 		{
@@ -28,7 +30,7 @@ package mediator.space.effects
 		
 		override public function listNotificationInterests():Array
 		{
-			return [SHOW_NOTE];
+			return [SHOW_NOTE, HIT_NOTE, DISPOSE_NOTE];
 		}
 		
 		override public function handleNotification(notification:INotification):void
@@ -44,6 +46,14 @@ package mediator.space.effects
 					
 					viewComponent = rocket;
 					show();
+					break;
+				case HIT_NOTE:
+					//向服务器发送击中目标的消息
+					
+					break;
+				case DISPOSE_NOTE:
+					//播放爆炸特效，并释放
+					
 					break;
 			}
 		}

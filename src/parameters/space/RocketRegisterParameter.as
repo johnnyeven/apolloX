@@ -12,7 +12,7 @@ package parameters.space
 		public var resourceId: int;
 		public var speed: Number;
 		public var acceleration: Number;
-		public var targetPos: Object = new Point(1600, 2000);
+		public var targetPos: Object = new Point(3600, 3000);
 		
 		public function RocketRegisterParameter()
 		{
