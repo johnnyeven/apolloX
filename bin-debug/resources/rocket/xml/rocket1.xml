@@ -5,6 +5,7 @@
 			<loader>
 				<ClassLoader name="rocket1" url="resources/rocket/rocket1.swf" version="1.0.0" />
 				<ClassLoader name="rocketSmoke0" url="resources/smoke/rocketSmoke0.swf" version="1.0.0" />
+				<ClassLoader name="rocketExplode1" url="resources/effects/rocketExplode1.swf" version="1.0.0" />
 			</loader>
 		</BatchLoader>
 	</loader>
@@ -18,5 +19,8 @@
 		<smoke>
 			<texture class="space.smoke.RocketSmoke0"></texture>
 		</smoke>
+		<explode>
+			<texture class="space.effects.rocketExplode1"></texture>
+		</explode>
 	</config>
 </root>

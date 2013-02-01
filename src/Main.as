@@ -12,6 +12,7 @@ package
 	import utils.GameManager;
 	import utils.VersionUtils;
 	import utils.liteui.component.Label;
+	import utils.monitor.CMonitorFPS;
 	import utils.resource.ResourcePool;
 	
 	import view.login.LoginBGComponent;
@@ -41,6 +42,7 @@ package
 			CONFIG::DebugMode
 			{
 				showVersion();
+				showFps();
 			}
 			setCursorStyle();
 			//LoginBGComponent.getInstance().destroy();
@@ -73,10 +75,25 @@ package
 			Mouse.cursor = MouseCursor.ARROW;
 		}
 		
+		private function showFps(): void
+		{
+			var _fps: CMonitorFPS = new CMonitorFPS();
+			var _label: Label = new Label();
+			_label.wordWrap = true;
+			_label.textWidth = 150;
+			_label.x = 0;
+			_label.y = 0;
+			_label.color = 0xFFFFFF;
+			instance.addInfo(_label);
+			
+			_fps.fpsText = _label;
+			_fps.start();
+		}
+		
 		private function showVersion(): void
 		{
 			var _label: Label = new Label();
-			_label.textWidth = 200;
+			_label.textWidth = 180;
 			_label.text = VersionUtils.getVersion("version");
 			_label.x = container.stageWidth - _label.textWidth;
 			_label.y = container.stageHeight - _label.height;

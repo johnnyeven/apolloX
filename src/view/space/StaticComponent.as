@@ -73,6 +73,14 @@ package view.space
 			}
 		}
 		
+		public function removeRenders(): void
+		{
+			if(_additionalRender != null)
+			{
+				_additionalRender.splice(0, _additionalRender.length);
+			}
+		}
+		
 		public function isMovingOut(callback: Function = null): void
 		{
 			TweenLite.to(this, .5, {alpha: 0, onComplete: callback});
@@ -134,6 +142,19 @@ package view.space
 		public function set zIndexOffset(value:uint):void
 		{
 			_zIndexOffset = value;
+		}
+		
+		override public function dispose():void
+		{
+			inUse = false;
+			focused = false;
+			canBeAttack = false;
+			_graphic.graphics.clear();
+			_graphic = null;
+			_render = null;
+			_additionalRender.splice(0, _additionalRender.length);
+			
+			super.dispose();
 		}
 	}
 }

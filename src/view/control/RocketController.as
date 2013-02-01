@@ -8,6 +8,7 @@ package view.control
 	import flash.geom.Point;
 	
 	import mediator.space.SpaceBackgroundMediator;
+	import mediator.space.effects.EffectRocketMediator;
 	
 	import utils.configuration.GlobalContextConfig;
 	
@@ -34,7 +35,7 @@ package view.control
 		
 		override public function calculateAction():void
 		{
-			if(_rocket.resourceReady)
+			if(_rocket.resourceReady && _rocket.action != EnumAction.STOP && _rocket.action != EnumAction.EXPLODE)
 			{
 				if(_lockedObject != null)
 				{
@@ -73,6 +74,7 @@ package view.control
 				if (readyX && readyY)
 				{
 					_rocket.action = EnumAction.STOP;
+					_rocket.mediator.sendNotification(EffectRocketMediator.HIT_NOTE, _rocket);
 				}
 				else
 				{

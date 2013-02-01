@@ -1,5 +1,7 @@
 package view.space.effects.rocket
 {
+	import enum.EnumAction;
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
@@ -24,6 +26,7 @@ package view.space.effects.rocket
 		private var _currentSpeed: Number;
 		private var _maxSpeed: Number;
 		protected var _effectLayer: Sprite;
+		protected var _explodeEffect: MovieClip;
 		protected var _resourceReady: Boolean = false;
 		
 		public function EffectRocketComponent(parameter: RocketRegisterParameter=null)
@@ -100,6 +103,18 @@ package view.space.effects.rocket
 				addRender(new RocketEngineRender());
 			}
 		}
+		
+		public function explodePre(): void
+		{
+			_graphic.visible = false;
+		}
+		
+		public function explode(): void
+		{
+			_action = EnumAction.EXPLODE;
+			_explodeEffect = ResourcePool.getResource(_configXML.explode.texture[0]["@class"]) as MovieClip;
+			_effectLayer.addChild(_explodeEffect);
+		}
 
 		public function get info():RocketRegisterParameter
 		{
@@ -152,6 +167,20 @@ package view.space.effects.rocket
 			return _resourceReady;
 		}
 
+		override public function dispose():void
+		{
+			_info = null;
+			_configXML = null;
+			_effectLayer.removeChildren();
+			_effectLayer = null;
+			
+			super.dispose();
+		}
+
+		public function get explodeEffect():MovieClip
+		{
+			return _explodeEffect;
+		}
 
 	}
 }
