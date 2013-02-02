@@ -48,14 +48,8 @@ package mediator.space
 					component.mediator = this;
 					show();
 					facade.sendNotification(SpaceBackgroundMediator.FOCUS_NOTE, component);
-					component.addEventListener(MouseEvent.CLICK, clickComponent);
 					break;
 			}
-		}
-		
-		private function clickComponent(evt: MouseEvent): void
-		{
-			trace("click");
 		}
 		
 		override public function show():void
