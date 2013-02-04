@@ -6,6 +6,8 @@ package mediator.space
 	
 	import parameters.ship.ShipParameter;
 	
+	import view.control.ShipController;
+	import view.render.MovableRender;
 	import view.space.ship.ShipComponent;
 	
 	public class SpaceShipMediator extends BaseMediator
@@ -43,9 +45,8 @@ package mediator.space
 					var _ship: ShipComponent = new ShipComponent(parameter);
 					_ship.mediator = this;
 					_componentContainer.push(_ship);
-//					component.controller = new MainController();
-//					component.render = new MainRender();
-//					component.mediator = this;
+					_ship.controller = new ShipController();
+					_ship.render = new MovableRender();
 					showComponent(_ship);
 					break;
 			}
