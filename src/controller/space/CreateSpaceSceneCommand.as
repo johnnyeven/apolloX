@@ -8,6 +8,8 @@ package controller.space
 	
 	import parameters.space.LeaveIntoSpaceParameter;
 	
+	import proxy.SceneProxy;
+	
 	public class CreateSpaceSceneCommand extends SimpleCommand
 	{
 		public static const CREATE_SPACE_SCENE_NOTE: String = "CreateSpaceSceneNote";
@@ -15,6 +17,8 @@ package controller.space
 		public function CreateSpaceSceneCommand()
 		{
 			super();
+			
+			initNotifier();
 		}
 		
 		override public function execute(notification:INotification):void
@@ -24,6 +28,11 @@ package controller.space
 				facade.registerMediator(new SpaceSceneMediator());
 			}
 			facade.sendNotification(SpaceSceneMediator.CREATE_BACKGROUND_NOTE);
+		}
+		
+		private function initNotifier(): void
+		{
+			facade.registerProxy(new SceneProxy());
 		}
 	}
 }

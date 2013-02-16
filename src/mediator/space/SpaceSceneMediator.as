@@ -11,6 +11,8 @@ package mediator.space
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 	
+	import proxy.SceneProxy;
+	
 	import utils.GameManager;
 	import utils.configuration.GlobalContextConfig;
 	
@@ -22,7 +24,7 @@ package mediator.space
 	{
 		public static const NAME: String = "SpaceSceneMediator";
 		public static const CREATE_BACKGROUND_NOTE: String = "SpaceSceneMediator.CreateBackgroundNote";
-		public static const CREATE_COMPONENT_NOTE: String = "SpaceSceneMediator.CreateComponentNote";
+		public static const CREATE_SCENE_NOTE: String = "SpaceSceneMediator.CreateComponentNote";
 		
 		protected var _backgroundComponent: SpaceBackgroundComponent;
 		protected var _objectList: Array;
@@ -43,11 +45,14 @@ package mediator.space
 			_backgroundComponent = (ApplicationFacade.getInstance().retrieveMediator(SpaceBackgroundMediator.NAME) as SpaceBackgroundMediator).component;
 		}
 		
-		private function createComponents(): void
+		private function createScene(): void
 		{
 			sendNotification(CreateStationCommand.CREATE_STATION_NOTE);
 			sendNotification(CreateMainShipCommand.CREATE_MAIN_SHIP_NOTE);
 			_mainShip = (ApplicationFacade.getInstance().retrieveMediator(SpaceMainShipMediator.NAME) as SpaceMainShipMediator).component;
+			
+			var _proxy: SceneProxy = facade.retrieveProxy(SceneProxy.NAME) as SceneProxy;
+			_proxy.requestCurrentView();
 			
 			GameManager.instance.addEventListener(Event.ENTER_FRAME, render);
 		}
@@ -201,7 +206,7 @@ package mediator.space
 		
 		override public function listNotificationInterests():Array
 		{
-			return [CREATE_BACKGROUND_NOTE, CREATE_COMPONENT_NOTE];
+			return [CREATE_BACKGROUND_NOTE, CREATE_SCENE_NOTE];
 		}
 		
 		override public function handleNotification(notification:INotification):void
@@ -211,8 +216,8 @@ package mediator.space
 				case CREATE_BACKGROUND_NOTE:
 					createBackground();
 					break;
-				case CREATE_COMPONENT_NOTE:
-					createComponents();
+				case CREATE_SCENE_NOTE:
+					createScene();
 					break;
 			}
 		}
