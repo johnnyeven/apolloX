@@ -4,6 +4,7 @@ package view.space
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
+	import flash.geom.Rectangle;
 	
 	import utils.liteui.core.Component;
 	
@@ -17,6 +18,7 @@ package view.space
 		public var inUse: Boolean = true;
 		public var canBeAttack: Boolean = false;
 		public var staticUpdate: Boolean = false;
+		protected var _renderRect: Rectangle;
 		protected var _graphic: MovieClip;
 		protected var _posX: Number;
 		protected var _posY: Number;
@@ -28,6 +30,8 @@ package view.space
 		public function StaticComponent(_skin:DisplayObjectContainer=null)
 		{
 			super(_skin);
+			
+			_renderRect = new Rectangle();
 		}
 		
 		protected function loadResource(): void
@@ -142,6 +146,14 @@ package view.space
 		public function set zIndexOffset(value:uint):void
 		{
 			_zIndexOffset = value;
+		}
+		
+		public function get renderRect(): Rectangle
+		{
+			_renderRect.x = 0;
+			_renderRect.y = 0;
+			
+			return _renderRect;
 		}
 		
 		override public function dispose():void
