@@ -1,6 +1,6 @@
 package controller.init
 {
-	import controller.init.InitLoginServerCommand;
+	import controller.scene.LoadSceneResourcesCommand;
 	
 	import mediator.loader.ProgressBarMediator;
 	
@@ -29,7 +29,8 @@ package controller.init
 		
 		private function onLoadComplete(evt: LoaderEvent): void
 		{
-			facade.sendNotification(InitLoginServerCommand.LOAD_SERVER_NOTE);
+			//facade.sendNotification(InitLoginServerCommand.LOAD_SERVER_NOTE);
+			facade.sendNotification(LoadSceneResourcesCommand.LOAD_RESOURCES_NOTE);
 		}
 		
 		private function onLoadProgress(evt: LoaderEvent): void
